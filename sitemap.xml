@@ -1247,6 +1247,12 @@
     <lastmod>2026-09-09</lastmod>
     <priority>0.8</priority>
   </url>
+
+  <url>
+    <loc>https://fgstier-art.de/Sektor-Dresden/index.html</loc>
+    <lastmod>2026-09-09</lastmod>
+    <priority>0.8</priority>
+  </url>
   <url>
     <loc>https://fgstier-art.de/einbuch/Sektor-Dresden/index.html</loc>
     <lastmod>2026-09-09</lastmod>
@@ -1269,6 +1275,13 @@
   </url>
   <url>
     <loc>https://fgstier-art.de/einbuch/Sektor-Dresden/kapitel-08.html</loc>
+    <lastmod>2026-09-09</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+
+  <url>
+    <loc>https://fgstier-art.de/verursachung1/index.html</loc>
     <lastmod>2026-09-09</lastmod>
     <priority>0.8</priority>
   </url>
@@ -1302,6 +1315,13 @@
     <lastmod>2026-09-09</lastmod>
     <priority>0.8</priority>
   </url>
+
+
+  <url>
+    <loc>https://fgstier-art.de/verursachung2/index.html</loc>
+    <lastmod>2026-09-09</lastmod>
+    <priority>0.8</priority>
+  </url>
   <url>
     <loc>https://fgstier-art.de/einbuch/verursachung2/index.html</loc>
     <lastmod>2026-09-09</lastmod>
@@ -1332,32 +1352,124 @@
     <lastmod>2026-09-09</lastmod>
     <priority>0.8</priority>
   </url>
-  <url>
-    <loc>https://fgstier-art.de/Sektor-Dresden/index.html</loc>
-    <lastmod>2026-09-09</lastmod>
+
+
+
+<url>
+    <loc>https://fgstier-art.de/segel-im-nichts/index.html</loc>
+    <lastmod>2026-10-10</lastmod>
     <priority>0.8</priority>
-  </url>
+</url>
   <url>
-    <loc>https://fgstier-art.de/verursachung1/index.html</loc>
-    <lastmod>2026-09-09</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://fgstier-art.de/verursachung2/index.html</loc>
-    <lastmod>2026-09-09</lastmod>
+    <loc>https://fgstier-art.de/buchseiten/segel_im_nichts_buch.html</loc>
+    <lastmod>2026-10-10</lastmod>
     <priority>0.8</priority>
   </url>
 <url>
-    <loc>https://fgstier-art.de/segel-im-nichts/index.html</loc>
-    <lastmod>2026-09-09</lastmod>
+    <loc>https://fgstier-art.de/einbuch/segel-im-nichts/index.html</loc>
+    <lastmod>2026-10-10</lastmod>
     <priority>0.8</priority>
-  </url>
+</url>
+<url>
+    <loc>https://fgstier-art.de/einbuch/segel-im-nichts/inhaltsverzeichnis.html</loc>
+    <lastmod>2026-10-10</lastmod>
+    <priority>0.8</priority>
+</url>
+<url>
+    <loc>https://fgstier-art.de/einbuch/segel-im-nichts/kapitel-01.html</loc>
+    <lastmod>2026-10-10</lastmod>
+    <priority>0.8</priority>
+</url>
+<url>
+    <loc>https://fgstier-art.de/einbuch/segel-im-nichts/kapitel-02.html</loc>
+    <lastmod>2026-10-10</lastmod>
+    <priority>0.8</priority>
+</url>
+<url>
+    <loc>https://fgstier-art.de/einbuch/segel-im-nichts/kapitel-03.html</loc>
+    <lastmod>2026-10-10</lastmod>
+    <priority>0.8</priority>
+</url>
+<url>
+    <loc>https://fgstier-art.de/einbuch/segel-im-nichts/kapitel-09.html</loc>
+    <lastmod>2026-10-10</lastmod>
+    <priority>0.8</priority>
+</url>
+<url>
+    <loc>https://fgstier-art.de/einbuch/segel-im-nichts/kapitel-12.html</loc>
+    <lastmod>2026-10-10</lastmod>
+    <priority>0.8</priority>
+</url>
+
+
 
 <url>
     <loc>https://fgstier-art.de/die-freiheit-der-absurditaet/index.html</loc>
     <lastmod>2026-09-09</lastmod>
     <priority>0.8</priority>
+</url>
+<url>
+    <loc>https://fgstier-art.de/buchseiten/die_freiheit_der_absurditaet_buch.html</loc>
+    <lastmod>2026-10-10</lastmod>
+    <priority>0.8</priority>
+</url>
+<url>
+    <loc>https://fgstier-art.de/einbuch/die-freiheit-der-absurditaet/inhaltsverzeichnis.html</loc>
+    <lastmod>2026-10-10</lastmod>
+    <priority>0.8</priority>
   </url>
+<url>
+    <loc>https://fgstier-art.de/einbuch/die-freiheit-der-absurditaet/index.html</loc>
+    <lastmod>2026-09-09</lastmod>
+    <priority>0.8</priority>
+</url>
+<url>
+    <loc>https://fgstier-art.de/einbuch/die-freiheit-der-absurditaet/kapitel-01.html</loc>
+    <lastmod>2026-09-09</lastmod>
+    <priority>0.8</priority>
+</url>
+<url>
+    <loc>https://fgstier-art.de/einbuch/die-freiheit-der-absurditaet/kapitel-02.html</loc>
+    <lastmod>2026-09-09</lastmod>
+    <priority>0.8</priority>
+</url>
+<url>
+    <loc>https://fgstier-art.de/einbuch/die-freiheit-der-absurditaet/kapitel-03.html</loc>
+    <lastmod>2026-09-09</lastmod>
+    <priority>0.8</priority>
+</url>
+<url>
+    <loc>https://fgstier-art.de/einbuch/die-freiheit-der-absurditaet/kapitel-04.html</loc>
+    <lastmod>2026-09-09</lastmod>
+    <priority>0.8</priority>
+</url>
+<url>
+    <loc>https://fgstier-art.de/einbuch/die-freiheit-der-absurditaet/kapitel-05.html</loc>
+    <lastmod>2026-09-09</lastmod>
+    <priority>0.8</priority>
+</url>
+<url>
+    <loc>https://fgstier-art.de/einbuch/die-freiheit-der-absurditaet/kapitel-08.html</loc>
+    <lastmod>2026-09-09</lastmod>
+    <priority>0.8</priority>
+</url>
+<url>
+    <loc>https://fgstier-art.de/einbuch/die-freiheit-der-absurditaet/kapitel-09.html</loc>
+    <lastmod>2026-09-09</lastmod>
+    <priority>0.8</priority>
+</url>
+<url>
+    <loc>https://fgstier-art.de/einbuch/die-freiheit-der-absurditaet/kapitel-17.html</loc>
+    <lastmod>2026-09-09</lastmod>
+    <priority>0.8</priority>
+</url>
+<url>
+    <loc>https://fgstier-art.de/einbuch/die-freiheit-der-absurditaet/kapitel-18.html</loc>
+    <lastmod>2026-09-09</lastmod>
+    <priority>0.8</priority>
+</url>
+
+
 
 
 
