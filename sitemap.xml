@@ -1469,8 +1469,39 @@
     <priority>0.8</priority>
 </url>
 
+<!-- 2. Primär-Portal: Quantimedus & Serien-Navigator (Das Quantenkomplott I-IV) -->
+    <url>
+        <loc>https://https://fgstier-art.de/quantenkomplott/quantimedus.html</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
 
+    <!-- 3. Einzelne Bände (falls als eigene HTML-Dateien abgelegt) -->
+    <url>
+        <loc>https://fgstier-art.de/quantenkomplott/quantenkomplott_band1.html</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://fgstier-art.de/quantenkomplott/quantenkomplott_band2.html</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
 
-
+    <url>
+        <loc>https://fgstier-art.de/quantenkomplott/quantenkomplott_band3.html</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://fgstier-art.de/quantenkomplott/quantenkomplott_band4.html</loc>
+        <lastmod>2026-10-10</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
 
 </urlset>

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, follow" />
+    <title>Quantimedus & 3D-Buch Vorschau</title>
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+        width: 100%;
+        min-height: 100vh;
+        background-color: #030305;
+        font-family: 'Inter', sans-serif;
+        color: #fff;
+    }
+
+    /* Split-Screen Layout */
+    .main-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        width: 100vw;
+        height: 100vh;
+        box-sizing: border-box;
+    }
+
+    /* MOBIL-ANPASSUNG: Untereinander anordnen & flexible Höhe gewähren */
+    @media (max-width: 900px) {
+        .main-layout {
+            grid-template-columns: 1fr;
+            height: auto; /* Höhe nicht starr auf 100vh sperren */
+        }
+    }
+
+    .pane {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-right: 1px solid rgba(0, 255, 204, 0.15);
+        background: #030305;
+        padding: 40px 10px;
+        box-sizing: border-box;
+    }
+
+    /* Mobil-Feinschliff für die beiden Bereiche */
+    @media (max-width: 900px) {
+        .pane {
+            height: auto; /* Erlaubt dem Video, sich in der Höhe voll auszudehnen */
+            min-height: 500px;
+            border-right: none;
+            border-bottom: 1px solid rgba(0, 255, 204, 0.15);
+        }
+    }
+
+    #canvas-container {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .video-pane {
+        background: #08080c;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 50px 20px 30px 20px;
+        box-sizing: border-box;
+    }
+
+    /* 9:16 Video Wrapper mit fester Proportion */
+    .video-wrapper {
+        width: 100%;
+        max-width: 340px; /* Perfekte Breite für Smartphones */
+        aspect-ratio: 9 / 16; /* Zwingt den Container strikt auf 9:16 */
+        background: #000;
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid rgba(0, 255, 204, 0.3);
+        box-shadow: 0 0 25px rgba(0, 255, 204, 0.15);
+        position: relative;
+    }
+
+    .video-wrapper video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Verhindert schwarze Ränder und behält das Format bei */
+        display: block;
+    }
+
+    .pane-title {
+        position: absolute;
+        top: 15px;
+        left: 20px;
+        background: rgba(12, 12, 18, 0.85);
+        border: 1px solid rgba(0, 255, 204, 0.3);
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-family: monospace;
+        font-size: 11px;
+        color: #00ffcc;
+        z-index: 10;
+    }
+
+    .footer-tag {
+        position: relative;
+        text-align: center;
+        padding: 15px 0;
+        color: #52526b;
+        font-family: monospace;
+        font-size: 11px;
+        background: #030305;
+        z-index: 100;
+    }
+</style>    <!-- Include Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+
+    <div class="main-layout">
+        <!-- Linke Seite: 3D Buch Preview -->
+        <div class="pane">
+            <div class="pane-title">[ Buchvorstellung ]</div>
+            <div id="canvas-container"></div>
+        </div>
+
+        <!-- Rechte Seite: Quantimedus Video -->
+        <div class="pane video-pane">
+            <div class="pane-title">[ FELDMECHANIK: QUANTIMEDUS ]</div>
+            <div class="video-wrapper">
+                <video controls autoplay muted loop playsinline>
+                    <source src="quantimedus-lacht6.mp4" type="video/mp4">
+                    Dein Browser unterstützt das Video-Tag nicht.
+                </video>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-tag">#ARKUSNAT #fgstier #shorts #scifi #ai #ki #science</div>
+
+    <script>
+        // --- 1. Basis Setup für Three.js im linken Container ---
+        const container = document.getElementById('canvas-container');
+        const scene = new THREE.Scene();
+
+        const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+        camera.position.set(0, 0, 9);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        container.appendChild(renderer.domElement);
+
+        // --- 2. Beleuchtung ---
+        scene.add(new THREE.AmbientLight(0xffffff, 0.6));
+
+        const mainLight = new THREE.DirectionalLight(0xffffff, 0.8);
+        mainLight.position.set(5, 5, 4);
+        scene.add(mainLight);
+
+        const backlight = new THREE.DirectionalLight(0xffffff, 0.4);
+        backlight.position.set(-5, -3, -5);
+        scene.add(backlight);
+
+        // --- 3. Texturen laden ---
+        const loader = new THREE.TextureLoader();
+        const textureCover = loader.load('quantimedus2_vorn.jpg'); 
+        const textureBack  = loader.load('quantimedus2_hinten.jpg');  
+        const textureSpine = loader.load('quantimedus2_ruecken.jpg');  
+
+        const farbePapierseiten = 0xf4f1ea; // Creme-Weiß für die Seiten
+
+        const materials = [
+            new THREE.MeshStandardMaterial({ color: farbePapierseiten }), 
+            new THREE.MeshStandardMaterial({ map: textureSpine }),  
+            new THREE.MeshStandardMaterial({ color: farbePapierseiten }), 
+            new THREE.MeshStandardMaterial({ color: farbePapierseiten }), 
+            new THREE.MeshStandardMaterial({ map: textureCover }),            
+            new THREE.MeshStandardMaterial({ map: textureBack }) 
+        ];
+
+        // --- 4. Geometrie ---
+        const geometry = new THREE.BoxGeometry(4.0, 5.5, 0.25);
+        const bookMesh = new THREE.Mesh(geometry, materials);
+        scene.add(bookMesh);
+
+        bookMesh.rotation.x = 0.15;
+
+        // --- 5. Interaktive Maussteuerung ---
+        let isDragging = false;
+        let prevMouse = { x: 0, y: 0 };
+
+        container.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            prevMouse = { x: e.clientX, y: e.clientY };
+        });
+
+        container.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            const deltaX = e.clientX - prevMouse.x;
+            const deltaY = e.clientY - prevMouse.y;
+
+            bookMesh.rotation.y += deltaX * 0.005;
+            bookMesh.rotation.x += deltaY * 0.005;
+
+            prevMouse = { x: e.clientX, y: e.clientY };
+        });
+
+        window.addEventListener('mouseup', () => { isDragging = false; });
+
+        window.addEventListener('resize', () => {
+            camera.aspect = container.clientWidth / container.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.clientWidth, container.clientHeight);
+        });
+
+        // --- 6. Animations-Schleife ---
+        function animate() {
+            requestAnimationFrame(animate);
+
+            if (!isDragging) {
+                bookMesh.rotation.y += 0.018;
+            }
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+    </script>
+</body>
+</html>

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="de" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARKUSNAT // In Vorbereitung - Quantimedus & Editionen</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,500;0,700;1,400&family=Share+Tech+Mono&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        metal: {
+                            950: '#060709',
+                            900: '#0a0c10',
+                            850: '#0f1218',
+                            800: '#141822',
+                            700: '#1e2433',
+                            600: '#2b3448',
+                            500: '#404d69'
+                        },
+                        brass: {
+                            100: '#fff7d1',
+                            200: '#fff0a6',
+                            300: '#fbe278',
+                            400: '#f5cd47',
+                            500: '#e6c670',
+                            600: '#c5a059',
+                            700: '#98773c',
+                            800: '#6d5328',
+                            900: '#473518'
+                        },
+                        neoncyan: '#00ffcc'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        tech: ['Chakra Petch', 'sans-serif'],
+                        mono: ['Share Tech Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Dark Brushed Metal Texture & Background */
+        body {
+            background-color: #0a0c10;
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(230, 198, 112, 0.08) 0%, transparent 60%),
+                radial-gradient(circle at 10% 80%, rgba(64, 77, 105, 0.15) 0%, transparent 40%),
+                linear-gradient(to bottom, rgba(10, 12, 16, 0.95), rgba(6, 7, 9, 0.98)),
+                repeating-linear-gradient(0deg, rgba(255,255,255,0.015) 0px, rgba(255,255,255,0.015) 1px, transparent 1px, transparent 3px);
+            color: #e2e8f0;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Canvas Animation Background */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .content-layer {
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Technical 3D Brass Text Effect */
+        .text-3d-brass {
+            color: #f5cd47;
+            background: linear-gradient(180deg, #fff2a8 0%, #e6c670 45%, #98773c 80%, #fff0a6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 
+                0px 2px 0px #6d5328,
+                0px 4px 0px #473518,
+                0px 6px 10px rgba(0, 0, 0, 0.9),
+                0px 0px 25px rgba(230, 198, 112, 0.4);
+            filter: drop-shadow(0px 8px 12px rgba(0,0,0,0.8));
+        }
+
+        .metal-panel {
+            background: linear-gradient(135deg, rgba(30, 36, 51, 0.75) 0%, rgba(15, 18, 24, 0.9) 100%);
+            border: 1px solid rgba(197, 160, 89, 0.3);
+            box-shadow: 
+                inset 1px 1px 0px rgba(255, 240, 166, 0.15),
+                inset -1px -1px 0px rgba(0, 0, 0, 0.8),
+                0 10px 30px -5px rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .cyber-corner {
+            clip-path: polygon(
+                0 12px, 12px 0, 
+                calc(100% - 12px) 0, 100% 12px, 
+                100% calc(100% - 12px), calc(100% - 12px) 100%, 
+                12px 100%, 0 calc(100% - 12px)
+            );
+        }
+
+        .btn-brass {
+            background: linear-gradient(180deg, #f5cd47 0%, #c5a059 60%, #98773c 100%);
+            color: #060709;
+            font-family: 'Chakra Petch', sans-serif;
+            font-weight: 700;
+            border: 1px solid #fff2a8;
+            box-shadow: 0 0 15px rgba(230, 198, 112, 0.3);
+            transition: all 0.2s ease;
+        }
+        .btn-brass:hover {
+            background: linear-gradient(180deg, #fff0a6 0%, #e6c670 60%, #c5a059 100%);
+            box-shadow: 0 0 25px rgba(230, 198, 112, 0.6);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-brass-500 selection:text-metal-950">
+
+    <!-- Animierter Hintergrund (Blitze, Wellenmuster, Fleckeneinschläge) -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Header -->
+    <header class="content-layer sticky top-0 z-50 bg-metal-950/85 backdrop-blur-md border-b border-brass-600/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded bg-metal-850 border border-brass-500/60 flex items-center justify-center shadow-lg">
+                    <i class="fa-solid fa-atom text-brass-400 text-xl animate-pulse"></i>
+                </div>
+                <div>
+                    <span class="font-tech text-2xl font-bold tracking-wider text-3d-brass">ARKUSNAT</span>
+                    <span class="hidden sm:inline-block text-xs font-mono text-brass-600 block -mt-1 tracking-widest">OFFIZIELLER ARCHIV- & VORSCHAU-HUB</span>
+                </div>
+            </div>
+            <div class="flex items-center space-x-3">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-mono">
+                    <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+                    COMING SOON / VORBEREITUNG
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Inhalt -->
+    <main class="content-layer flex-grow max-w-5xl mx-auto px-4 py-16 w-full">
+        
+        <div class="text-center mb-12">
+            <span class="text-xs font-mono text-brass-500 uppercase tracking-widest">// SYSTEM-STATUS: RELEASE IN VORBEREITUNG</span>
+            <h1 class="font-tech text-4xl sm:text-6xl font-extrabold text-3d-brass mt-2 mb-4">
+                NEUERSCHEINUNGEN & ARCHIV
+            </h1>
+            <p class="text-gray-400 max-w-2xl mx-auto text-sm sm:text-base font-sans">
+                Die Veröffentlichung bei Amazon erfolgt in Kürze. Bis dahin greifen Sie direkt über unser gesichertes System auf 3D-Vorschau zu.
+            </p>
+        </div>
+
+        <!-- Buch-Reihe Block (Mit Timer-Coverwechsel und neuem Design) -->
+        <article class="metal-panel p-6 sm:p-8 rounded-2xl cyber-corner flex flex-col md:flex-row gap-8 items-center border border-brass-600/40 shadow-2xl">
+            
+            <!-- Cover Flipper (Automatischer Wechsel Vorder- / Rückseite) -->
+            <div class="cover-flipper w-56 aspect-[9/16] bg-metal-950 flex-shrink-0 relative overflow-hidden rounded-lg border border-brass-600/30 shadow-lg cursor-pointer">
+                <!-- Bild 1: Vorderseite -->
+                <img src="bilder/quantenkomplott4a.jpg" alt="Vorderseite" class="cover-front absolute inset-0 w-full h-full object-cover opacity-90 transition-opacity duration-1000 ease-in-out">
+                <!-- Bild 2: Rückseite -->
+                <img src="bilder/quantenkomplott4b.jpg" alt="Rückseite" class="cover-back absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000 ease-in-out">
+                
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex items-end justify-between p-3 pointer-events-none z-10">
+                    <span class="cover-indicator text-[9px] font-mono text-brass-400 tracking-widest">[ COVER: FRONT ]</span>
+                    <span class="text-[8px] font-mono text-zinc-400">SEKTOR_04</span>
+                </div>
+            </div>
+
+            <!-- Beschreibung & Aktionen -->
+            <div class="flex flex-col justify-between flex-grow w-full">
+                <div>
+                    <div class="flex justify-between items-center mb-3 font-mono text-xs">
+                        <span class="text-brass-500">// SEKTOR_04 • METAPHYSISCHE SYNTAX</span>
+                        <span class="px-2 py-0.5 bg-amber-500/10 border border-amber-500/30 text-amber-400 rounded">DEMNÄCHST LIVE</span>
+                    </div>
+                    <h2 class="text-3xl font-bold font-tech text-white mb-4">Influenz - Das Quantenkomplott IV</h2>
+                    <p class="text-sm text-slate-300 leading-relaxed mb-6 font-sans">
+                       Ein technisches Manifest zur Überwindung des statistischen Welle-Teilchen-Dualismus.
+					   Die Entlarvung des Elektrons als bloßer lokaler Spannungspunkt und Singularität in einem kontinuierlichen, raumfüllenden Dipolgitter.
+					   Mechanische Dehnung, elastische Raumverzerrung und die eiserne Logik der Feldphysik nach Maxwell und Faraday als einziges Fundament der Realität,
+					   befreit von den willkürlichen Wahrscheinlichkeitsamplituden der modernen Quantenmystik.
+                    </p>
+                </div>
+
+                <!-- Action Buttons im edlen Stil -->
+                <div class="flex flex-wrap gap-4 items-center pt-4 border-t border-metal-700/60">
+                    <a href="buchseiten/quantenkomplott_4.html" target="_blank" class="px-4 py-3 bg-metal-850 border border-brass-600/40 text-brass-300 font-tech text-xs rounded hover:bg-metal-800 transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-cube"></i> 3D VORSCHAU
+                    </a>
+                </div>
+            </div>
+        </article>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="content-layer border-t border-brass-600/20 bg-metal-950 py-8 text-center font-mono text-xs text-gray-500">
+        <p>© F.G. Stier • ARKUSNAT Publishing Systems. Alle Rechte vorbehalten.</p>
+    </footer>
+
+    <!-- Hintergrund-Animations-Skript (Blitze, Radar-Wellen & Einschläge) -->
+    <script>
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // Partikel & Blitze Setup
+        let particles = [];
+        for (let i = 0; i < 40; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 2 + 1,
+                speedY: Math.random() * 0.5 + 0.2,
+                alpha: Math.random() * 0.5 + 0.2
+            });
+        }
+
+        let lightningTimer = 0;
+        let lightningPath = [];
+
+        function drawLightning() {
+            if (Math.random() < 0.03) { // Gelegentlicher Blitz
+                lightningPath = [];
+                let startX = Math.random() * canvas.width;
+                let currentX = startX;
+                let currentY = 0;
+                lightningPath.push({x: currentX, y: currentY});
+                while (currentY < canvas.height / 2) {
+                    currentX += (Math.random() - 0.5) * 40;
+                    currentY += Math.random() * 30;
+                    lightningPath.push({x: currentX, y: currentY});
+                }
+            }
+
+            if (lightningPath.length > 0) {
+                ctx.beginPath();
+                ctx.moveTo(lightningPath[0].x, lightningPath[0].y);
+                for (let p of lightningPath) {
+                    ctx.lineTo(p.x, p.y);
+                }
+                ctx.strokeStyle = 'rgba(230, 198, 112, 0.4)';
+                ctx.lineWidth = 1.5;
+                ctx.stroke();
+                // Verblassen
+                if (Math.random() < 0.3) lightningPath = [];
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Sanfte Wellenlinien / Radar-Effekt
+            ctx.strokeStyle = 'rgba(197, 160, 89, 0.03)';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            let time = Date.now() * 0.001;
+            for (let x = 0; x < canvas.width; x += 40) {
+                let y = Math.sin(x * 0.01 + time) * 50 + (canvas.height / 2);
+                ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+
+            // Fallende Partikel / Symbole / Ladungsträger
+            ctx.fillStyle = 'rgba(230, 198, 112, 0.6)';
+            for (let p of particles) {
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(230, 198, 112, ${p.alpha})`;
+                ctx.fill();
+
+                p.y += p.speedY;
+                if (p.y > canvas.height) {
+                    p.y = 0;
+                    p.x = Math.random() * canvas.width;
+                }
+            }
+
+            drawLightning();
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // Cover-Timer Script für den automatischen Wechsel (Vorderseite / Rückseite)
+        document.addEventListener('DOMContentLoaded', () => {
+            const flippers = document.querySelectorAll('.cover-flipper');
+            flippers.forEach(flipper => {
+                let showFront = true;
+                const frontImg = flipper.querySelector('.cover-front');
+                const backImg = flipper.querySelector('.cover-back');
+                const indicator = flipper.querySelector('.cover-indicator');
+
+                if (frontImg && backImg) {
+                    setInterval(() => {
+                        showFront = !showFront;
+                        if (showFront) {
+                            frontImg.style.opacity = '0.9';
+                            backImg.style.opacity = '0';
+                            if (indicator) indicator.textContent = '[ COVER: FRONT ]';
+                        } else {
+                            frontImg.style.opacity = '0';
+                            backImg.style.opacity = '0.9';
+                            if (indicator) indicator.textContent = '[ COVER: BACK ]';
+                        }
+                    }, 4000);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
