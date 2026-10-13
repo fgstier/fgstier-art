@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="de">
 <head>
     <meta charset="UTF-8">
@@ -122,6 +122,7 @@
     }
 </style>    <!-- Include Three.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link rel="preload" as="image" href="/wappen.jpg">
 </head>
 <body>
 
@@ -136,7 +137,7 @@
         <div class="pane video-pane">
             <div class="pane-title">[ FELDMECHANIK: QUANTIMEDUS ]</div>
             <div class="video-wrapper">
-                <video controls autoplay muted loop playsinline>
+                <video preload="metadata" controls autoplay muted loop playsinline>
                     <source src="quantimedus-lacht6.mp4" type="video/mp4">
                     Dein Browser unterstützt das Video-Tag nicht.
                 </video>
