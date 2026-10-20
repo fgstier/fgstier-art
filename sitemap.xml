@@ -445,11 +445,6 @@
 
 
   <url>
-    <loc>https://fgstier-art.de/google952189f2d43da2da.html</loc>
-    <lastmod>2026-08-15</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://fgstier-art.de/impressum_datenschutz.html</loc>
     <lastmod>2026-08-15</lastmod>
     <priority>0.8</priority>
@@ -1503,5 +1498,35 @@
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
+
+ <url>
+    <loc>https://fgstier-art.de/buchseiten/quantenkomplott_1.html</loc>
+    <lastmod>2026-10-20</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://fgstier-art.de/buchseiten/quantenkomplott_2.html</loc>
+    <lastmod>2026-10-20</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://fgstier-art.de/buchseiten/quantenkomplott_3.html</loc>
+    <lastmod>2026-10-20</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://fgstier-art.de/buchseiten/quantenkomplott_4.html</loc>
+    <lastmod>2026-10-20</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://fgstier-art.de/quantenkomplott/quantimedus.html</loc>
+    <lastmod>2026-10-20</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+
+
+
 
 </urlset>
