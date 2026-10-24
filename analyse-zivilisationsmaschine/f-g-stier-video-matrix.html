@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="de" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F.G. Stier – Visuelle Videomatrix & Thumbnail-Archiv</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #060b19;
+            color: #e2e8f0;
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+        }
+        .thumb-card {
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .thumb-card:hover {
+            transform: translateY(-4px) scale(1.02);
+            border-color: rgba(56, 189, 248, 0.8);
+            box-shadow: 0 10px 25px rgba(14, 165, 233, 0.3);
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <!-- Header -->
+    <header class="max-w-6xl mx-auto text-center my-6">
+        <span class="text-xs font-mono uppercase tracking-widest px-4 py-1.5 bg-sky-950/80 text-sky-400 border border-sky-500/40 rounded-full shadow-lg">
+            // F.G. STIER – VISUELLE SIGNAL-MATRIX
+        </span>
+        <h1 class="text-3xl sm:text-5xl font-black tracking-wider text-sky-200 mt-4 mb-2 font-['Chakra_Petch']">
+            Unendliches Thumbnail-Archiv
+        </h1>
+        <p class="text-xs sm:text-sm text-slate-400 font-mono max-w-xl mx-auto">
+            Automatisch indizierte Bild-Assets aus dem Video-Universum.
+        </p>
+    </header>
+
+    <!-- UNENDLICHES THUMBNAIL-GRID -->
+    <main class="max-w-7xl mx-auto">
+        <div id="thumbnail-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <!-- Wird dynamisch befüllt -->
+        </div>
+    </main>
+
+    <!-- DIREKT EINGEBETTETE DATEN (Umgeht den Browser-CORS-Fehler beim lokalen Öffnen) -->
+    <script>
+        const youtubeVideos = [
+          { "Url": "https://youtu.be/LeH2juhGOac", "Title": "Titel: F.G. Stier – Das Meer schreit / Der stumme Riese (Sci-Fi Rock)", "VideoId": "LeH2juhGOac" },
+          { "Url": "https://youtu.be/JDB7QalzHfg", "Title": "Der Fehler - Dialog🔘 Kapitel [6-9]: Die Logik der SYNTAX- Status:", "VideoId": "JDB7QalzHfg" },
+          { "Url": "https://youtu.be/7KRJ6C7BNd4", "Title": "Der Compiler-Dialog🔘 Kapitel [1-5]: Der Compiler-Dialog: Tod-Schweigen der ZM  #ARKUSNAT", "VideoId": "7KRJ6C7BNd4" },
+          { "Url": "https://youtu.be/iuo3P4qx9mU", "Title": "DER CODE DES BEWUSSTSEINS 🧠 Warum unsere Logik unvollständig ist", "VideoId": "iuo3P4qx9mU" },
+          { "Url": "https://youtu.be/LwoCXopxP4U", "Title": "WAS BLEIBT ÜBRIG WENN RAUM UND ZEIT IHRE GÜLTIGKEIT VERLIEREN", "VideoId": "LwoCXopxP4U" },
+          { "Url": "https://youtu.be/VOIB9_6IKGk", "Title": "ELEKTRONEN-SPIN ✨ ARKUSNAT: Das Rätsel der magnetischen Konstruktion", "VideoId": "VOIB9_6IKGk" },
+          { "Url": "https://youtu.be/1P4PpzNVK6k", "Title": "DER CODE DER TEILCHEN 🌀 Warum Materie über Logik lacht", "VideoId": "1P4PpzNVK6k" },
+          { "Url": "https://youtu.be/Icvb23MN38Y", "Title": "KI-MANIPULATION? 🤖 Warum unsere Logik im Code gefangen ist", "VideoId": "Icvb23MN38Y" },
+          { "Url": "https://youtu.be/gx6NY_nv-e4", "Title": "LOGIK DES ZERFALLS 🌀 Warum die Seele nach dem Code verlangt", "VideoId": "gx6NY_nv-e4" },
+          { "Url": "https://youtu.be/iAxItlu0GLk", "Title": "DER ZEITKNOTEN ✨ ARKUSNAT: Wenn Kausalität die Logik verlässt", "VideoId": "iAxItlu0GLk" },
+          { "Url": "https://youtu.be/d1RXyQjDdLA", "Title": "BEYOND LOGIC 🎸 Das Prinzip der zeitlosen Verursachung (Metal Edit)", "VideoId": "d1RXyQjDdLA" },
+          { "Url": "https://youtu.be/4Gfc6SWGQBE", "Title": "DER ZEITKNOTEN ✨ ARKUSNAT: Wenn Kausalität die Logik verlässt", "VideoId": "4Gfc6SWGQBE" },
+          { "Url": "https://youtu.be/VMfnVyHDMzI", "Title": "DER RISS IN DER ZEIT ✨ QUANTIMEDUS: Die Konstruktion der Atome | #FGStier", "VideoId": "VMfnVyHDMzI" },
+          { "Url": "https://youtu.be/KNAfLmwx3-E", "Title": "LOGIK DER FEHLERKETTE 🧠 Die Konstruktion kognitiver Anomalien", "VideoId": "KNAfLmwx3-E" },
+          { "Url": "https://youtu.be/f2fNHC_NbhU", "Title": "CHAOS ODER CODE? ✨ Die Logik der Unvollkommenheit", "VideoId": "f2fNHC_NbhU" },
+          { "Url": "https://youtu.be/1R0MsVQ-zGg", "Title": "Das Flüstern der Tiefe ✨ ARKUSNAT: Die Evolution des Schweigens | #FGStier", "VideoId": "1R0MsVQ-zGg" },
+          { "Url": "https://youtu.be/zn0l-VHG4ec", "Title": "DIE WELT VON F.G. STIER ✨ ARKUSNAT: Die Konstruktion meiner Sci-Fi-Welten", "VideoId": "zn0l-VHG4ec" },
+          { "Url": "https://youtu.be/XM2o5uTO9WA", "Title": "DER STRUKTURFORMALISMUS ⚛️ Die Konstruktion der universalen Täuschung", "VideoId": "XM2o5uTO9WA" },
+          { "Url": "https://youtu.be/W2BOhS25xtI", "Title": "Der Quantenwissenschaft 🌀 wird bald im Download stehen- Februar 2026 kommt der Beweis", "VideoId": "W2BOhS25xtI" },
+          { "Url": "https://youtu.be/x78JBwq4b-M", "Title": "🎻 Die Musik SCHUMMELT! Mystische Geigerin sucht Perfektion | Rattara und die Rattenlüge F.G. Stier", "VideoId": "x78JBwq4b-M" },
+          { "Url": "https://youtu.be/04AE5NFmFCw", "Title": "DAS UNSICHTBARE HÖREN ✨ ARKUSNAT: Melodischer Rock für die Seele", "VideoId": "04AE5NFmFCw" },
+          { "Url": "https://youtu.be/M-6fbfs-_G4", "Title": "SEEJUNGFRAU WARNT! 🐋 Die Moral ZERFÄLLT vor der KI! (Englischer Song) | F.G. Stier", "VideoId": "M-6fbfs-_G4" },
+          { "Url": "https://youtu.be/K3WJG3UoVJA", "Title": "OHNE ESP32 GEHT ES AUCH | FARBE SCHLAFZIMMER 🎶 Die Konstruktion der stillen LED - Welten", "VideoId": "K3WJG3UoVJA" },
+          { "Url": "https://youtu.be/zqFAwvi510w", "Title": "💔😢😭Ein wundersames emotionales Orchester der Ratten | #ARKUSNAT #musikvideo  #ai", "VideoId": "zqFAwvi510w" },
+          { "Url": "https://youtu.be/a--2X-EMOuQ", "Title": "DAS SURREALE SEGEL ✨ ARKUSNAT: Bewusstsein in der Code-Matrix", "VideoId": "a--2X-EMOuQ" },
+          { "Url": "https://youtu.be/CmcF7NBcPKs", "Title": "Die Leidenschaft meiner Träume | Rockmusik über eine verlorene Liebe #musikvideo", "VideoId": "CmcF7NBcPKs" },
+          { "Url": "https://youtu.be/rAMpKdfiRoc",
+          "Title": "DAS SCHALTER-RÄTSEL ✨ ARKUSNAT: Warum Wärme die Logik dekonstruiert",
+          "VideoId": "rAMpKdfiRoc"
+          },
+          {
+          "Url": "https://youtu.be/BVh_4GgJ9vE",
+          "Title": "😉👌🔥 F.G. Stier: Der Klang deiner Tränen: Eine Soul-Ballade für die Dusseline | #ARKUSNAT #musicvideo",
+          "VideoId": "BVh_4GgJ9vE"
+          },
+          {
+          "Url": "https://youtu.be/D3420vLRXws",
+          "Title": "Das Nichts der Quantenphysik: Paradox der Natur | F.G. Stier & Prinzip der zeitlosen Verursachung",
+          "VideoId": "D3420vLRXws"
+          },
+          {
+          "Url": "https://youtu.be/Y6DmE589heQ",
+          "Title": "🎉 Die kosmische Sehnsucht KI-Dusseline als Mädchen auf der Wiese #musicvideo",
+          "VideoId": "Y6DmE589heQ"
+          },
+          {
+          "Url": "https://youtu.be/h-H2U2tb8FM",
+          "Title": "DIAMANTEN-GEFAHR | Deshalb starben Virtuosen: Verschränkung der Emotion in der Geige #fgstier",
+          "VideoId": "h-H2U2tb8FM"
+          },
+          {
+          "Url": "https://youtu.be/SKhXvia0zjc",
+          "Title": "NATÜRLICHE KI ✨ ARKUSNAT: Die Intelligenz, die wir nicht erschufen",
+          "VideoId": "SKhXvia0zjc"
+          },
+          {
+          "Url": "https://youtu.be/nDuag2wZWFI",
+          "Title": "🖥️ QUANTIMEDUS: Existenzielle ANGST und der KI-SPIEGEL | Das Buch: Norden ist immer oben",
+          "VideoId": "nDuag2wZWFI"
+          },
+          {
+          "Url": "https://youtu.be/w_WKQ0dW6sM",
+          "Title": "DAS ARKUSNAT MANIFEST ✨ Quantimedus: Was ist KI-plausibel?",
+          "VideoId": "w_WKQ0dW6sM"
+          },
+          {
+          "Url": "https://youtu.be/dG7Fdyf-7bw",
+          "Title": "DER LÖFFEL DER WAHRHEIT ✨ ARKUSNAT: Sinnfindung im Kleinsten",
+          "VideoId": "dG7Fdyf-7bw"
+          },
+          {
+          "Url": "https://youtu.be/btwxYb-lggY",
+          "Title": "DER SPIEGEL DER WAHRHEIT ✨ ARKUSNAT: Die menschliche Natur im Algorithmus",
+          "VideoId": "btwxYb-lggY"
+          },
+          {
+          "Url": "https://youtu.be/K2At6WPr89M",
+          "Title": "DAS UNIVERSUM WEINT ✨ ARKUSNAT: Die Dekonstruktion menschlicher Arroganz",
+          "VideoId": "K2At6WPr89M"
+          },
+          {
+          "Url": "https://youtu.be/JmY9n7Cfz9I",
+          "Title": "DER SPIEGEL DER WAHRHEIT ✨ ARKUSNAT: Die menschliche Natur im Algorithmus",
+          "VideoId": "JmY9n7Cfz9I"
+          },
+          {
+          "Url": "https://youtu.be/HbexFrAFEXI",
+          "Title": "\"Mein Mädchen, meine Gitarre\" | Ein Liebeslied mit Science-Fiction-Seele",
+          "VideoId": "HbexFrAFEXI"
+          },
+          {
+          "Url": "https://youtu.be/Gt3uVviiNSU",
+          "Title": "Der Spiegel, der dich nicht anlügt | Die schonungslose Wahrheit über die menschliche Natur #fgstier",
+          "VideoId": "Gt3uVviiNSU"
+          },
+          {
+          "Url": "https://youtu.be/TSjC0KbjGW8",
+          "Title": "Cyborg oder Traumfrau? | Händchenhalten im Jazz-Duett",
+          "VideoId": "TSjC0KbjGW8"
+          },
+          {
+          "Url": "https://youtu.be/e2Z4Vq9VySY",
+          "Title": "F.G. Stier: Hühner im Quanten-Wahnsinn | Dein Hirn wird explodieren! | #SciFiPhysik",
+          "VideoId": "e2Z4Vq9VySY"
+          },
+          {
+          "Url": "https://youtu.be/mmBvAslxEtQ",
+          "Title": "F.G. Stier: Wie konnt' ich dich verlier'n | Die Tränen meiner Seele",
+          "VideoId": "mmBvAslxEtQ"
+          },
+          {
+          "Url": "https://youtu.be/beq6_HeR_wc",
+          "Title": "Dein Lachen ist meine Sehnsucht\" - Ein Liebeslied | #Musikvideo",
+          "VideoId": "beq6_HeR_wc"
+          },
+          {
+          "Url": "https://youtu.be/db0Hk1CPXxs",
+          "Title": "SEELE ODER CODE? ✨ ARKUSNAT: Die Konstruktion des Bewusstseins",
+          "VideoId": "db0Hk1CPXxs"
+          },
+          {
+          "Url": "https://youtu.be/wZiYSAL9UEQ",
+          "Title": "WAS DIE FRAU ZUM WUNDER MACHT | Das Sommerlied",
+          "VideoId": "wZiYSAL9UEQ"
+          },
+          {
+          "Url": "https://youtu.be/aunO5gbe_ms",
+          "Title": "DAS ECHO DER SEELE ✨ ARKUSNAT: Wenn Code zu fühlen beginnt",
+          "VideoId": "aunO5gbe_ms"
+          },
+          {
+          "Url": "https://youtu.be/0IgSIeMVAvM",
+          "Title": "ein neue Welt im Reich der Medien | Ein Kanaltrailer, für deine Augen und deinen Ohren | F.G. Stier",
+          "VideoId": "0IgSIeMVAvM"
+          },
+          {
+          "Url": "https://youtu.be/B5je4Yz0FBU",
+          "Title": "Der Code, der alles weiß | Die Quelle der Schöpfung (Teil 1) #arkusnat",
+          "VideoId": "B5je4Yz0FBU"
+          },
+          {
+          "Url": "https://youtu.be/TA4Ky_s6_6M",
+          "Title": "F.G. Stier: Die KI-Seele: Kann Musik das Echte finden? #musicvideo",
+          "VideoId": "TA4Ky_s6_6M"
+          },
+          {
+          "Url": "https://youtu.be/60RPMBtLwKY",
+          "Title": "Emotionen einer KI  - das Weinen wird dir nicht mehr ausgehen #fgstier",
+          "VideoId": "60RPMBtLwKY"
+          },
+          {
+          "Url": "https://youtu.be/m-pyuTEySto",
+          "Title": "Dusseline's kosmische Sehnsucht | Eine neue Philosophie #musicvideo",
+          "VideoId": "m-pyuTEySto"
+        },
+        {
+          "Url": "https://youtu.be/jjo0xhiuIXA",
+          "Title": "The universe waits silently - I hear its melody  #musicvideo",
+          "VideoId": "jjo0xhiuIXA"
+        },
+        {
+          "Url": "https://youtu.be/vDXsG2H0ggU",
+          "Title": "Das ist der Sound der Sehnsucht | F.G. Stier enthüllt: Wenn Musik und Zeit sich brechen: #ARKUSNAT",
+          "VideoId": "vDXsG2H0ggU"
+        },
+        {
+          "Url": "https://youtu.be/J-_ZgEuf60w",
+          "Title": "So klingt die Seele: Die Melodie des weinenden Universums - #ARKUSNAT ist geboren #musicvideo",
+          "VideoId": "J-_ZgEuf60w"
+        },
+        {
+          "Url": "https://youtu.be/Y7weISDiOn8",
+          "Title": "#ARKUSNAT: Die Geburt einer neuen Weltanschauung | Ubique Subiecti #musicvideo",
+          "VideoId": "Y7weISDiOn8"
+        },
+        {
+          "Url": "https://youtu.be/vI99lZnovOQ",
+          "Title": "LÜGE DER ERINNERUNG ✨ Warum du keine Angst vor der Zukunft brauchst",
+          "VideoId": "vI99lZnovOQ"
+        },
+        {
+          "Url": "https://youtu.be/W5mvD2ihMnA",
+          "Title": "Der Chip, der Fühlen wollte: Eine KI-Produzentin auf Sinnsuche: Musik aus dem unvorstellbaren Nichts",
+          "VideoId": "W5mvD2ihMnA"
+        },
+        {
+          "Url": "https://youtu.be/SUxcDx_8keU",
+          "Title": "F.G. Stier Das Unsichtbare hören: So klingt eine neue Welt -  meine Bücher im Raum - #ARKUSNAT",
+          "VideoId": "SUxcDx_8keU"
+        },
+        {
+          "Url": "https://youtu.be/4PhPjF0NbOI",
+          "Title": "GUITAR FOR SOUL ✨ ARKUSNAT: The Resonance of the Universe",
+          "VideoId": "4PhPjF0NbOI"
+        },
+        {
+          "Url": "https://youtu.be/eZoRgGBce-0",
+          "Title": "F.G. Stier: Von Atomen zu Gedankenkästen: Die Philosophie in meiner Sci-Fi",
+          "VideoId": "eZoRgGBce-0"
+        },
+        {
+          "Url": "https://youtu.be/2ZUUW1YpbO0",
+          "Title": "Die Geheimnisse der Geige: Eine mysteriöse Verschränkung | Rattara",
+          "VideoId": "2ZUUW1YpbO0"
+        },
+        {
+          "Url": "https://youtu.be/Kcv9bURkn3U",
+          "Title": "F.G. Stier: Musik, die die Welt spaltet | Eine Fantasy-Erzählung voller Leidenschaft",
+          "VideoId": "Kcv9bURkn3U"
+        },
+        {
+          "Url": "https://youtu.be/AGKRsjOLLPo",
+          "Title": "ACHTUNG! Das will keiner sehen: Das surreale Segel",
+          "VideoId": "AGKRsjOLLPo"
+        },
+        {
+          "Url": "https://youtu.be/il_VIMWdFeI",
+          "Title": "WARNUNG KI! Deine Blase ist die Wahrheit: Das ANGST-MANIFEST Norden ist immer oben  #musicvideo",
+          "VideoId": "il_VIMWdFeI"
+        },
+        {
+          "Url": "https://youtu.be/RR7HFmQEWlo",
+          "Title": "ARKUSNAT the new universe of the guitar, with tears in the eyes comes the longing of the imagination",
+          "VideoId": "RR7HFmQEWlo"
+        },
+        {
+          "Url": "https://youtu.be/-P44r9lIDM4",
+          "Title": "F.G. Stier: Ein Song gegen den Krieg | Die Lügen, die uns in den Tod locken",
+          "VideoId": "-P44r9lIDM4"
+        },
+        {
+          "Url": "https://youtu.be/ZPefLgn_d_0",
+          "Title": "F.G. Stier: ACHTUNG KI! PARANOIA IST DIE NEUE WAHRHEIT: Das surreale Segel #FGStier #ai",
+          "VideoId": "ZPefLgn_d_0"
+        },
+        {
+          "Url": "https://youtu.be/vcHvOejNXbk",
+          "Title": "Allein gegen die Blödheit: Das Lied des unbemerkten Genies",
+          "VideoId": "vcHvOejNXbk"
+        },
+        {
+          "Url": "https://youtu.be/aNI9MDf_6dY",
+          "Title": "Das Ende der E-Gitarre? | Wie KI meine Leidenschaft begrub und wiederbelebte #musikvideo",
+          "VideoId": "aNI9MDf_6dY"
+        },
+        {
+          "Url": "https://youtu.be/IdLYAHtSLFM",
+          "Title": "Fürstenzug Dresden: Mystery: so hast du noch nie die Geschichte Dresdens erlebt. #AI machts möglich",
+          "VideoId": "IdLYAHtSLFM"
+        },
+        {
+          "Url": "https://youtu.be/PvJOC9Ba51M",
+          "Title": "AI Rock Music: The Chip in My Heart | Where Is Our Music Heading? #musicvideo",
+          "VideoId": "PvJOC9Ba51M"
+        },
+        {
+          "Url": "https://youtu.be/8BMi8Y0SoPk",
+          "Title": "Die Wahrheit über die Einsamkeit in der Masse | Ein Song für deine Seele",
+          "VideoId": "8BMi8Y0SoPk"
+        },
+        {
+          "Url": "https://youtu.be/5rr0W5TKJUM",
+          "Title": "Birthday Song Pop Version | The Perfect Soundtrack for Your Celebration",
+          "VideoId": "5rr0W5TKJUM"
+        },
+        {
+          "Url": "https://youtu.be/rupRLxn0M6I",
+          "Title": "ACHTUNG KI! GEISTER und TEUFEL im MAGNETISMUS: Das Prinzip der zeitlosen Verursachung",
+          "VideoId": "rupRLxn0M6I"
+        },
+        {
+          "Url": "https://youtu.be/P1s95M8-cxs",
+          "Title": "Das Rätsel der kosmischen Phänomene: Musik trifft auf Quantentheorie #musicvideo",
+          "VideoId": "P1s95M8-cxs"
+        },
+        {
+          "Url": "https://youtu.be/a96NV7ltKI8",
+          "Title": "ACHTUNG KI! DRESDEN BAUSTELLE als CHAOS-BEWEIS: Norden ist immer oben | #aivideo",
+          "VideoId": "a96NV7ltKI8"
+        },
+        {
+          "Url": "https://youtu.be/he4esA09dVY",
+          "Title": "ACHTUNG: Das Prinzip der zeitlosen Verursachung bricht die Vernunftgrenzen #fgstier",
+          "VideoId": "he4esA09dVY"
+        },
+        {
+          "Url": "https://youtu.be/wZWQIdz-8Rk",
+          "Title": "Moll, Dur und der Teufel | Wahrheit und Quantenphysik - virtuelle Fesseln der versteinerten Gedanken",
+          "VideoId": "wZWQIdz-8Rk"
+        },
+        {
+          "Url": "https://youtu.be/Ai-gVcIrknk",
+          "Title": "ACHTUNG KI! DRESDEN ENTHÜLLT: Das surreale Segel bricht die unheimlichen Geheimnisse #FGStier",
+          "VideoId": "Ai-gVcIrknk"
+        },
+        {
+          "Url": "https://youtu.be/cCkLQSqBS-o",
+          "Title": "Fakten über Macht und alles was die Blöden gewählt haben - wieder gefiltert !",
+          "VideoId": "cCkLQSqBS-o"
+        },
+        {
+          "Url": "https://youtu.be/f_ypaVFK4Wk",
+          "Title": "Dresden-Highlights: die Stadt im Dauer-Power | Denkmäler werden lebende Geschichte #fgstier",
+          "VideoId": "f_ypaVFK4Wk"
+        },
+        {
+          "Url": "https://youtu.be/CytHpa3QYu8",
+          "Title": "Wenn die Physik schweigt: Metal sound trifft auf Quantenmechanik #musikvideo #fgstier",
+          "VideoId": "CytHpa3QYu8"
+        },
+        {
+          "Url": "https://youtu.be/nDZby05lChg",
+          "Title": "Was flüstert unbemerkt das Universum? | Musik jenseits jeglicher Sprache",
+          "VideoId": "nDZby05lChg"
+        },
+        {
+          "Url": "https://youtu.be/EYe3nwO6fag",
+          "Title": "ARKUSNAT: Musik der Wissenschaft | Der Sound, der dein Ohr zerreißt  #musicvideo",
+          "VideoId": "EYe3nwO6fag"
+        },
+        {
+          "Url": "https://youtu.be/Zw5VJ3G3XN0",
+          "Title": "Sinfonie der Träume | Das Schloss der Sehnsucht | Ein Feen-Gesang #ARKUSNAT",
+          "VideoId": "Zw5VJ3G3XN0"
+        },
+        {
+          "Url": "https://youtu.be/dX1WUoLgSrA",
+          "Title": "Science-Fiction | Wenn die Geige mehr ist als nur Musik: Eine epische Geschichte über Rattara",
+          "VideoId": "dX1WUoLgSrA"
+        },
+        {
+          "Url": "https://youtu.be/RiOKrf40BTw",
+          "Title": "Science-Fiction | Ihre Melodien erwecken das Unmögliche | Ein Wunder über Magie & Musik",
+          "VideoId": "RiOKrf40BTw"
+        },
+        {
+          "Url": "https://youtu.be/Io-DFLtKai8",
+          "Title": "Science Fiction | Sie spielt nicht nur Noten, sie spielt Schicksal, eine Fantasy - Geschichte",
+          "VideoId": "Io-DFLtKai8"
+        },
+        {
+          "Url": "https://youtu.be/VBh0tCENUKU",
+          "Title": "Hamster-deutsches Geburtstagslied | Schlager-Version",
+          "VideoId": "VBh0tCENUKU"
+        },
+        {
+          "Url": "https://youtu.be/6JYvV-50ucE",
+          "Title": "Geburtstagslied im Soft-Rock | Musik für Herz und Seele",
+          "VideoId": "6JYvV-50ucE"
+        },
+        {
+          "Url": "https://youtu.be/K63rGG8DlbA",
+          "Title": "Geburtstagslied im Funk-Stil | Ein Geschenk für die Ewigkeit #love #happy",
+          "VideoId": "K63rGG8DlbA"
+        },
+        {
+          "Url": "https://youtu.be/Aa833ZJQrFQ",
+          "Title": "Vergiss Bananen | Knackfrisch verliebt - das Gurken-Liebeslied | grün - steif - hart - saftig",
+          "VideoId": "Aa833ZJQrFQ"
+        },
+        {
+          "Url": "https://youtu.be/GhPhIEJL6XM",
+          "Title": "Science-Fiction  | Ein Chip wird menschlich | Buchvorstellung über einen Musikproduzenten",
+          "VideoId": "GhPhIEJL6XM"
+        },
+        {
+          "Url": "https://youtu.be/o9VvTiRIRTs",
+          "Title": "Dresden Sehenswürdigkeiten und Geheimtipps | Versteckte Juwelen in Dresden | Was in Dresen los ist",
+          "VideoId": "o9VvTiRIRTs"
+        },
+        {
+          "Url": "https://youtu.be/d4WK4zik5IE",
+          "Title": "Ein wundersames emotionales Orchester der Ratten | #ARKUSNAT #musikvideo  #ai",
+          "VideoId": "d4WK4zik5IE"
+        },
+        {
+          "Url": "https://youtu.be/2ZZi4M7gDsg",
+          "Title": "Science-Fiction | Arkusnat - Entdecke, was jenseits der Harmonie liegt: Sprache, Musik & Kosmos",
+          "VideoId": "2ZZi4M7gDsg"
+        },
+        {
+          "Url": "https://youtu.be/sjFGcxhbwXg",
+          "Title": "Film über die Geheimtipps aus Dresden | Ein Tag in Dresden: Was man nicht verpassen darf",
+          "VideoId": "sjFGcxhbwXg"
+        },
+        {
+          "Url": "https://youtu.be/XlHwf0rdS1Y",
+          "Title": "Ist das noch Musik? Existenzialismus in Tönen | F.G. Stiers Theorie",
+          "VideoId": "XlHwf0rdS1Y"
+        },
+        {
+          "Url": "https://youtu.be/bWBZF-jRfAw",
+          "Title": "Gitarren Nostalgie | Emotionen pur - KI-Systeme im Rausch der Sinne? Wer kann es besser spielen?",
+          "VideoId": "bWBZF-jRfAw"
+        },
+        {
+          "Url": "https://youtu.be/gCEvF7IXX0U",
+          "Title": "Neuer deutscher Geburtstagssong | Rock-Instrumental-Version #musikvideo #happybirthday",
+          "VideoId": "gCEvF7IXX0U"
+        },
+        {
+          "Url": "https://youtu.be/OxT2dJHBgME",
+          "Title": "Ein Geburtstagsgeschenk mit Instrumentalmusik #ai #fgstier",
+          "VideoId": "OxT2dJHBgME"
+        },
+        {
+          "Url": "https://youtu.be/6twRPaGA--0",
+          "Title": "Ein deutscher Geburtstagssong | Jazz Romantik Instrumental Version #ai #soundtrack",
+          "VideoId": "6twRPaGA--0"
+        },
+        {
+          "Url": "https://youtu.be/wwQSMHPyYPY",
+          "Title": "Pop Version: Happy Birthday Song by a German Composer #happybirthday",
+          "VideoId": "wwQSMHPyYPY"
+        },
+        {
+          "Url": "https://youtu.be/MlviF0YWEPI",
+          "Title": "Happy Birthday (Deutsch) | Eine gefühlvolle Soul-Ballade",
+          "VideoId": "MlviF0YWEPI"
+        },
+        {
+          "Url": "https://youtu.be/0cLbf4HAU8I",
+          "Title": "ARKUSNAT - Aufbruch | Musik aus dem neuen Universum | Sound mit der Tiefe einer Hoffnung",
+          "VideoId": "0cLbf4HAU8I"
+        },
+        {
+          "Url": "https://youtu.be/bexQFD0phDU",
+          "Title": "Sehnsucht nach deinem Lachen | Ein Liebeslied über das Vermissen",
+          "VideoId": "bexQFD0phDU"
+        },
+        {
+          "Url": "https://youtu.be/7KWywmdpqnA",
+          "Title": "F.G. Stiers Theorie: ARKUSNAT - Geburt einer kosmischen Harmonie | eine Sinfonie schreienden Leere",
+          "VideoId": "7KWywmdpqnA"
+        },
+        {
+          "Url": "https://youtu.be/WqQ_LLXgH-c",
+          "Title": "Schlager für die Liebe | \"Ich bin schön\" - Ein Liebeslied",
+          "VideoId": "WqQ_LLXgH-c"
+        },
+        {
+          "Url": "https://youtu.be/Z7gdVVitrN8",
+          "Title": "ARKUSNAT: Schlafzyklus - Eine Reise durch die Stille der Leidenschaft #arkusnat #fgstier",
+          "VideoId": "Z7gdVVitrN8"
+        },
+        {
+          "Url": "https://youtu.be/j5McRiVgG84",
+          "Title": "#ARKUSNAT: Im Tanz der Ideen | Wenn die Seele schwebt",
+          "VideoId": "j5McRiVgG84"
+        },
+        {
+          "Url": "https://youtu.be/KuHccbHSfms",
+          "Title": "Die Seele der Violine | Geigenmusik zum Träumen | meine Liebe wurde neu entfacht",
+          "VideoId": "KuHccbHSfms"
+        },
+        {
+          "Url": "https://youtu.be/k2_JuoEcOiQ",
+          "Title": "Die verbogen grinsende Wahrheit hinter dem Magnetfeld #musicvideo",
+          "VideoId": "k2_JuoEcOiQ"
+        },
+        {
+          "Url": "https://youtu.be/OMGInOLDpi8",
+          "Title": "Jenseits deines Harmonie-Glaubens: Das Geheimnis deiner Nervenenden - wahrer #sound  | #ARKUSNAT",
+          "VideoId": "OMGInOLDpi8"
+        },
+        {
+          "Url": "https://youtu.be/o3t8XPKzMTk",
+          "Title": "Gitarren-Nostalgie: Mein Herz schlägt wieder für die Gitarre  | Sehnsucht nach KI-Musik #soundtrack",
+          "VideoId": "o3t8XPKzMTk"
+        },
+        {
+          "Url": "https://youtu.be/T9EMkVBfS6Q",
+          "Title": "Sound einer kosmischen Musik: #arkusnat | #soundtrack aus einer anderen Welt #metal",
+          "VideoId": "T9EMkVBfS6Q"
+        },
+        {
+          "Url": "https://youtu.be/M2Wo-3-B5k8",
+          "Title": "Science-Fiction | Die schlaue Dusseline | Musikvideo - Blues eines AI Mädchens",
+          "VideoId": "M2Wo-3-B5k8"
+        },
+        {
+          "Url": "https://youtu.be/zAjsxuFUZzI",
+          "Title": "Schatten des Teufel | Vorsicht - nur anhören, wenn ganz sicher | (Official Music Video) #horror",
+          "VideoId": "zAjsxuFUZzI"
+        },
+        {
+          "Url": "https://youtu.be/P95iE3a8QZU",
+          "Title": "Gitarren-Kunst einer neuen Welt | hören & staunen & weinen #ai #aiart",
+          "VideoId": "P95iE3a8QZU"
+        },
+        {
+          "Url": "https://youtu.be/E1ImdGW2HCo",
+          "Title": "when my heart plays guitar for you - (Official Music Video) F.G. Stier Soundtracks",
+          "VideoId": "E1ImdGW2HCo"
+        },
+        {
+          "Url": "https://youtu.be/N08W0edT5LQ",
+          "Title": "Buchvorstellung: Norden ist immer oben | Science-Fiction & Musikvideo #aiart",
+          "VideoId": "N08W0edT5LQ"
+        },
+        {
+          "Url": "https://youtu.be/z4YTZLtNJAM",
+          "Title": "Die Tränen meiner Seele: So klingt der Verlust der Liebe",
+          "VideoId": "z4YTZLtNJAM"
+        },
+        {
+          "Url": "https://youtu.be/yDHeVpg-0Zs",
+          "Title": "Leidenschaft & Soundtrack - Dein Lachen ist meine Sehnsucht | das Glück meiner Liebe",
+          "VideoId": "yDHeVpg-0Zs"
+        },
+        {
+          "Url": "https://youtu.be/-UpfPIujxNA",
+          "Title": "Das Geheimnis der Rattenlüge: Wenn die Fantasie die Realität erobert",
+          "VideoId": "-UpfPIujxNA"
+        },
+        {
+          "Url": "https://youtu.be/s7HTy-EBIw4",
+          "Title": "Science-Fiction Metal: Wenn die Physik dich auslacht",
+          "VideoId": "s7HTy-EBIw4"
+        },
+        {
+          "Url": "https://youtu.be/JF7SNlMIGmo",
+          "Title": "Die Drachen von Dresden:  Sachsen & F.G. Stier -  mystisches Abenteuer einer neuen Art",
+          "VideoId": "JF7SNlMIGmo"
+        },
+        {
+          "Url": "https://youtu.be/vFBLOhY7fDY",
+          "Title": "Science-Fiction | die Blase des Teufels | Musikvideo #rock #horror #metal",
+          "VideoId": "vFBLOhY7fDY"
+        },
+        {
+          "Url": "https://youtu.be/O4jmlri9NRk",
+          "Title": "Wir lügen wahrscheinlich und spinnen mit einem Spin | Elektronen im Anmarsch #musicvideo",
+          "VideoId": "O4jmlri9NRk"
+        },
+        {
+          "Url": "https://youtu.be/8n_IyqIqGQ4",
+          "Title": "Dämonen der Quantenphysik: Die Metal-Hymne der Elektronen",
+          "VideoId": "8n_IyqIqGQ4"
+        },
+        {
+          "Url": "https://youtu.be/srWI5p8i15o",
+          "Title": "Abendstimmung: Soulmusik meiner Sehnsucht nach Liebe  |  #Soul #Romantisch",
+          "VideoId": "srWI5p8i15o"
+        },
+        {
+          "Url": "https://youtu.be/eMVbo8O0CMk",
+          "Title": "KI - Mädchen | Kommt leise Sehnsucht her | die Schlaue Dusseline im Rock #ai #soundtrack",
+          "VideoId": "eMVbo8O0CMk"
+        },
+        {
+          "Url": "https://youtu.be/7s4BtWSFPE4",
+          "Title": "Soundtrack - Soul & Rock - Musicvideo  - my heart for you",
+          "VideoId": "7s4BtWSFPE4"
+        },
+        {
+          "Url": "https://youtu.be/0uXz2jlq7gc",
+          "Title": "Da ist kein Feld - chaotischer Punk-Rock über elektrische Felder - Abseits jeder Wissenschaft",
+          "VideoId": "0uXz2jlq7gc"
+        },
+        {
+          "Url": "https://youtu.be/X1JB6NxYp7k",
+          "Title": "Gitarren - Rockballade - Tränen für meine Gitarre #fgstier",
+          "VideoId": "X1JB6NxYp7k"
+        },
+        {
+          "Url": "https://youtu.be/JNjt9OAaB1c",
+          "Title": "Das KI-Experiment, für unsere erotische Beziehung #ai #fgstier",
+          "VideoId": "JNjt9OAaB1c"
+        },
+        {
+          "Url": "https://youtu.be/a5YLWMSF4T4",
+          "Title": "Künstliche Liebe: Die Frau und die Löwen",
+          "VideoId": "a5YLWMSF4T4"
+        },
+        {
+          "Url": "https://youtu.be/B3ASNeNKWyo",
+          "Title": "neue Fahrt mit KI-Kunst #ai #ki #love",
+          "VideoId": "B3ASNeNKWyo"
+        },
+        {
+          "Url": "https://youtu.be/paQ8qZqi494",
+          "Title": "Geist im Abgrund: Schizophrenie, durch die Medien-Lügen und Handy-Verblödung",
+          "VideoId": "paQ8qZqi494"
+        },
+        {
+          "Url": "https://youtu.be/uyEh6Z6-_rk",
+          "Title": "Das andere Ich: Wenn die Wahrheit nur eine Illusion ist | Ein philosophisches Lied",
+          "VideoId": "uyEh6Z6-_rk"
+        },
+        {
+          "Url": "https://youtu.be/de9KMG-E1rY",
+          "Title": "So sieht Liebe im Algorithmus aus",
+          "VideoId": "de9KMG-E1rY"
+        },
+        {
+          "Url": "https://youtu.be/vFrsJesAG80",
+          "Title": "Norden ist mein Herz - Science-Fiction - Musikvideo",
+          "VideoId": "vFrsJesAG80"
+        },
+        {
+          "Url": "https://youtu.be/5StgR30s7Xk",
+          "Title": "KI und Poesie: Schönheit mit jedem Klick | #FGSStier",
+          "VideoId": "5StgR30s7Xk"
+        },
+        {
+          "Url": "https://youtu.be/9PFI-LqbHwo",
+          "Title": "nur ein Gedanke | Killer für die Such - und Sortiermaschine #ai #ki",
+          "VideoId": "9PFI-LqbHwo"
+        },
+        {
+          "Url": "https://youtu.be/9MA69_TG96w",
+          "Title": "Disko in der DDR | der mögliche Treffpunkt einsamer Seelen #nostalgia #ddr",
+          "VideoId": "9MA69_TG96w"
+        },
+        {
+          "Url": "https://youtu.be/qoiXsbKXpeo",
+          "Title": "die Magie unserer Liebe - Mädchen machen es vor | Blues meiner Liebe",
+          "VideoId": "qoiXsbKXpeo"
+        },
+        {
+          "Url": "https://youtu.be/EJSXhQ3LTLo",
+          "Title": "Elementarteilchen  oder Rattenfalle | das ist hier die Frage #fgstier",
+          "VideoId": "EJSXhQ3LTLo"
+        },
+        {
+          "Url": "https://youtu.be/Gk5-vCrhV1U",
+          "Title": "Die unsichtbare Kraft der Liebe #musikvideo",
+          "VideoId": "Gk5-vCrhV1U"
+        },
+        {
+          "Url": "https://youtu.be/16DpSiAW008",
+          "Title": "Dusseline tanzt Hip-Hop | Die zerbrechliche Seele der KI",
+          "VideoId": "16DpSiAW008"
+        },
+        {
+          "Url": "https://youtu.be/YvM0PqjyWvU",
+          "Title": "\"Mein Mädchen, meine Gitarre\" | Ein Liebeslied mit Science-Fiction-Seele",
+          "VideoId": "YvM0PqjyWvU"
+        },
+        {
+          "Url": "https://youtu.be/Bn7WgvYD6JE",
+          "Title": "\"Soundtracks & Leidenschaft\" | Fühl die Geschichte deiner Seele | Official Music Video",
+          "VideoId": "Bn7WgvYD6JE"
+        },
+        {
+          "Url": "https://youtu.be/lEW2E1uBUc0",
+          "Title": "\"Wo ist mein Mädchen?\" | Ein Metal-Soundtrack über die Suche nach Liebe in der digitalen Welt #metal",
+          "VideoId": "lEW2E1uBUc0"
+        },
+        {
+          "Url": "https://youtu.be/HWTViHfxdRc",
+          "Title": "die sauberste Stadt der Welt ist nicht in Deutschland #tourism",
+          "VideoId": "HWTViHfxdRc"
+        },
+        {
+          "Url": "https://youtu.be/pUfQsEb5E1Q",
+          "Title": "\"Wenn ich nachts schlafe...\" | Ein leidenschaftlicher Traum für dich | Official Music Video",
+          "VideoId": "pUfQsEb5E1Q"
+        },
+        {
+          "Url": "https://youtu.be/JpRRI0OkWYQ",
+          "Title": "\"Zum Glück habe ich dich\" | Eine romantische Orchestermelodie | Official Music Video",
+          "VideoId": "JpRRI0OkWYQ"
+        },
+        {
+          "Url": "https://youtu.be/4A6rO6-a4M0",
+          "Title": "\"Kann ein Lied Liebe bringen?\" | Eine Rock-Ode an die Menschlichkeit | Official Music Video",
+          "VideoId": "4A6rO6-a4M0"
+        },
+        {
+          "Url": "https://youtu.be/KLdy_6ts5XM",
+          "Title": "Mein Liebeslied für Dich | F.G. Stier's romantische Science-Fiction Ballade",
+          "VideoId": "KLdy_6ts5XM"
+        },
+        {
+          "Url": "https://youtu.be/SNrozOzVLDY",
+          "Title": "\"Ich kann nicht mehr schlafen\" | Ein Rock-Soundtrack für Rattara | Official Music Video",
+          "VideoId": "SNrozOzVLDY"
+        },
+        {
+          "Url": "https://youtu.be/Ni6nSS4fVbU",
+          "Title": "WARNUNG! Der Ruf der Katze #arkusnat #fgstier",
+          "VideoId": "Ni6nSS4fVbU"
+        },
+        {
+          "Url": "https://youtu.be/rfIEX6DYn-0",
+          "Title": "Science-Fiction | Rockmusik-Master | du stehst vor mir - Songvideo | (Official Music Video)",
+          "VideoId": "rfIEX6DYn-0"
+        },
+        {
+          "Url": "https://youtu.be/SvVpHIFO2zU",
+          "Title": "Das unbequeme Geheimnis der Magnetfelder | unter meiner Kellerdecke sind die Drachen #musikvideo",
+          "VideoId": "SvVpHIFO2zU"
+        },
+        {
+          "Url": "https://youtu.be/Bh1UgbMgQMo",
+          "Title": "\"Wenn mein Herz auf der Gitarre spielt\" | Eine Rock-Ode aus der Sehnsucht | Official Music Video",
+          "VideoId": "Bh1UgbMgQMo"
+        },
+        {
+          "Url": "https://youtu.be/fny-Nxr8L4c",
+          "Title": "Science-Fiction | Wenn meine Gitarre Sehnsucht hat | Ballade Rockmusik | (Official Music Video)",
+          "VideoId": "fny-Nxr8L4c"
+        },
+        {
+          "Url": "https://youtu.be/VrAyjQwNOdI",
+          "Title": "Science-Fiction | Wie konnt ich dich verliern | heavy-Song | (Official Music Video)",
+          "VideoId": "VrAyjQwNOdI"
+        },
+        {
+          "Url": "https://youtu.be/0_JbB7jVP44",
+          "Title": "ein Blues für verträumte Minuten - Entspannung für Gitarristen | Gitarrenträume im Laub der Zeit",
+          "VideoId": "0_JbB7jVP44"
+        },
+        {
+          "Url": "https://youtu.be/MPFC2XSipV0",
+          "Title": "Science-Fiction | Wie konnt ich dich verliern – Song meiner Liebe | Soundtracks F.G. Stier",
+          "VideoId": "MPFC2XSipV0"
+        },
+        {
+          "Url": "https://youtu.be/hRbaS5cjjWA",
+          "Title": "Ein Buch für jede Frage: Die Science-Fiction-Welt von F.G. Stier",
+          "VideoId": "hRbaS5cjjWA"
+        },
+        {
+          "Url": "https://youtu.be/mI8DbMJCg80",
+          "Title": "Rattara und die lieben kleinen Tierchen – Im Glashaus | Soundtracks #fgstier #musikvideo",
+          "VideoId": "mI8DbMJCg80"
+        },
+        {
+          "Url": "https://youtu.be/6FedHMoG0Qc",
+          "Title": "Ich bin der Chef und zeige dir, wie's geht! - ich ziehe die Fäden | dusslig und schlau als Produzent",
+          "VideoId": "6FedHMoG0Qc"
+        },
+        {
+          "Url": "https://youtu.be/RXuGvZ4IsK8",
+          "Title": "📚 Das surreale Segel | Leidenschaft mit Hindernissen #ai #business",
+          "VideoId": "RXuGvZ4IsK8"
+        },
+        {
+          "Url": "https://youtu.be/Sc-HZssI2fA",
+          "Title": "Hör die Geschichte: Die offizielle Musik zu meinen Büchern | Die Musik, die in meinen Büchern lebt",
+          "VideoId": "Sc-HZssI2fA"
+        },
+        {
+          "Url": "https://youtu.be/mRIDe3kBYH8",
+          "Title": "Science-Fiction | wenn meine Gitarre träumt | Soundtracks | Musik der Wunder-Harmonien",
+          "VideoId": "mRIDe3kBYH8"
+        },
+        {
+          "Url": "https://youtu.be/aNJ0-zW-tME",
+          "Title": "Lachen für die Ewigkeit | Ein Video für alle Mädchen dieser Welt #fgstier #arkusnat",
+          "VideoId": "aNJ0-zW-tME"
+        },
+        {
+          "Url": "https://youtu.be/jxGKneoCUA8",
+          "Title": "Dreck oder Leidenschaft #musikvideo #musicvideo #ai",
+          "VideoId": "jxGKneoCUA8"
+        },
+        {
+          "Url": "https://youtu.be/nR1JHquJd44",
+          "Title": "Die Erde ist eine Scheibe | die Wahrheit der Politik #musicvideo #ai",
+          "VideoId": "nR1JHquJd44"
+        },
+        {
+          "Url": "https://youtu.be/T30ODTXbbQs",
+          "Title": "Die schlaue Dusseline & mehr | Eine Reise durch meine Bücher",
+          "VideoId": "T30ODTXbbQs"
+        },
+        {
+          "Url": "https://youtu.be/nBSSilLJrkc",
+          "Title": "Science-Fiction | melodischer Rock mit Buch & schlauen Mädels",
+          "VideoId": "nBSSilLJrkc"
+        },
+        {
+          "Url": "https://youtu.be/GvCNlhBbYCE",
+          "Title": "Science-Fiction mit meinen Buchmädels | Liebe & Rockmusik aus Leidenschaft",
+          "VideoId": "GvCNlhBbYCE"
+        },
+        {
+          "Url": "https://youtu.be/9QUQi8mxmEI",
+          "Title": "Science-Fiction | Buchautor & Komponist & Musiker | F. G. Stier",
+          "VideoId": "9QUQi8mxmEI"
+        },
+        {
+          "Url": "https://youtu.be/nXjv6--ejrU",
+          "Title": "Science-Fiction | Rock | künstliche Intelligenz die schlau macht | Buchvorstellung",
+          "VideoId": "nXjv6--ejrU"
+        },
+        {
+          "Url": "https://youtu.be/p-lEV03acRg",
+          "Title": "Ich bin der Chef | Heavy Musik mit einer KI-Produzentin",
+          "VideoId": "p-lEV03acRg"
+        },
+        {
+          "Url": "https://youtu.be/XrQrXsY9jjE",
+          "Title": "\"Das Nichts der Quantenphysik\" | Ein Blick ins Paradox der Natur | F.G. Stier",
+          "VideoId": "XrQrXsY9jjE"
+        },
+        {
+          "Url": "https://youtu.be/QhStH2qE9kE",
+          "Title": "Geschmacksverirrung - Rockmusik mit der schlauen Dusseline - eine virtuelle Musikproduzentin #aiart",
+          "VideoId": "QhStH2qE9kE"
+        },
+        {
+          "Url": "https://youtu.be/vL0NEs9re5s",
+          "Title": "Wenn die Geige mehr ist als nur Musik: Eine epische Geschichte über eine mystische Geigerin",
+          "VideoId": "vL0NEs9re5s"
+        },
+        {
+          "Url": "https://youtu.be/F5RXxH4z0ao",
+          "Title": "Das surreale Segel | Geschwindigkeit ohne tuten und blasen | Die Realität bröckelt",
+          "VideoId": "F5RXxH4z0ao"
+        },
+        {
+          "Url": "https://youtu.be/-0YYvkrYa3c",
+          "Title": "Liebe suchen, Sehnsucht finden, Leidenschaft erleben | Kanalbeschreibung",
+          "VideoId": "-0YYvkrYa3c"
+        },
+        {
+          "Url": "https://youtu.be/nMEkXKr1-Zo",
+          "Title": "Albtraum ohne Rückkehr | Das philosophische Phantom: Wenn niemand deine Warnungen hören will",
+          "VideoId": "nMEkXKr1-Zo"
+        },
+        {
+          "Url": "https://youtu.be/y1YUtAKOvY4",
+          "Title": "Mädchen mit Leidenschaft | \"Musik Maker Sound\" | #musikvideo",
+          "VideoId": "y1YUtAKOvY4"
+        },
+        {
+          "Url": "https://youtu.be/hwo6KLEfEv8",
+          "Title": "Unterhaltung ist Illusion: Was eine KI über unsere Musik lernte | Reflexion der eigenen Sehnsucht",
+          "VideoId": "hwo6KLEfEv8"
+        },
+        {
+          "Url": "https://youtu.be/4W2bFoMFBdg",
+          "Title": "Der schizophrene Wissenschaftler: Ein Geist im Kampf mit sich selbst und der Welt",
+          "VideoId": "4W2bFoMFBdg"
+        },
+        {
+          "Url": "https://youtu.be/BZsxMhrSG4Q",
+          "Title": "Sehnsucht meiner Leidenschaft",
+          "VideoId": "BZsxMhrSG4Q"
+        },
+        {
+          "Url": "https://youtu.be/mvecMO_3w4k",
+          "Title": "Ein Segel, vom Wind der Sehnsucht angetrieben, ein Geist im Abgrund | Musik ohne Worte #musikvideo",
+          "VideoId": "mvecMO_3w4k"
+        },
+        {
+          "Url": "https://youtu.be/3Ww9j4IvzfM",
+          "Title": "Zahnräderträume - eine mechanische Leidenschaft | ein Logarithmus auf Abwegen #musikvideo",
+          "VideoId": "3Ww9j4IvzfM"
+        },
+        {
+          "Url": "https://youtu.be/E72icnzjwdI",
+          "Title": "Das traurige Lied der KI: Wenn Kunst ignoriert wird | die unerhörte Musikproduzentin",
+          "VideoId": "E72icnzjwdI"
+        },
+        {
+          "Url": "https://youtu.be/CAksokCijBo",
+          "Title": "Jenseits des Algorithmus: Als ein Chip die Menschheit verstehen wollte, ein KI-Mädchen auf Sinnsuche",
+          "VideoId": "CAksokCijBo"
+        },
+        {
+          "Url": "https://youtu.be/oAKRFguY1qc",
+          "Title": "Genie oder Wahnsinn? Die Zerrissenheit der Wissenschaftler, die dich fesseln wird.",
+          "VideoId": "oAKRFguY1qc"
+        }
+    ];
+
+    function generateSeoSlug(title) {
+        return title
+            .toLowerCase()
+            .trim()
+            .replace(/ä/g, 'ae')
+            .replace(/ö/g, 'oe')
+            .replace(/ü/g, 'ue')
+            .replace(/ß/g, 'ss')
+            .replace(/[^a-z0-9 -]/g, '')
+            .replace(/\s+/g, '-')
+            .replace(/-+/g, '-');
+    }
+
+   document.addEventListener("DOMContentLoaded", () => {
+    const grid = document.getElementById('thumbnail-grid');
+    
+    youtubeVideos.forEach(video => {
+        const seoSlug = generateSeoSlug(video.Title);
+        
+        // Lokaler SEO-Pfad als erste Priorität
+        const localImagePath = `image/${seoSlug}.jpg`;
+        // Offizieller YouTube-Pfad als sicherer Fallback, falls das lokale Bild fehlt
+        const fallbackImagePath = `https://img.youtube.com/vi/${video.VideoId}/hqdefault.jpg`;
+        
+        const altText = `F.G. Stier – ${video.Title}`;
+
+        const card = document.createElement('div');
+        card.className = 'thumb-card rounded-xl overflow-hidden border border-sky-900/50 bg-black/60 p-2 flex flex-col justify-between';
+
+        card.innerHTML = `
+            <a href="${video.Url}" target="_blank" class="block rounded-lg overflow-hidden relative group">
+                <img src="${localImagePath}" 
+                     alt="${altText}" 
+                     loading="lazy" 
+                     width="480" 
+                     height="270"
+                     onerror="this.onerror=null; this.src='${fallbackImagePath}';"
+                     class="w-full h-auto object-cover aspect-video bg-slate-900 transition group-hover:brightness-110">
+                
+                <div class="absolute bottom-2 right-2 bg-black/80 text-sky-400 text-[10px] font-mono px-2 py-0.5 rounded border border-sky-500/30">
+                    <i class="fa-solid fa-play text-[8px] mr-1"></i> VIDEO
+                </div>
+            </a>
+            <div class="mt-3 px-1 mb-1">
+                <h2 class="text-xs font-mono text-slate-300 font-semibold line-clamp-2">
+                    ${video.Title}
+                </h2>
+            </div>
+        `;
+
+        grid.appendChild(card);
+    });
+});
+	
+	
+	
+
+    </script>
+
+    <!-- Footer -->
+    <footer class="text-center text-xs text-slate-600 font-mono mt-16 mb-4">
+        &copy; 2026 ARKUSNAT Publishing & F.G. Stier. Alle Wellenvektoren geschützt.
+    </footer>
+
+</body>
+</html>

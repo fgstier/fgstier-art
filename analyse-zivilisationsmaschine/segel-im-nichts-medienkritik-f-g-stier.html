@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="de" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F.G. Stier – Segel im Nichts – Analyse der Zivilisationsmaschine</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #060b19; /* Tiefblauer Grundton */
+            background-image: 
+                radial-gradient(circle at 50% 20%, rgba(14, 165, 233, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(30, 58, 138, 0.2) 0%, transparent 50%);
+            background-attachment: fixed;
+            font-family: 'Inter', sans-serif;
+            color: #e2e8f0;
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Edler Glas-Container mit blauem Neon-Glow */
+        .blue-manifesto-box {
+            background: rgba(10, 22, 40, 0.92);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(56, 189, 248, 0.3); /* Cyan/Blauer Rahmen */
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), inset 0 0 30px rgba(14, 165, 233, 0.08);
+        }
+
+        /* Hero-Cover Effekt mit Amazon-Hover */
+        .cover-container {
+            position: relative;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+        .cover-container:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 35px rgba(56, 189, 248, 0.4);
+        }
+
+        /* Haupt-Button für den Rückweg zur Hauptzentrale */
+        .btn-blue-glow {
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            color: #ffffff;
+            font-family: 'Chakra Petch', sans-serif;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(2, 132, 199, 0.4);
+            border: 1px solid rgba(56, 189, 248, 0.5);
+        }
+
+        .btn-blue-glow:hover {
+            background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(56, 189, 248, 0.6);
+            color: #000000;
+        }
+    </style>
+
+    <meta name="description" content="Als technischer Autor nutze ich die inimitable temptation der Worte als Bildmaschine. Dieses Werk dient als philosophische Analyse und literarische Dekonstruktion der Begriffe 'Nichts', 'Existenz' und 'Code' im fiktionalen Kontext des Sci-Fi-Romans 'Segel im Nichts' von F.G. Stier. Es dient der logischen Verankerung des wissenschaftlich-philosophischen Konzepts der zeitlosen Verursachung.">
+    <link rel="preload" as="image" href="../wappen.jpg">
+
+    <meta name="keywords" content="segel-im-nichts, medien-zensur, zivilisationsmaschine, rechtssicherer-filter, systemische-fesselung, oeffentlich-rechtliche-profilierung, aufmerksamkeits-konzerne, entfremdung, autonome-syntax, staats-propaganda, perzeptions-autonomie">
+    <meta name="description" content="Um dem ständigen Lärm gesponserter Medien-Ökosysteme und der inszenierten Rhetorik öffentlich-rechtlicher Akteure zu entkommen, bricht der Protagonist zu einer Flusskreuzfahrt auf. Als visuelle Dekonstruktion entlarvt 'Segel im Nichts' die Transformation von Kunst und Schauspiel zu reinen Erfüllungsgehilfen der Zivilisationsmaschine. Eine philosophische Analyse über grüne Glaslinsen, staatliche Schonzonen und das schleichende Verstummen der autonomen Syntax.">
+    <meta property="og:title" content="Segel im Nichts: KI-SYSTEMS">
+    <meta property="og:image" content="segel_im_nichts_cover.jpg">
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Book",
+      "name": "Segel im Nichts: KI-SYSTEMS",
+      "alternateName": "KI-SYSTEMS",
+      "genre": "Typografie",
+      "author": {
+        "@type": "Person",
+        "name": "F.G. Stier",
+        "url": "http://arkusnat.de/"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ARKUSNAT"
+      },
+      "url": "http://arkusnat.de/kunstzentrale/typografie1/segel-im-nichts-analyse.html",
+      "sameAs": "https://www.amazon.de/dp/3912752184",
+      "description": "Um dem ständigen Lärm gesponserter Medien-Ökosysteme und der inszenierten Rhetorik öffentlich-rechtlicher Akteure zu entkommen, bricht der Protagonist zu einer Flusskreuzfahrt auf. Als visuelle Dekonstruktion entlarvt 'Segel im Nichts' die Transformation von Kunst und Schauspiel zu reinen Erfüllungsgehilfen der Zivilisationsmaschine. Eine philosophische Analyse über grüne Glaslinsen, staatliche Schonzonen und das schleichende Verstummen der autonomen Syntax."
+    }
+    </script>
+</head>
+<body class="p-4 md:p-8">
+
+    <!-- Header / Domain-Kennzeichnung -->
+    <header class="max-w-3xl mx-auto text-center my-4">
+        <span class="text-xs font-mono uppercase tracking-widest px-4 py-1.5 bg-black/80 text-sky-400 border border-sky-500/40 rounded-full shadow-lg">
+            // F.G. STIER – SEKTOR: ARKUSNAT (TARGET)
+        </span>
+    </header>
+
+    <!-- Hauptbereich -->
+    <main class="max-w-2xl w-full mx-auto blue-manifesto-box rounded-2xl p-6 md:p-10 my-auto shadow-2xl">
+        <div class="max-w-3xl mx-auto px-2 py-2">
+
+            <!-- HEADER -->
+            <header class="text-center mb-6 z-10">
+                <span class="text-xs font-mono text-sky-300 tracking-widest uppercase bg-sky-950/80 px-4 py-1.5 border border-sky-500/40 rounded-full shadow-lg">
+                    // DEKONSTRUKTION MEDIALER SYSTEME
+                </span>
+                
+                <h1 class="text-3xl sm:text-4xl font-black tracking-wider text-sky-200 mt-4 mb-1 font-['Chakra_Petch']">
+                    Segel im Nichts
+                </h1>
+                
+                <p class="text-xs sm:text-sm text-slate-300 font-light max-w-xl mx-auto">
+                    Die Entfremdung des Bewusstseins im Filter der gesponserten Zivilisationsmaschine.
+                </p>
+            </header>
+
+            <!-- GROSSES COVER-BILD MIT VERLINKUNG NACH AMAZON -->
+            <div class="mb-8 text-center">
+                <a href="https://www.amazon.de/dp/3912752184" target="_blank" rel="noopener" class="inline-block cover-container rounded-2xl overflow-hidden border-2 border-sky-500/50 bg-black/60 shadow-2xl group">
+                    <img src="segel-im-nichts-cover.jpg" alt="Segel im Nichts von F.G. Stier auf Amazon bestellen" class="w-full h-auto object-cover max-h-[480px] sm:max-h-[550px] transition group-hover:brightness-110">
+                    
+                    <!-- Hover-Overlay Hinweis -->
+                    <div class="bg-sky-950/90 text-sky-200 py-2.5 px-4 font-['Chakra_Petch'] text-xs font-bold uppercase tracking-wider border-t border-sky-500/40 flex items-center justify-center gap-2">
+                        <i class="fa-brands fa-amazon text-amber-400 text-sm"></i>
+                        <span>Direkt auf Amazon ansehen & bestellen</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                    </div>
+                </a>
+            </div>
+
+            <!-- ANALYSE-TEXT BLÖCKE -->
+            <div class="border-t border-sky-900/60 pt-5 pb-5 text-xs sm:text-sm text-slate-300 space-y-4 font-mono leading-relaxed bg-black/30 rounded-xl p-4 mb-6">
+                <p>
+                    <i class="fa-solid fa-angles-right text-sky-400 mr-2"></i>
+                    <strong>Mediale Selbstreferenz & Profilierung:</strong> Das Werk beleuchtet die Transformation von Sendeanstalten und Akteuren, die innerhalb gesponserter Ökosysteme agieren. Kunst weicht der systematischen Haltungskontrolle.
+                </p>
+                <p>
+                    <i class="fa-solid fa-angles-right text-sky-400 mr-2"></i>
+                    <strong>Demokratische Rhetorik & Schonzonen:</strong> Wenn militärische Logik und Aufmerksamkeits-Konzerne die Oberhand gewinnen, wird die Sprache zu bloßem Datenmaterial reduziert. Dieses Werk setzt die ungebundene Syntax dagegen.
+                </p>
+            </div>
+
+            <!-- EINZIGER BUTTON: ZURÜCK ZUR HAUPTZENTRALE -->
+            <div class="pt-2">
+                <a href="http://arkusnat.de" class="btn-blue-glow w-full py-3.5 rounded-xl text-xs uppercase tracking-wider text-center flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-house text-sm"></i>
+                    <span>Zurück zur Hauptzentrale</span>
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center text-xs text-slate-500 font-mono mt-6 mb-2">
+        &copy; 2026 F.G. Stier. Alle Rechte vorbehalten.
+    </footer>
+
+</body>
+</html>

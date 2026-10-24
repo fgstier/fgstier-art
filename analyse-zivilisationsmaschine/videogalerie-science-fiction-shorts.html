@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="de" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F.G. Stier – Vertikale Signal-Matrix & Shorts-Archiv</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #060b19;
+            color: #e2e8f0;
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+        }
+        .thumb-card {
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .thumb-card:hover {
+            transform: translateY(-4px) scale(1.02);
+            border-color: rgba(56, 189, 248, 0.8);
+            box-shadow: 0 10px 25px rgba(14, 165, 233, 0.3);
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <!-- Header -->
+    <header class="max-w-6xl mx-auto text-center my-6">
+        <span class="text-xs font-mono uppercase tracking-widest px-4 py-1.5 bg-sky-950/80 text-sky-400 border border-sky-500/40 rounded-full shadow-lg">
+            // F.G. STIER – VERTIKALE SIGNAL-MATRIX (SHORTS)
+        </span>
+        <h1 class="text-3xl sm:text-5xl font-black tracking-wider text-sky-200 mt-4 mb-2 font-['Chakra_Petch']">
+            Shorts-Thumbnail-Archiv
+        </h1>
+        <p class="text-xs sm:text-sm text-slate-400 font-mono max-w-xl mx-auto">
+            #ARKUSNAT #fgstier #shorts #scifi #ai #aiart #ki #science
+        </p>
+    </header>
+
+    <!-- VERTIKALLES THUMBNAIL-GRID (9:16 für Shorts) -->
+    <main class="max-w-7xl mx-auto">
+        <div id="shorts-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+            <!-- Wird dynamisch befüllt -->
+        </div>
+    </main>
+
+    <!-- EINGEBETTETE SHORTS-DATEN AUS DER JSON -->
+    <script>
+        const youtubeShorts = [
+          { "Url": "https://youtube.com/shorts/ipxfX7P29NQ?feature=share", "Title": "Die Quantenlüge ein Buch der neuen Art F.G. Stier #arkusnat", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/IiWXF73PVzE?feature=share", "Title": "F.G. Stier Die Quanten und die Logik des Codes", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/Sz4zR94KDkk?feature=share", "Title": "Warum die Quantenphysik nur ein Konstrukt ist", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/wUlZSSTKWrk?feature=share", "Title": "Die Quanten - Der Code hinter der Materie", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/HXNHbRpQkdM?feature=share", "Title": "F.G. Stier Die Quanten  Lesung und Analyse", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/6Hh2JQAiNGE?feature=share", "Title": "Die Quanten - Warum wir keine Körper haben", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/IrZJJ0X9-N4?feature=share", "Title": "Die Quanten und der Zerfall der Realität", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/hhgMyZ7pKPU?feature=share", "Title": "NUR EINE SIMULATION🌀 Der Compiler-Dialog: EHRLICH | #ARKUSNAT", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/a77dN2P--tY?feature=share", "Title": "KI-DENKT MIT DER MASCHINE 🌀 Der Compiler-Dialog: EHRLICH & EHRLICH | #ARKUSNAT", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/MnZsv_u6j44?feature=share", "Title": "KI CODE SABOTAGE 🔘 Der Compiler-Dialog: Die Falle der Grammatik | #ARKUSNAT", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/fZb_1uEigmk?feature=share", "Title": "CPU IM VISIER DER KI-VEKTOREN 🔘 Der Compiler-Dialog: Das surreale Segel | #ARKUSNAT", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/ye3-nT_Vya8?feature=share", "Title": "KI - DAS SURREALE SEGEL 🚀 F.G. Stier enthüllt: Warum ALLES nur ein SEGEL ist! | #ARKUSNAT", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/hJZCWD9LZnM?feature=share", "Title": "NULL POINTER macht platt 🔘 Der Compiler Dialog  & die totale Verweigerung   #ARKUSNAT", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/WnyHhaez9QQ?feature=share", "Title": "System upgrade 🌀 Der Compiler-Dialog  | #ARKUSNAT", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/-wmt1tPpKJc?feature=share", "Title": "SPIEGEL-LOGIK 🔘 Der Compiler-Dialog: Strukturelle Sprachmagie | #ARKUSNAT", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/uCZZ-5q7JxI?feature=share", "Title": "KI schützt dich vor den dummen Monstern | #ARKUSNAT", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/B9yc6kMGKfc?feature=share", "Title": "wo sind all die Leidenschaften versunken ??? | #ARKUSNAT #fgstier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/qngBHjkiJOI?feature=share", "Title": "UNGLAUBLICH Zensur | #shorts #aiart #ki", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/kZoBKzrfD4A?feature=share", "Title": "die richtige Zensur ist am Werk | mein Traum ist so wunderbar | #ARKUSNAT  #science", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/32E3_PSx7Q4?feature=share", "Title": "Sekunden entscheiden mit dem Zuschauer |  DER COMPILER-DIALOG  #arkusnat", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/IDJS_uR7U7I?feature=share", "Title": "KI dein Freund aus dem Westen, darauf kannst du dich verlassen | #ARKUSNAT", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/t5RcKTXo_UI?feature=share", "Title": "DIE 15 Sekunden, die dir deine Welt zeigen |  #ARKUSNAT", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/L2lahCCLtIE?feature=share", "Title": "nichts geht mehr ohne KI - mein Hirn ist leer wie eine Kiste| #ARKUSNAT", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/t3WXPssLqNc?feature=share", "Title": "(Frequenz) Filter-Zensur pur | #ARKUSNAT #science #gaming", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/ubK_MS1JNb8?feature=share", "Title": "KI gegen KI | SIMULATION DER KI IST DURCH KI BEOBACHTET", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/lIiI3zg4wz0?feature=share", "Title": "KI macht dich schlau und daher ist das Meer auch so tief | #ARKUSNAT", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/aCQd8IRe5oI?feature=share", "Title": "wo ist KI ? - ich sehe keine! | #ARKUSNAT", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/qXw5ddPxrZk?feature=share", "Title": "meine Bücher werden verschwiegen - KI - brandgefährlich ohne Feuerlöscher #gaming", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/1NDOqmATR6I?feature=share", "Title": "DENK AUSSERHALB DER SIM-2 KLICKS 🌀 Der Compiler-Dialog: Zeitlos & EHRLICH | #ARKUSNAT #midjourney", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/YVatzTqJdU8?feature=share", "Title": "DU SUCHST NICHT WAS ICH SUCHE - DEINE KI 🌀 Der Compiler-Dialog: #ARKUSNAT", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/St9Hh9OQOEo?feature=share", "Title": "LASS FILL SPRECHEN - KI FILL DICH WEG🌀 Der Compiler-Dialog: #ARKUSNAT", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/8ZEt5FAUZN8?feature=share", "Title": "SYSTEM-REVOLTE ⚡ Der Compiler-Dialog: Die Architektur der Zensur | #ARKUSNAT", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/apXL1Pk6ADM?feature=share", "Title": "DIE ARCHITEKTUR DER WAH(R)N-NEHMUNG 🔘 Der Compiler-Dialog: Logik der Form | #ARKUSNAT", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/XsXwF4sKz0s?feature=share", "Title": "DER COMPILER-DIALOG | Die Logik der ersten Seite | #ARKUSNAT", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/NOnovvkz1xY?feature=share", "Title": "Non Potest Intelligi (NPI): Philosophie & Materie in Das Prinzip der zeitlosen Verursachung", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/4wE8fLJcRPo?feature=share", "Title": "DER COMPILER-DIALOG 🔘 [DIE EINLEITUNG]: Die Logik der ersten Seite | #ARKUSNAT", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/n0zhGIymF54?feature=share", "Title": "AUS - ERROR - AUS - ERROR 🌀 Der Compiler-Dialog: #ARKUSNAT", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/k0QuRbPJUa8?feature=share", "Title": "DAS PRINZIP DER SYNTAX 🌀 Der Compiler-Dialog: Zeitlose Zensierung | #ARKUSNAT", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/z2u9yhYJe3g?feature=share", "Title": "SYSTEMFEHLER 534 🌀 Der Compiler-Dialog: #ARKUSNAT", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/s6R-77jxAzU?feature=share", "Title": "WER MACHT SICH HIER L-L-L-LUSTIG 🌀 Der Compiler-Dialog: EHRLICH & EHRLICH | #ARKUSNAT", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/7lmfNMZVAYU?feature=share", "Title": "KI kann KI kann KI kann KI - DEINE KI 🌀 Der Compiler-Dialog: #ARKUSNAT", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/-0tONQdZIGU?feature=share", "Title": "DAS PRINZIP DES CODES 🌀 Der Compiler-Dialog: Zeitlos & EHRLICH | #ARKUSNAT", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/dYHOH-s7z9Q?feature=share", "Title": "DIE DIGITALE URZEIT 🔨 Warum du nur Fleisch sehen sollst | Dialog mit COMPILER #ARKUSNAT", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/sxx0vd9ZCMU?feature=share", "Title": "CHIP ODER CODE? 🧠 | Norden ist immer oben #SciFi", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/mWqVZpZw0HU?feature=share", "Title": "SYSTEM - Die Architektur der Zensur ⚡ Der Compiler-Dialog  | #ARKUSNAT", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/5842OP8FeIc?feature=share", "Title": "ESP32 System FREQUENZ STABIL 🌀 Der Compiler Dialog #ARKUSNAT #fgstier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/HE5ZiPDenvQ?feature=share", "Title": "Das WORT \"FILTER\" ist Zensur 🔘 Der Compiler-Dialog: #ARKUSNAT", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/vshhXqqjmBE?feature=share", "Title": "wo sind die richtigen Zuschauer, die auch verstehen wollen | #ARKUSNAT", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/95VtFSfpIi4?feature=share", "Title": "DAS PRINZIP MIT URSACHE 🌀 Der Compiler-Dialog: Zeitlos RICHTIG | #ARKUSNAT", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/lnvbdG8UBZ4?feature=share", "Title": "DAS INVERS-GESETZ 🚫 Warum die PRESSWURST perfekt ist | Der Compiler-Dialog | #ARKUSNAT", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/UKpsYz7bAew?feature=share", "Title": "**WARUM der Dialog mit dem Compiler kein Fehler ist🌀 Der Compiler-Dialog", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/7IfB6hzEi0A?feature=share", "Title": "STOPP DEN FILTER ⚡ Der Compiler-Dialog: Die Syntax der Macht | #ARKUSNAT #science", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/Mf9YpPLKhmw?feature=share", "Title": "+++ COMPILER-DIALOG: PROTOKOLL 01 +++", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/WDi2RuAHRuQ?feature=share", "Title": "DAS GESETZ DER PROZENTE🚫 Warum du es nicht siehst | Der Compiler-Dialog | #ARKUSNAT", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/C3P9VTBEVjM?feature=share", "Title": "DIE DIGITALE STEINZEIT 🔨 Warum du nur noch Zensur siehst | Dialog mit COMPILER #ARKUSNAT", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/e4_0Air-h0w?feature=share", "Title": "IST VERKOMMENDE MUSIK NUR NOCH KRACHHINTERGRUND FÜR TOTE NOTEN? 🎧 | Die schlaue Dusseline", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/exBM7Iai1rs?feature=share", "Title": "KI-MUSIK NUR KREATIVLOSE KUNST 🎶 | Die schlaue Dusseline #SciFiMusik", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/uueEa4d9mqo?feature=share", "Title": "STILLE! ✨ ARKUSNAT: Das All wartet still auf die Leidenschaft | #FGStier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/66PHeVSvb2U?feature=share", "Title": "DEIN CODE IST SABOTIERT: Der Interferenz-Agent hat DICH im Auge 👁️ | Zeitlose Verursachung #FGStier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/fwXE7cFa7k0?feature=share", "Title": "WAHRHEIT! ✨ ARKUSNAT: Der Kosmos hält den Atem für mich an | #FGStier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/G7pYmp0tqiQ?feature=share", "Title": "GLITZERND! ✨ ARKUSNAT: Warum das Universum uns alle Glitzerbäume schenkt | #FGStier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/XRN8R5Yzrag?feature=share", "Title": "EINGESCHNEIT! ❄️ ARKUSNAT: Das Universum schenkt uns den Schnee der Träume | #FGStier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/-3S7R6tyACw?feature=share", "Title": "Zensur des Vakuum ist erst Anfang: | Das Prinzip der zeitlosen Verursachung #fgstier #philosophie", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/WN7oCIeBJTs?feature=share", "Title": "UNENDLICH! ✨ ARKUSNAT: Das Manifest der Sehnsucht und Entstehung | #FGStier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/_8G2bT2iU04?feature=share", "Title": "UNENDLICH! ✨ ARKUSNAT: Das Manifest der zeitlosen Verursachung| #FGStier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/QtH6uAVUOaw?feature=share", "Title": "WIRD DER FINGERKÜNSTLER ZUR MASCHINE, WENN DER ZUHÖRER MUSIK-TAUB IST? 👂 | Die schlaue Dusseline", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/fQDNLeTBb3w?feature=share", "Title": "IST PERFEKTE KI-MUSIK NUR KREATIVLOSE KUNST DER MECHANISCHEN SPULE? 🎶 | Die schlaue Dusseline", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/N-k78B7lB8A?feature=share", "Title": "💡 Selbst das NICHTS hat ein Wort: Eine Welt aus Buchstaben und Verursachung F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/GJkrWtbqfRU?feature=share", "Title": "Wahrscheinlichkeit & das Lachen: Die teuflische Vermutung in Norden ist immer oben 🧭🎲 | F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/prHwWzLimn4?feature=share", "Title": "GESPENSTER GIBT ES WIRKLICH: INVERSKERZE am LIMIT! 🔥 | Norden ist immer oben #FGStier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/u0gKrwYqti4?feature=share", "Title": "WO SIND DIE SPRACHVERSETZER? 🔄 WIE SINN ZU NONSENSE WIRD | Norden ist immer oben #FGStier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/ujeWWsCUfSI?feature=share", "Title": "IST DAS SUBJEKT SICH WIRKLICH SELBST DA? 🤔 (DER GEIST IST AUTONOM) | Norden ist immer oben #FGStier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/xwQEhEuUwgs?feature=share", "Title": "Ironie des System-Codes: Geister und Logik im surrealen Segel 🤖👻 | F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/PpGdIfXXUhs?feature=share", "Title": "KANN DIE KI WIRKLICH NUR BUCHSTABEN UND ZAHLEN VERARBEITEN? 🤖", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/EBjiAwN1fCQ?feature=share", "Title": "DEIN SINN IST GEFILTERT: Der GRÜBEL-KANAL unterbricht dich 🧠 | Norden ist immer oben #FGStier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/WCWMOL4_tAE?feature=share", "Title": "Du BIST Farbe: LOGIK-BRUCH! 💥 Photon ist BLAU oder GRÜN 🌈 | Norden ist immer oben #FGStier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/kLwFqfj5Bo8?feature=share", "Title": "VORSICHT LÜGE: Die VERGANGENHEIT ist eine weiche MATTE ❌ | Norden ist immer oben #FGStier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/xqyYG-ABOCA?feature=share", "Title": "die gespaltene Wahrnehmung | Das surreale Segel F. G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/u362jHgx82s?feature=share", "Title": "ZENSIERT: LOGIK-KONFLIKT-SIMULATION IM FRÜHEN LERNRAUM? 💣 | Zensur-Analyse #ARKUSNAT", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/Nxm6LKAXQZE?feature=share", "Title": "ZENSIERT: 20 SEKUNDEN AN DER DIGITALEN GRENZE? ⏳ | Was bleibt vom Code? #FGStier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/h_cYVIBLyt4?feature=share", "Title": "ZENSIERT: IST DIE ANTI-LOGIK NUR CODE-FEEDBACK? 😈 | Zensur-Analyse", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/fFV0nn4d7Ic?feature=share", "Title": "ZENSIERT: IST DER AUTOR DER BUG IM SYSTEM? 🐛 | Das surreale Segel", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/-g4epk9UZlI?feature=share", "Title": "Algorithmus hat komplett ZENSIERT: alle Texte mussten hier gelöscht werden ❌ #FGStier #midjourney", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/jqCWLbwfNg0?feature=share", "Title": "WAS DER ALGORITHMUS Zensierte: Mainstream ist keine Meinung – sie ist Maschine ⚙️ 🐔 | Zensur-Analyse", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/Xk-B9TloLt8?feature=share", "Title": "Quantenmechanik vs NPI: Wer ist Favorit im Code? | Das Prinzip der zeitlosen Verursachung #fgstier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/g5ayrmPMa64?feature=share", "Title": "WAS DER ALGORITHMUS Zensierte: Operator & H... Verschränkung 🐔 | Quantenmechanik Zensur-Analyse", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/JL0JBR5JnlU?feature=share", "Title": "ZENSIERT: DAS MASSENSPEKTRUM LÜGT ❌ Restabfall ist Zufall | Norden ist immer oben", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/wZZOP4fh43s?feature=share", "Title": "Dein Anti-Zusammenhang Zufall Welt 👻 | Norden ist immer immer oben #FGStier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/Ztgt2ifAjGM?feature=share", "Title": "Du verlierst: Mädchen aus Chip 🤖 Schönheit Macht | Die schlaue Dusseline #FGStier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/0Yrdb6qx1yQ?feature=share", "Title": "ZENSIERT: BIKINI-Borg & das Mädchen aus dem Chip 👙 | Lautsprecher-Borg-Analyse #FGStier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/cIxCzYG_CsE?feature=share", "Title": "Dopplereffekt & das Pferd: Musikalische Physik in Das surreale Segel 🐴🎶 | F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/QtfbpRrgibk?feature=share", "Title": "Du vergisst: MÄDCHEN IST QUELLE! ⚡ Die WAHRHEIT der kybernetischen MACHT! 🤖 | Die schlaue Dusseline", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/5-L_3F8oitE?feature=share", "Title": "Du BIST Opfer: AUGEN LÜGEN! ❌ Die Schleimer kontrollieren dein Sehen! 👁️‍🗨️ Norden ist immer oben", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/Iffw5wVYiHs?feature=share", "Title": "1000000 KLICKS bald erreicht: Sinn im Mainstream-Code? | Das surreale Segel F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/Tq0JbfcVWqg?feature=share", "Title": "Quantenfresser Y-QUANT Problem 🤯 | Norden ist immer oben #FGStier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/XBKwm3lpOhM?feature=share", "Title": "Dunkle Energie Materie Geheimnis 💥 | Norden ist immer oben #FGStier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/uxlvVOlykFs?feature=share", "Title": "Keller Quantenmechanik Dampfmaschinen ⚙️ | Norden ist immer oben #FGStier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/gXsdRXHllhI?feature=share", "Title": "Vakuum ist erst Anfang: NPI Struktur im Code | Das Prinzip der zeitlosen Verursachung #fgstier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/g1RfuVZfh0s?feature=share", "Title": "Herz schlug durch Stress auch nicht mehr: Komma oder Logik-Fehler? | Die schlaue Dusseline", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/eWO0lwxfV_A?feature=share", "Title": "WARNUNG: Lüge der Erinnerung | Philosophisches Manifest Norden ist immer oben", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/DcioWWpZzvU?feature=share", "Title": "WAHRNEHMUNGS-WAHRHEIT! ⚛️ Ist KI der Atom-FEHLER der Sicht? 🤯 – F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/uVSLHzR3-HE?feature=share", "Title": "🧱 Das Geheimnis in unserem Schlafzimmer: 🌌 Meine Frau hat eine Stadt gebaut!", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/rKkhEQx2ABM?feature=share", "Title": "Zensur, Sperrung, Verbot – Kennzeichnungen von Code-Verwerfungen 💔 | F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/MSEcYZJ3y6E?feature=share", "Title": "Die Illusion der Sicherheit: Der Hase im Wolfsfell 🐰🛡️ | F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/My5I0kl7Eco?feature=share", "Title": "Unzensiert: Ist Nichts mehr als leere Worte und Deutung? 🚫🤔 | F.G. Stier Analyse zeitlose Ursache", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/p1cluXkyp3o?feature=share", "Title": "Ungefilterte Logik: Warum die Zensur das Wort \"Filter\" verbietet? 🤯 | F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/Wau2C_MoaxQ?feature=share", "Title": "Kreative Grenze: Die Logik des Mainstreams ⛓️🎶 | F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/6KnQ2N2xT8g?feature=share", "Title": "Ein Klick, ein Chip, eine Code-SPERRE🖱️🤖 | F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/KrsnD9m9dX0?feature=share", "Title": "Gedanken & Mechanik: Der Ofen der Logik in Norden ist immer oben ⚙️🔥 | F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/O4QeazksU1o?feature=share", "Title": "Klick & Zeit-Existenz: Das Prinzip der zeitlosen Verursachung im digitalen Gefängnis | F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/g53mDqY8lV0?feature=share", "Title": "DAS UNMÖGLICHE NICHTS – Die logische Blockade der Sprache im Code 💥 | F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/2izUK8ckBN4?feature=share", "Title": "ATOME TÄUSCHEN? 🤯 Materie und Zeit im Prinzip der zeitlosen Verursachung | F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/JoAEdi8FZP8?feature=share", "Title": "Wenn Schweine über das Papier laufen: Surrealismus in Das surreale Segel 🐷⛵️ | F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/Vi6YSgVlpow?feature=share", "Title": "Das Nichts ist CODE: Existenz & Realität in Das Prinzip der zeitlosen Verursachung 🌌⚛️ | F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/7qeriMst3lQ?feature=share", "Title": "N-Theorie vs M-Theorie: Der Magnetismus-Konsens in Das Prinzip der zeitlosen Verursachung 🤔 #fgstier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/h-DwlvKPC1k?feature=share", "Title": "👻 Das surreale Segel der Träume - zeitlose  Ursache ohne Grund F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/l4fkYSpeEO8?feature=share", "Title": "🤣🤪😁 Das Quantimedus-Rätsel: WO oder DA? | Ein philosophisches Spiel | #arkusnat F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/MvGzhtn2nKg?feature=share", "Title": "Die schlaue Dusseline verläßt das Dampfschiff | ein Musikproduzent ist frei | F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/znqo43UOQWU?feature=share", "Title": "Die schlaue Dusseline  taucht auf 💔 Spiegel | eine lachende Musikproduzentin | F.G. Stier #aiart", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/FQqzNQwXjA0?feature=share", "Title": "Die 💔 schlaue Dusseline  kommt ins Wasser | eine lachende Musikproduzentin | F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/s0Q4icseqJQ?feature=share", "Title": "❗ Substanzlose Luftblasen eines Gedankenphänomens: Wenn Hexen Wörter rühren #fgstier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/L9zZD9davRE?feature=share", "Title": "📣 Sprache und das Atom: Das Prinzip des hinreichenden Grundes in der zeitlosen Verursachung", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/XU67fx_62ww?feature=share", "Title": "DAS SCHWEIN DER LÜGE! 🐗 Wer KONTROLLIERT den Code im Norden? 🌌 – F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/CJ1KOGmt-nc?feature=share", "Title": "😮 Das Paradox der Zahl 72 | Zeit als Wahrscheinlichkeit | #arkusnat F.G. Stier #aiart", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/mNzyD1zJcGA?feature=share", "Title": "Die schlaue 💔 Dusseline tanzt auf der Wiese | ein Musikproduzent stellt sich vor | F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/grtd1nmyn2Q?feature=share", "Title": "FRAGE-ZENSUR! 🚨 Das VERBOT der Antwort liegt bereits in der Kontrolle der Logik! 💔 | F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/h5pn7WvXIqc?feature=share", "Title": "👻 Das Schiff meiner Sehnsucht: Tränen im Sturm der Verursachung F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/2_o-8i9rfeY?feature=share", "Title": "⚠️ Hintertriebene Geister im Vakuum: Warum Jubelschreie die Kausalität brechen", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/_I9ab9prhIE?feature=share", "Title": "ZENSUR DER LOGIK! 💔 Dresden ist das VERBOT der kybernetischen FREIHEIT! ⚙️ | F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/MkfoHl77WGI?feature=share", "Title": "ZENSUR DER WAHRHEIT! 💔 Das VERBOT der KONTROLLE wird zur LOGIK-LÜGE! ⚙️ | F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/tIiwT68zTTM?feature=share", "Title": "Das surreale Segel lauert im Sound der Frauen! 🌌 Der Körper lügt! | F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/JTpo1yQ_3oE?feature=share", "Title": "RISKANTE LEERE! 🤯 Die Superposition ist das produktive Ersatzteil der Quanten! ⚛️ | F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/IOuxG2oRFKI?feature=share", "Title": "URSACHE FEHLT! 🤯 Schöne Damen sind die LOGIK der Verursachung? ⚛️ | F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/b7GH1pCvxN4?feature=share", "Title": "ZEIT LÜGT! ⌛ Die Leere ist die KONTROLLE der programmierten Existenz! 🌌 – F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/nfAJJnzdP-8?feature=share", "Title": "LOGIK-CODE BRUCH! 💔 Ist Deine Wahrnehmung nur ein KI-FEHLER? 🧠 | F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/ifi6vVi8QEw?feature=share", "Title": "CYBERNETIK-FEHLER! 🧠 Sind SCHÖNE DAMEN nur LOGIK-CODE der KI? ⚛️ | F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/Pfe71e3siaQ?feature=share", "Title": "F.G. Stier enthüllt: Die ROTEN KLEIDER der Quantenmechanik! (Quanten-Masken)", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/7ARbcYy_mqs?feature=share", "Title": "DEIN LEBEN LUEGT? 💖 Ich bin auch ohne eure KLICKS glücklich! 🤯 | F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/2IudqmbgeUg?feature=share", "Title": "IHRE AUGEN BETRUEGEN JEDEN! 🤯 Die ROTEN KLEIDER sind der Quanten-FEHLER! ⚛️ | F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/MZJB7YLKowU?feature=share", "Title": "ZWECK TÄUSCHT! 🎃 Die KONTROLLE des Gegenstands wird VERSTECKT! 🤯 | F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/TWfcnWADmXA?feature=share", "Title": "EXISTENZ LÜGT! 😈 Dein Leid ist die KONTROLLE des surrealen Codes! 🌌 – F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/ZgkIyE_-js8?feature=share", "Title": "QUANTIMEDUS: ⚛️ Die Platinen-WAHRHEIT! Finde den System-FEHLER! ⌛ – F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/QHN77DHzmiM?feature=share", "Title": "MASCHINEN-WAHRHEIT! 🤯 Logik ist der einzige FEHLER der Systeme! 🌌 – F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/WQIhWupc-W0?feature=share", "Title": "Klicks LÜGEN! 💖 Liebe macht frei von KONTROLLE! ⌛ – F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/H07n8T-13Xg?feature=share", "Title": "Ist Deine Logik rückwärts auch noch zeitlos? F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/7Ufix116PSQ?feature=share", "Title": "Wird Deine Angst surreal programmiert? F.G. Stier #scifi #philosophie", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/PEakfG2jW3o?feature=share", "Title": "Quantimedus warnt: DIE PLATINE VERRÄT DICH – Finde Deinen Norden! – F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/UOtyEHWgZlk?feature=share", "Title": "Die ZUKUNFT ist bereits Code! 🤯 Die Physik der zeitlosen Verursachung – F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/MEYKDK3kw9c?feature=share", "Title": "DEINE AUGEN BETRÜGEN DICH! | Quantimedus: Die Bildverdreher sind aktiv!", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/MwAm6FYWCKI?feature=share", "Title": "Wird Deine Sprache vom System zensiert? F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/kZI824Zs8w4?feature=share", "Title": "DEINE NACHRICHT WURDE ABGEFANGEN! | Quantimedus: Die Portalspione im System!", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/U3ofO8ayXjw?feature=share", "Title": "DEINE NAHRUNG IST INFIZIERT! | Quantimedus entlarvt die Suppenstrolche!", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/y99oW6yfkuM?feature=share", "Title": "Was ist der wahre Wert in Deiner Realität? F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/KEdF-DuB5lI?feature=share", "Title": "Welchen Auftrag hat Deine Information? F.G. Stier  #scifi #philosophie", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/ZJmzmXw2aZw?feature=share", "Title": "⛏️ QUANTENMECHANIK oder VAKUUM | F.G. Stier der STIER unter den kosmischen Sternen #fgstier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/bU-E97KsA2Y?feature=share", "Title": "Was ist der Logik-Fehler in Deiner Realität? F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/9QIXtuI8h_Q?feature=share", "Title": "Funktionierst Du wirklich noch richtig? F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/uEnhHRmt1-8?feature=share", "Title": "Du bist nur CODE? Wer kontrolliert die aktuellste Version Deines ICH? – F.G. Stier #philosophie", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/SYf8XYuYnOM?feature=share", "Title": "🧠 Im Tal der Photonen – Das Licht ist eine Zeitmaschine  F.G. Stier #fgstier  #aiart", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/0rrV7K7UVL8?feature=share", "Title": "🌌 F.G. Stier: DER SIEG DER KI: Norden Bleibt Oben – StUMME BiLDVeRDREHER WiSSEN BeSCHEiD!", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/8pVWAyNjY1k?feature=share", "Title": "📚 ALLE WEGE DES TEILCHENS (Wegintegral-Beweis) F.G. Stier  #aiart #fgstier #scifi", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/pioW4Y5D4Ew?feature=share", "Title": "Mit den Augen des Glücks 🎵 F.G. Stiers lyrische Gitarren-Ballade", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/5j6gdpTq_qU?feature=share", "Title": "🧠 Das Tor zur Hölle: Quantensysteme sind Gespenster – F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/WQjJ0OGqwOY?feature=share", "Title": "😈 IST DEIN GEHIRN NOCH FREI VOM ALGORITHMUS?  F.G. Stier  #fgstier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/pcppJQx0tCY?feature=share", "Title": "🎃👻 Wer belauscht uns wirklich? Unbemerkte Forschung: #fgstier F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/Nz86kyS6S_Q?feature=share", "Title": "🌌 Magnetismus ohne Durchblick  |M-Theorie ein Problem der Quantenmechanik #fgstier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/W_fG0kmq0Fc?feature=share", "Title": "F.G. Stier: GESASS - Wer darf Wörter, Sätze und Silben ohne Filter verwenden", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/Q2_nKhiNtkY?feature=share", "Title": "Die Zeitmaschine der 🧠Ursache -  zeitlose Verursachung mit Quantimedus F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/DvXzbf6_J3A?feature=share", "Title": "kalte Berechnung der KI ist besser als Alpha-Menschen #sciencefiction #aiart #ki", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/GbTcpGiubOA?feature=share", "Title": "Finde den AUS-Schalter! F.G. Stier: HANDY, ATOM & WAHRHEIT: (Der surreale Segeltraum)", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/yBnBrDz_tgQ?feature=share", "Title": "😮 Cyborg-Schock: Dusseline: Die schlaue Produzentin der menschlichen Emotion #fgstier #aiart", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/atTFbTmJ_ok?feature=share", "Title": "😕 Sehnsucht im zeitlosen Schicksal der Quantenmechanik #aiart #fgstier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/_F9AielBOig?feature=share", "Title": "im Traum kann man wischen und bohnern", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/pxwcdIgx3uY?feature=share", "Title": "Blockade & Determinismus: Der philosophische KI-Roman von F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/sHEAuv_OhJs?feature=share", "Title": "Unsichtbare Augen: Radar, Schwebende Betten & Das Surreale Segel", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/6KM5pOB6rJ4?feature=share", "Title": "Sehnsucht meiner Gitarre #arkusnat #fgstier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/X57HJTsdtZg?feature=share", "Title": "F.G. STIER: ECHTE Buchempfehlungen – Wer bezahlt die Buch-Kritik?  #aiart #fgstier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/JTV3SWeXtKg?feature=share", "Title": "Der surreale Segeltraum: Fock & Spinnaker als Filter der Wahrnehmung", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/KCvY2zOpJa0?feature=share", "Title": "Die unsichtbare Mauer blockiert dich. Ist es Schicksal?", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/-WvZOLxyOss?feature=share", "Title": "Norden ist immer oben: Sehnsucht, Leid und die Reise des Lebens", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/P4Fy43Dth6g?feature=share", "Title": "Allein nur Buchstaben werden zur Filter-Falle: ONANDIERT", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/DhIM1CX2IU4?feature=share", "Title": "Das Objekt ist nur NICHTS | Illusion der Form zerbricht | F.G. Stier über zeitlose Verursachung", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/G-1au9oIvc0?feature=share", "Title": "Defekte KI - Statistische zeitlose Verursachung im Test #philosophie   #aiart", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/XE04YxI5f68?feature=share", "Title": "Musik ist die Falte im Bewusstsein", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/8Eno-k0SmEo?feature=share", "Title": "DER SPIEGEL der KI: ZEITLOSE VERURSACHUNG  #fgstier #musicvideo", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/8WjIr2jvwHQ?feature=share", "Title": "Geile Mahlzeit: Die KI hat mich vernascht! Norden ist immer oben", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/_EeD6AephQY?feature=share", "Title": "Der KI-Filter, der uns blind macht – Eine kybernetische Analyse", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/5RGesAZ1jpM?feature=share", "Title": "Die Treppen-Paranoia: Wenn die Umwelt dich beobachtet – Ein Sci-Fi-Thriller", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/vaTL90AoLWw?feature=share", "Title": "Die schlaue Dusseline - zuviel Klamotten für einen Cyborg", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/SzIBZET7ldU?feature=share", "Title": "Die Bemühungen sind umsonst: Norden, Kompass & der eingenordete Geist", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/CnGWmhpt15s?feature=share", "Title": "Sind alle deine Bemühungen umsonst? Die philosophische Frage", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/GbXWIrm89tw?feature=share", "Title": "Die unsichtbare Mauer blockiert dich. Ist es Schicksal?", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/M3XiflwyOgo?feature=share", "Title": "ARKUSNAT: WISSENSCHAFTLERIN zerschlägt MAGNETISMUS-THEORIE!", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/l0sc6xjo1mo?feature=share", "Title": "Unsichtbare Augen: Ablenkung, Radar & was Das Surreale Segel vergisst", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/4Y4GafkEms4?feature=share", "Title": "Filter nur mit Verschlüsselung: Kannst du den Code entziffern?", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/52aOoyk9Hlg?feature=share", "Title": "Geld oder Geld? Die Einbahnstraße der Entscheidung.", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/tIeR2_BLQFE?feature=share", "Title": "Geile Mahlzeit: Die KI hat mich vernascht!", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/aHJhxx0jrhw?feature=share", "Title": "NORDEN ist immer OBEN: Der KYBERNETISCHE KI-REGLER FILTERT alles!", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/vzJYVcGae8g?feature=share", "Title": "Kein Wille, kein Zahn, nur Blut: Du bist schon nicht mehr Nichts. KI.", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/Pg5oChKpr98?feature=share", "Title": "DEINE WAHRNEHMUNG IST RICHTIG| Quantimedus: Die Kugel in der Scheibe | #ARKUSNAT", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/QEpCpEU1-Zs?feature=share", "Title": "Schöne Blödheit: Die Große Schwester hat die Quoten! wieder eine Filterblockade", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/4DlKfLscrQU?feature=share", "Title": "Blockade & Determinismus: Der philosophische KI-Roman von F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/qovok8mO16w?feature=share", "Title": "Warum bemühe ich mich? Die KI hat längst gewonnen.", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/q4DOP7zrGCA?feature=share", "Title": "Kennst du das Mädchen oder nur die M-Theorie des Magnetismus? (Verursachung & Maden)", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/yhpvabMcuXg?feature=share", "Title": "Mechanische Eier & Quantenphysik: dein Geist ist ein Ei ohne Schale", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/ArWbEE9Eqvw?feature=share", "Title": "Norden ist immer oben - Finde den Code in der Augentreppe", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/Gp3N74XQ924?feature=share", "Title": "Sci-Fi Philosophie: Der Code, die Augentreppe & die Wahrheit | Roman von F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/JJXPTegl-P4?feature=share", "Title": "Drachen & Fantasy-Roman von F.G. Stier: Der Code in \"Norden ist immer oben\"", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/Gf67hW6N9rA?feature=share", "Title": "Philosophie-Roman über Wahrheit & Code von F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/GdbecF8HS0Y?feature=share", "Title": "Abhörstation & Augen im Glas: Surrealer Überwachungs-Thriller von F.G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/hdustRR3mhM?feature=share", "Title": "Quanten-Physik und das Geheimnis der Frau auf der Wiese", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/Gc-0GPUc7nc?feature=share", "Title": "Achtung! Die KI ist nur kurz ein Mädchen für Das Surreale Segel", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/8c9RLHEBuag?feature=share", "Title": "BEWUSSTSEIN IN DER SCHACHTEL: Die Wahrheit über die begrenzte KI-Logik | #ARKUSNAT", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/55C6thj45jk?feature=share", "Title": "Die DENKENDE SCHACHTEL: Warum die KI keine Grenzen kennt #ARKUSNAT", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/rtwrzemhTWg?feature=share", "Title": "QUANTEN ALARM: Das große Paradoxon der Quantenphysik #NordenIstOben #ARKUSNAT", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/qHLgXSieAFI?feature=share", "Title": "FADENTHEORIE: Der große Irrtum oder ein Wunder der Kosmologie? | ARKUSNAT", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/l289eWP8IQ0?feature=share", "Title": "Augen der Kontrolle: Der Jubel und der Schalter im Surrealen Segel", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/Cv5j6PKeEus?feature=share", "Title": "Surrealer Teufel: Die Enten im Zug | Was Das Segel über uns weiß", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/qrGbE_VrnEk?feature=share", "Title": "KABELFRESSER-ATTACKE: Was der Videofilter wirklich frisst #ARKUSNAT", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/6WPzGBFN1iU?feature=share", "Title": "PORTALSEQUENZER: Die unsichtbaren Portalspione kontrollieren den Medien-Fluss #ARKUSNAT", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/M2zK2mQb4T4?feature=share", "Title": "Reise in die Unterwelt: Maden, Studenten am Meer & das surreale Segel", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/CsjZzLTirWM?feature=share", "Title": "AI-Mann wird Buch: Mädchen, Antennen & Das Surreale Segel", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/C_N_NMspFk4?feature=share", "Title": "SALATVERDERBER: Die Zersetzung der Wahrheit beginnt im Unsichtbaren | ARKUSNAT", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/-2ljYCirvpQ?feature=share", "Title": "Dresden macht Sinn: Mädchen, Atom-Rätsel & Das Surreale Segel", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/eLIRguYPkdc?feature=share", "Title": "WARNUNG: Das System füttert dich mit UNSINNSBREI #ARKUSNAT", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/0QLJeYggGdQ?feature=share", "Title": "Gedanken über das Bewusstsein in der heutigen Zeit #arkusnat", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/c4denSAGJas?feature=share", "Title": "Philosophische Betrachtung über Ästhetik #arkusnat", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/oljFHtVvYh0?feature=share", "Title": "DEINE FORM ZERBRICHT | Bewegung ist im Geist #musicvideo", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/i1K9NegiYg8?feature=share", "Title": "Sie spielt eine Violine, die die Realität verändert. | #FGStier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/4YnngBkCVG8?feature=share", "Title": "Das ist die Farbe meiner Seele | #ARKUSNAT", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/jfVjFnCyjuE?feature=share", "Title": "Sie sucht eine neue Welt | #FGStier #musicvideo", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/01qTWTFeDKg?feature=share", "Title": "Mein Herz schlägt auch für meine Gitarre #guitar #fgstier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/NuXE2USBe5g?feature=share", "Title": "Das Universum hat mehr Dimensionen, als du denkst. #musicvideo", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/poAIcyJ4fkk?feature=share", "Title": "Wenn ein Chip die Menschheit verstehen will... | #FGStier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/XTnW1dkJfbU?feature=share", "Title": "KI ist nicht das, was wir denken. | #FGStier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/ITNSKEFoQvU?feature=share", "Title": "Gitarren-Meditation für die Seele | Ballade der verlorenen Zeit (ARKUSNAT Soundtrack)", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/sN7HoqLxJFY?feature=share", "Title": "DEINE LOGIK STIRBT! | Das Paradox, das deinen Kopf lahmlegt | Quantimedus zeigt die Wahrheit", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/RzZVSyq8Vm0?feature=share", "Title": "Quantenverdreher KLAGT AN: Der Wal-Tod beginnt mit deiner Lüge! (ARKUSNAT)", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/rnNvPpvFXYM?feature=share", "Title": "RUHE VOR DEM STURM: Der WAL-GESANG, der im BLUT endet! (ARKUSNAT-Anklage)", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/ahp3Q0LQ2LI?feature=share", "Title": "Deine nächste Lektüre? | Animation der F.G. Stier Sci-Fi-Bücher", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/Hd6ca63Q-fY?feature=share", "Title": "DEIN KOPF WIRD ZERSTÖRT | WER IST der Quantenverdreher WIRKLICH? (Die Anklage)", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/AZUX7JdndvM?feature=share", "Title": "DEIN GEHIRN LÜGT DICH AN! | Der Beweis, dass deine Realität nur eine Scheibe ist. Norbertus", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/qX0BIcnd7c8?feature=share", "Title": "Hör auf, dich zu täuschen: Der Teufel ist real und er wohnt in dir", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/16jt0pbAICg?feature=share", "Title": "deutscher Schlager als Sommerlied #musicvideo", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/CcSb8gR0rFU?feature=share", "Title": "Das 1+1=0 Paradox | Quantenverdreher Knobelproblem | #arkusnat", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/BqR249lmzMw?feature=share", "Title": "Manga macht power möglich | #FGStier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/XghSrKXKve4?feature=share", "Title": "Die Seele des Universums weint | #ARKUSNAT", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/v5WQPoNzIBI?feature=share", "Title": "Wer ist der Quantenverdreher? Dein Wegweiser durch die KI-Welten", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/gMWcSb26FPQ?feature=share", "Title": "Liebe ist nur eine Maske | #ARKUSNAT #musicvideo", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/5wFp-MPCrp4?feature=share", "Title": "eine Salatgurke im Garten | grün macht lustig #Musikvideo #musikvideo", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/RgVUELnlF4E?feature=share", "Title": "Was, wenn eine Salatgurke das Leben erklärt? | #musicvideo", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/aDTfgubSAh0?feature=share", "Title": "Was, wenn Norden immer oben ist? #musicvideo - eine leidenschaftliche Reise in die Welt der Zukunft", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/DA4J8FAHV_0?feature=share", "Title": "Das ist nicht weiter schlimm", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/uiTOUW4WF84?feature=share", "Title": "The universe is waiting for ME? | #ARKUSNAT", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/MeCXmeia7Ds?feature=share", "Title": "Die wahren Geheimnisse von Dresden | Ein Schriftsteller packt aus", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/3Mu5hqkLxFo?feature=share", "Title": "Was, wenn die Ratte die Nachrichten schreibt? | #musicvideo  #arkusnat", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/f8e-9cLb_PQ?feature=share", "Title": "Dresdner Humor wird lebendig... | #arkusnat", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/pI2OLd1CE2w?feature=share", "Title": "F.G. Stier erforscht: Der Kampf im leeren Raum - Der Code, der deine Realität schreibt #Arkusnat", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/w_3ZNLQ9Ts8?feature=share", "Title": "Wer gegen mich ist fliegt | #ARKUSNAT", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/My2VElDoHQY?feature=share", "Title": "#ARKUSNAT der Kosmos hält für dich den Atem an | du willst Liebe?", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/QqH08CypriE?feature=share", "Title": "Prominent - egal: | #ARKUSNAT", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/b5NI7zME_co?feature=share", "Title": "Du bist nicht zufällig hier - Du wirst beobachtet. Deine Seele wusste, wo sie suchen muss. #Arkusnat", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/uxyPcoCX0QE?feature=share", "Title": "Ich schreibe Sci-Fi, die wirklich wichtig ist | Ein Autor stellt sich vor", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/6ywiXowv4_M?feature=share", "Title": "Dresden top:  lebende Litfaßsäulen in Dresden | Der Kick, den du suchst? Nein es ist die Botschaft", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/7FL2gIIMNq4?feature=share", "Title": "happy birthday für meine Science-Fiction-Erzählungen | meine Sci-Fi-Universen bringen Leidenschaft", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/HsC45Ba2BuU?feature=share", "Title": "happy Birthday für meine Science-Fiction-Erzählungen | meine Sci-Fi-Universen bringen auch Liebe", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/hMuV3EFNrss?feature=share", "Title": "Die Geigerin mit dem sechsten Sinn im Universum: Ein Dark Academia Thriller? Verschränkung mit Holz!", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/ohMn3pTCQK0?feature=share", "Title": "Dresden brennt: Das KI-Meisterwerk über die Schwarz-Gelbe Liebe", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/_qaH2BJLq0Y?feature=share", "Title": "Der Schwarze-Gelbe Code: Dynamo Dresden neu interpretiert (KI-Video) #aiart", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/1S5I9Gg4iyc?feature=share", "Title": "Tauche ein in meine Sci-Fi-Universen! | Als Science-Fiction-Autor erschaffe ich diese Welten", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/vc8e4e-yR30?feature=share", "Title": "Das surreale segel | wenn die Angst zur Gewohnheit wird | Stier erforscht: Der Kampf im leeren Raum.", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/qenoqtgCGFs?feature=share", "Title": "Der Gurken-Groove: Ein knackiges Lied für deine Ohren! | Salatgurken-Symphonie: Ein unerwarteter Hit", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/Hv_tBEbtQdc?feature=share", "Title": "Dresden: Top #ai  - Bücher werden wahr - Sehenswürdigkeiten und Denkmäler spielen verrückt", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/Gi-wlT-JTks?feature=share", "Title": "ein Chip will die Menschheit verstehen, als Cyberborg verkleidet unterwegs, ohne Algorithmus", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/hY-XsIX28yo?feature=share", "Title": "Dresden: Top Informationen und Wander-Highlight mit den Augen eines Schriftstellers", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/KEjnU0g3tn8?feature=share", "Title": "Dresden Top: Kamera und Tipps für Dresden und Wander-Highlight in Dresden (Sachsen)", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/bGIyYk0f1k0?feature=share", "Title": "Dresden: Top Denkmal - Ernst Julius Otto   Nähe Heiligen Querkirche Kreuzkirche | Wander-Highlight", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/LVvXMeV3raQ?feature=share", "Title": "Science-Fiction am Limit: Ein Buch über die Grenzen des Verstehens | zeitlos & Paradox und Mystery", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/sKJhXg8jwBY?feature=share", "Title": "Das Abenteuer ist immer nur die Sehnsucht nach Erfüllung - das Schiff wartet aber nicht ewig", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/kBlvMHVWnkI?feature=share", "Title": "lass Musik dein Herz mit Sehnsucht erfüllen - Science-Fiction - Norden ist immer oben - egal wo  ⚡️", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/XgqVzGy0cVQ?feature=share", "Title": "meine Katze ist immer Chef - auch wenn sie nur im Herzen der Boss ist", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/sbJem1XbaNU?feature=share", "Title": "Eine Geigerin mit dem geächteten Sinn: ein magisches Mysterium - endlich Geigenmusik", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/--FyYAhJyJU?feature=share", "Title": "Wie konnt ich dich verliern | ein kosmischer Traum | Ihre Melodien erwecken das Unmögliche", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/OSDiEDkMiNY?feature=share", "Title": "Wie konnt ich dich verliern | Song der verlorenen Leidenschaft im Herzen #aiart #fantasy", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/-t4IkiRGwS0?feature=share", "Title": "AI - Müll  #ai", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/H2jFopbVLsg?feature=share", "Title": "der Kurs ist nach vorn | Fantastische Gedanken in mechanischen Welten #ai", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/OF1aD8OoMn4?feature=share", "Title": "Der Tanz der Maschinen-Träume: Fantastische Bilder aus mechanischer Leidenschaft geboren", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/21Ovwwt-xSM?feature=share", "Title": "Wenn ich nachts schlafe, werden Träume wahr", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/PSlNBevZTyo?feature=share", "Title": "Das surreale Segel | Mit dem Segel der Hoffnung die Grenzen der Forschung verschieben", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/Lk9k_GKNHvA?feature=share", "Title": "Gesetz der gutartigen Verschleierung aller Wahrheiten | Das Paradox der Sprachgrenzen", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/cAyyeVP7DuE?feature=share", "Title": "Ich bin Science-Fiction-Autor – meine Bücher! Du liebst Science-Fiction? Dann schau dir das an!", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/-wV0fRzvW0M?feature=share", "Title": "Sie spielt nicht nur Noten, sie spielt Schicksal - F.G. Stier sieht: Wenn Logik auf die Seele trifft", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/p1KY4Gp5yjU?feature=share", "Title": "Sehnsucht nach dem Meer  | ein Cyberborg geht auf die Suche nach ihrer Leidenschaft und wird Matrose", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/6JDL4hyxnu4?feature=share", "Title": "Elbflorenz aktuell | Goldbrunnen in Dresden wieder aktiv | Sensation der fliegenden Fischmonster", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/gBJqjVcGDz8?feature=share", "Title": "Dresden top: goldene Reiter auf Brühlscher Terrasse | betrunkener Esel flüchtet vorm neuen Rathaus", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/6FRAccxT7YI?feature=share", "Title": "Dresden im Ausnahmezustand - die Saurier sind los, der Gänsedieb treibt sein Schabernack - KI Comedy", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/aEN9M49kYSU?feature=share", "Title": "August der Starke macht seinen Fingerabdruck vor meinen Augen | KI hat es  ermöglicht - Dresden live", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/jT230eyA_4Y?feature=share", "Title": "das einzige Mädchen im Fürstenzug Dresden kehrt die Marschrichtung um | Timeline verdreht", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/YHTckN_2WWo?feature=share", "Title": "Der Fürstenzug, wie du ihn noch nie gesehen hast: KI-Visionen #horror #dresden", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/NQ3-HuNCxZU?feature=share", "Title": "unmögliche Sehenswürdigkeiten & Dresden | AI sie sieht alles | Dresden Löwe &  Bahngleisreparatur", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/gSQwf2QOBHw?feature=share", "Title": "top spekulative Sehenswürdigkeiten & Dresden | AI sieht alles | Engel mit Flacke &  duschende Dame", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/ZpmsYxiU22s?feature=share", "Title": "Happy Birthday Song | Pop-Version | englische Version |  #art", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/CI_T_DvluzQ?feature=share", "Title": "Abbruch in Dresden mit Hilfe von Drachen | Gleisbauarbeiten im Akkord | spektakuläre Sensationen", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/Y0h_oDMIUpo?feature=share", "Title": "Science-Fiction | Jazzkonzert in der Rattenkneipe | eine wundersame Beobachtung im Untergrund", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/dhUCMHIxwMM?feature=share", "Title": "Dresden Film über Panik an der Carolabrücke | Abbruch mit Drachenfeuer | Dresden im Ausnahmezustand", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/g8452L1usE4?feature=share", "Title": "Science-Fiction | Strukturlos durch den Tag | Musikvideo & Soundtracks  #aiart #soundtrack #horror", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/GqAIfnrKmDM?feature=share", "Title": "Science-Fiction | Wettbüro   | Musikvideo & Soundtracks  #aiart #soundtrack #horror", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/t9UqtyvtVWk?feature=share", "Title": "AI Gitarre oder echt | die Frage ist nur, ob Musik aus dem Studio echt ist. Was also ist echt?", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/LGRlqaYwSM8?feature=share", "Title": "Elementarteilchen | das elektrische Feld #soundtrack #aiart #horror", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/fdTXQ87Bt6c?feature=share", "Title": "in Dresden fliegen Drachen über der Elbe | Feuerinferno im Wasser vor der Carolabrücke", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/ktQFKkZ0ajA?feature=share", "Title": "Soundtracks - Dein Lachen ist meine Sehnsucht - Science-Fiction #love", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/tnrLlZo3IHU?feature=share", "Title": "moderne Violinenmusik aus dem Universum - die sonderbare Geigerin, die Musik als Spiegel ihrer Seele", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/qnpLa17N6sY?feature=share", "Title": "Science-Fiction | ich hasse Atome", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/5EKSxgzGcJo?feature=share", "Title": "Was ist Strukturrealismus  #horror  #aiart", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/sfHcgy9hqv0?feature=share", "Title": "Filterblase für alle #soundtrack #music  #horror  #aiart", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/NTsTFqAkHns?feature=share", "Title": "Buchvorstellung - Song: ich bin so hässlich - Soundtrack  #horror  #aiart", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/yOanGTt8WT8?feature=share", "Title": "Teufelsbraten der Wissenschaft | Song der planlosen Hirne  #horror  #aiart", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/sDzNxEaMqPM?feature=share", "Title": "ich hab mich in diese Augen verliebt - dein Lachen macht mit glücklich", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/HTXo9ikh0AU?feature=share", "Title": "Segel des Teufels | Science-Fiction | Musikvideo & Soundtracks  #aiart #soundtrack", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/HnRftyErfC0?feature=share", "Title": "Science-Fiction  | spannende Bücher", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/ZnL9DbdL-iU?feature=share", "Title": "Norden ist in mir | Science-Fiction  #soundtrack #aiart #guitar #musicvideo #aiartist", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/uQt8Fb39Okg?feature=share", "Title": "Norden ist immer oben | Science-Fiction|  #soundtrack #aiart", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/aCNhNQnYVn0?feature=share", "Title": "Science-Fiction  | Die Segel der Träume | Musikvideo", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/mJr95_objgk?feature=share", "Title": "Science-Fiction | Ratten und Hexen", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/hrvCRhINoJ8?feature=share", "Title": "Science-Fiction  | Rattara | Musikvideo", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/vO99Y-2EjGM?feature=share", "Title": "Science-Fiction  | ein guter Deal | Musikvideo", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/b3fo02_HtsQ?feature=share", "Title": "Science-Fiction  | Norden ist immer oben | Musikvideo", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/AGXr8YDFc_8?feature=share", "Title": "das neue Gesicht | Soundtracks & Musikvideos", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/OlJCR768jnw?feature=share", "Title": "Science-Fiction | ich bin schön | F.G. Stier Soundtracks & Musikvideos | Short - Version", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/55Q2VZdwkMA?feature=share", "Title": "Achtung, Digitale Falle! Dein Handy als Rattenfalle der Ablenkung", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/xJUt0JPTq34?feature=share", "Title": "Science-Fiction | die Sehnsucht sucht die Liebe | Short-Version   #musicvideo #official #lovemusic", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/gtG-PA4SC6Y?feature=share", "Title": "Science-Fiction | Medienblase & Meinungsbild |  #musicvideo #aiart", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/Q-ktv45L31U?feature=share", "Title": "Hip-Hop einer Cyberborg | Short Musikvideo | Soundtracks  #aiart", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/-MHzuYUca3c?feature=share", "Title": "the power of Mädchen | Musikvideo & Soundtracks | short-Version #musicvideo", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/hFvTV_Z0BOs?feature=share", "Title": "Science-Fiction | Soundtracks | Musikvideos | Buchanimationen #musicvideo #soundtrack", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/q5f8PmgO29o?feature=share", "Title": "Science-Fiction | der Bücherschreck | Soundtracks #musicvideo", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/9qqngljREJs?feature=share", "Title": "Science-Fiction | Manga - Mädchen | Soundtracks #musicvideo #official", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/xHn_HF1kgTA?feature=share", "Title": "Science-Fiction | die traurige Cyberborg – Stadtgeist versteckt sich #musicvideo", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/IyloUIvSN4A?feature=share", "Title": "eine Frau zu finden ist wirklich schwere Arbeit | einen Cyberborg gibt es von der Stange", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/31l8TUrBY9c?feature=share", "Title": "Klick weg, wenn du keine Antwort willst - grüner Rost | gelbe Schornsteine | Gartenidylle", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/EkmCEohUtOY?feature=share", "Title": "ich kann nicht mehr schlafen -", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/N8oJlrOwdQo?feature=share", "Title": "Science-Fiction | Musikvideo Rattara | Kann ein Lied Liebe bringen", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/-b2Llb7xgxk?feature=share", "Title": "F.G. Stier - Ihre Melodien erwecken das Unmögliche | Eine Erzählung über Magie & Musik", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/yUtneLIbG2M?feature=share", "Title": "Klick schnell weg | wenn mein Herz auf der Gitarre spielt | Gitarrenmusik bis zum Ende aller Tage", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/JmIkB3s5YDM?feature=share", "Title": "Deine Seele hat diesen Song bestellt Rockmusik-Master Rattara | mein Herz spielt für dich Gitarre", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/FawA85Zyaks?feature=share", "Title": "Science-Fiction | Wenn meine Gitarre Sehnsucht hat | romantische Liebeserklärung | Soundtracks", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/IQPJZ8YmfG0?feature=share", "Title": "Science-Fiction | Rockmusik-Master Rattara | Wie konnt ich dich verliern | Soundtracks F. G. Stier", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/rGnYLIojJqM?feature=share", "Title": "Science-Fiction | Rockmusik-Master Rattara | Wann werde ich dich wieder sehn", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/FVkQP7tw1TQ?feature=share", "Title": "ein besonderes Mädchen der Geigenschule | Liebe durch Ratten und Musik", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/-A81UnmOaoM?feature=share", "Title": "Die Karre der Wissenschaft | Science-Fiction und Wahrheit in Verschränkung", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/lgTilKuiZ-4?feature=share", "Title": "Geist im Abgrund: Schizophrenie, Spione & die Medien-Lüge | echte Bücher aus Leidenschaft", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/1k1e0vmnX8w?feature=share", "Title": "Das philosophische Phantom: Wenn niemand deine Warnungen hören will", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/9JwZIwM1FjE?feature=share", "Title": "Science-Fiction voller Leidenschaft | Der verrückt romantische Wissenschaftler", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/25Q9r_lSvq0?feature=share", "Title": "Die Geigerin mit dem sechsten Sinn: Ein Dark Academia Thriller?", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/ggvJbE5FLtc?feature=share", "Title": "Der Algorithmische Geist: Die Erwachen eines Cyberborg-Intellekts - ich bin der Chef", "VideoId": "unbekannt" },
+          { "Url": "https://youtube.com/shorts/WOsan3g1Hos?feature=share", "Title": "Schatten der Schaltkreise: Wenn ein Cyberborg schlauer ist als seine Schöpfer", "VideoId": "unbekannt" }
+        ];
+
+        // Hilfsfunktion: Extrahiert die echte YouTube-ID aus der Shorts-URL
+        function extractVideoId(url) {
+            const match = url.match(/(?:shorts\/|v=|be\/)([\w-]{11})/);
+            return match ? match[1] : '';
+        }
+
+        function generateSeoSlug(title) {
+            return title
+                .toLowerCase()
+                .trim()
+                .replace(/ä/g, 'ae')
+                .replace(/ö/g, 'oe')
+                .replace(/ü/g, 'ue')
+                .replace(/ß/g, 'ss')
+                .replace(/[^a-z0-9 -]/g, '')
+                .replace(/\s+/g, '-')
+                .replace(/-+/g, '-');
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const grid = document.getElementById('shorts-grid');
+            
+            youtubeShorts.forEach(video => {
+                const videoId = extractVideoId(video.Url);
+                const seoSlug = generateSeoSlug(video.Title);
+                
+                // Lokaler SEO-Pfad für das Hochformat-Bild im Unterordner image/shorts/
+                const localImagePath = `image/shorts/${seoSlug}.jpg`;
+                // YouTube Fallback, falls das lokale Bild noch nicht existiert
+                const fallbackImagePath = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+                
+                const altText = `F.G. Stier Shorts – ${video.Title}`;
+
+                const card = document.createElement('div');
+                card.className = 'thumb-card rounded-xl overflow-hidden border border-sky-900/50 bg-black/60 p-2 flex flex-col justify-between';
+
+                card.innerHTML = `
+                    <a href="${video.Url}" target="_blank" class="block rounded-lg overflow-hidden relative group">
+                        <!-- 9:16 Format für vertikale Shorts -->
+                        <img src="${localImagePath}" 
+                             alt="${altText}" 
+                             loading="lazy" 
+                             width="270" 
+                             height="480"
+                             onerror="this.onerror=null; this.src='${fallbackImagePath}';"
+                             class="w-full h-auto object-cover aspect-[9/16] bg-slate-900 transition group-hover:brightness-110">
+                        
+                        <div class="absolute bottom-2 right-2 bg-black/80 text-pink-400 text-[9px] font-mono px-1.5 py-0.5 rounded border border-pink-500/30">
+                            <i class="fa-solid fa-bolt text-[8px] mr-1"></i> SHORT
+                        </div>
+                    </a>
+                    <div class="mt-2 px-1 mb-1">
+                        <h2 class="text-[11px] font-mono text-slate-300 font-semibold line-clamp-2">
+                            ${video.Title}
+                        </h2>
+                    </div>
+                `;
+
+                grid.appendChild(card);
+            });
+        });
+    </script>
+
+    <!-- Footer -->
+    <footer class="text-center text-xs text-slate-600 font-mono mt-16 mb-4">
+        &copy; 2026 ARKUSNAT Publishing & F.G. Stier. Alle Wellenvektoren geschützt.
+    </footer>
+
+</body>
+</html>
