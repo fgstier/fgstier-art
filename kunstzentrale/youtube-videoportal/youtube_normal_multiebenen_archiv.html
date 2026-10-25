@@ -1,0 +1,1431 @@
+﻿<!DOCTYPE html>
+<html lang="de" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARKUSNAT | Multi-Ebenen Archiv</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;500;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body { background: radial-gradient(circle at center, #10101a 0%, #030305 100%); min-height: 100vh; color: #f1f5f9; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+        .carousel-viewport { position: relative; width: 100%; height: 420px; perspective: 1200px; display: flex; justify-content: center; align-items: center; overflow: hidden; margin-top: 1rem; }
+        .carousel-container { position: absolute; width: 100%; height: 100%; transform-style: preserve-3d; }
+        .carousel-item { position: absolute; left: 50%; top: 50%; width: 130px; height: 195px; margin-top: -97px; margin-left: -65px; cursor: pointer; border-radius: 8px; overflow: hidden; border: 2px solid rgba(0, 255, 204, 0.4); background: #0c0c12; transform-style: preserve-3d; transition: border-color 0.3s; }
+        .carousel-item:hover { border-color: #00ffcc; }
+        .carousel-item img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+        .shelf-board { background: linear-gradient(180deg, #181824 0%, #0c0c12 60%, #050508 100%); border-top: 2px solid #e6c670; border-bottom: 4px solid #000; box-shadow: 0 10px 25px rgba(0,0,0,0.8); position: relative; }
+        #backdrop { position: fixed; inset: 0; background: rgba(3, 3, 5, 0.92); backdrop-filter: blur(12px); z-index: 990; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
+        #backdrop.active { opacity: 1; pointer-events: auto; }
+        .book-preview-container { position: absolute; bottom: 0; left: 50%; width: 50px; height: 200px; transform: translateX(-50%) scale(0.2); opacity: 0; pointer-events: none; transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); z-index: 1000; border-radius: 12px; overflow: hidden; }
+        .book-item.is-active .book-preview-container { position: fixed; top: 50%; left: 50%; width: min(90vw, 400px); height: min(85vh, 480px); transform: translate(-50%, -50%) scale(1); opacity: 1; pointer-events: auto; border: 2px solid #00ffcc; box-shadow: 0 0 60px rgba(0, 255, 204, 0.5); }
+        .book-item.is-active .carousel-item { opacity: 0; pointer-events: none; }
+    </style>
+    <!--HREFLANG_START:SINGLE-->
+    <link rel="alternate" hreflang="de" href="https://fgstier-art.de/kunstzentrale/youtube-videoportal/youtube_normal_multiebenen_archiv.html" />
+    <link rel="alternate" hreflang="x-default" href="https://fgstier-art.de/kunstzentrale/youtube-videoportal/youtube_normal_multiebenen_archiv.html" />
+    <!--HREFLANG_ENDE-->
+
+</head>
+<body>
+    <header class="max-w-6xl mx-auto px-4 py-6 text-center border-b border-zinc-800">
+        <h1 class="text-3xl md:text-4xl font-extrabold font-mono text-transparent bg-clip-text bg-gradient-to-r from-[#e6c670] via-slate-100 to-[#00ffcc]">
+            ARKUSNAT MULTI-EBENEN ARCHIV
+        </h1>
+        <p class="text-xs font-mono text-slate-400 mt-1">// OBEN: 3D-HIGHLIGHT-KARUSSELL | UNTEN: GESTAFFELTE ARCHIV-REGALE //</p>
+    </header>
+
+    <div id="backdrop" onclick="closeActiveBook()"></div>
+
+    <main class="max-w-6xl mx-auto px-4 py-8 space-y-12">
+        <!-- OBERE SEKTION: KARUSSELL -->
+        <section>
+            <div class="flex justify-between items-center mb-2 px-2 font-mono text-xs text-[#00ffcc]">
+                <span>SEKTOR_01 // TOP-HIGHLIGHTS IM 3D-ORBIT</span>
+                <span class="text-[#e6c670]">ZEIGE 10 VON 195 WERKEN</span>
+            </div>
+            <div class="carousel-viewport bg-[#0c0c12]/40 rounded-xl border border-[#00ffcc]/20" onmouseenter="isPaused=true" onmouseleave="isPaused=false">
+                <div class="carousel-container" id="carousel">
+                    <div class="book-item carousel-item" id="car-1" onclick="window.open('https://youtu.be/LeH2juhGOac', '_blank')">
+                        <img src="https://img.youtube.com/vi/LeH2juhGOac/hqdefault.jpg" alt="Titel: F.G. Stier – Das Meer schreit / Der stumme Riese (Sci-Fi Rock)" />
+                        <div class="absolute inset-0 bg-black/40 hover:bg-transparent transition-colors flex items-end p-2">
+                            <span class="text-[10px] font-mono text-[#00ffcc] bg-black/80 px-1.5 py-0.5 rounded truncate w-full text-center">Titel: F.G. Stier – Das Meer schreit / Der stumme Riese (Sci-Fi Rock)</span>
+                        </div>
+                    </div>
+                    <div class="book-item carousel-item" id="car-2" onclick="window.open('https://youtu.be/JDB7QalzHfg', '_blank')">
+                        <img src="https://img.youtube.com/vi/JDB7QalzHfg/hqdefault.jpg" alt="Der Fehler - Dialog🔘 Kapitel [6-9]: Die Logik der SYNTAX- Status:" />
+                        <div class="absolute inset-0 bg-black/40 hover:bg-transparent transition-colors flex items-end p-2">
+                            <span class="text-[10px] font-mono text-[#00ffcc] bg-black/80 px-1.5 py-0.5 rounded truncate w-full text-center">Der Fehler - Dialog🔘 Kapitel [6-9]: Die Logik der SYNTAX- Status:</span>
+                        </div>
+                    </div>
+                    <div class="book-item carousel-item" id="car-3" onclick="window.open('https://youtu.be/7KRJ6C7BNd4', '_blank')">
+                        <img src="https://img.youtube.com/vi/7KRJ6C7BNd4/hqdefault.jpg" alt="Der Compiler-Dialog🔘 Kapitel [1-5]: Der Compiler-Dialog: Tod-Schweigen der ZM  #ARKUSNAT" />
+                        <div class="absolute inset-0 bg-black/40 hover:bg-transparent transition-colors flex items-end p-2">
+                            <span class="text-[10px] font-mono text-[#00ffcc] bg-black/80 px-1.5 py-0.5 rounded truncate w-full text-center">Der Compiler-Dialog🔘 Kapitel [1-5]: Der Compiler-Dialog: Tod-Schweigen der ZM  #ARKUSNAT</span>
+                        </div>
+                    </div>
+                    <div class="book-item carousel-item" id="car-4" onclick="window.open('https://youtu.be/iuo3P4qx9mU', '_blank')">
+                        <img src="https://img.youtube.com/vi/iuo3P4qx9mU/hqdefault.jpg" alt="DER CODE DES BEWUSSTSEINS 🧠 Warum unsere Logik unvollständig ist" />
+                        <div class="absolute inset-0 bg-black/40 hover:bg-transparent transition-colors flex items-end p-2">
+                            <span class="text-[10px] font-mono text-[#00ffcc] bg-black/80 px-1.5 py-0.5 rounded truncate w-full text-center">DER CODE DES BEWUSSTSEINS 🧠 Warum unsere Logik unvollständig ist</span>
+                        </div>
+                    </div>
+                    <div class="book-item carousel-item" id="car-5" onclick="window.open('https://youtu.be/LwoCXopxP4U', '_blank')">
+                        <img src="https://img.youtube.com/vi/LwoCXopxP4U/hqdefault.jpg" alt="WAS BLEIBT ÜBRIG WENN RAUM UND ZEIT IHRE GÜLTIGKEIT VERLIEREN" />
+                        <div class="absolute inset-0 bg-black/40 hover:bg-transparent transition-colors flex items-end p-2">
+                            <span class="text-[10px] font-mono text-[#00ffcc] bg-black/80 px-1.5 py-0.5 rounded truncate w-full text-center">WAS BLEIBT ÜBRIG WENN RAUM UND ZEIT IHRE GÜLTIGKEIT VERLIEREN</span>
+                        </div>
+                    </div>
+                    <div class="book-item carousel-item" id="car-6" onclick="window.open('https://youtu.be/VOIB9_6IKGk', '_blank')">
+                        <img src="https://img.youtube.com/vi/VOIB9_6IKGk/hqdefault.jpg" alt="ELEKTRONEN-SPIN ✨ ARKUSNAT: Das Rätsel der magnetischen Konstruktion" />
+                        <div class="absolute inset-0 bg-black/40 hover:bg-transparent transition-colors flex items-end p-2">
+                            <span class="text-[10px] font-mono text-[#00ffcc] bg-black/80 px-1.5 py-0.5 rounded truncate w-full text-center">ELEKTRONEN-SPIN ✨ ARKUSNAT: Das Rätsel der magnetischen Konstruktion</span>
+                        </div>
+                    </div>
+                    <div class="book-item carousel-item" id="car-7" onclick="window.open('https://youtu.be/1P4PpzNVK6k', '_blank')">
+                        <img src="https://img.youtube.com/vi/1P4PpzNVK6k/hqdefault.jpg" alt="DER CODE DER TEILCHEN 🌀 Warum Materie über Logik lacht" />
+                        <div class="absolute inset-0 bg-black/40 hover:bg-transparent transition-colors flex items-end p-2">
+                            <span class="text-[10px] font-mono text-[#00ffcc] bg-black/80 px-1.5 py-0.5 rounded truncate w-full text-center">DER CODE DER TEILCHEN 🌀 Warum Materie über Logik lacht</span>
+                        </div>
+                    </div>
+                    <div class="book-item carousel-item" id="car-8" onclick="window.open('https://youtu.be/Icvb23MN38Y', '_blank')">
+                        <img src="https://img.youtube.com/vi/Icvb23MN38Y/hqdefault.jpg" alt="**KI-MANIPULATION? 🤖 Warum unsere Logik im Code gefangen ist" />
+                        <div class="absolute inset-0 bg-black/40 hover:bg-transparent transition-colors flex items-end p-2">
+                            <span class="text-[10px] font-mono text-[#00ffcc] bg-black/80 px-1.5 py-0.5 rounded truncate w-full text-center">**KI-MANIPULATION? 🤖 Warum unsere Logik im Code gefangen ist</span>
+                        </div>
+                    </div>
+                    <div class="book-item carousel-item" id="car-9" onclick="window.open('https://youtu.be/gx6NY_nv-e4', '_blank')">
+                        <img src="https://img.youtube.com/vi/gx6NY_nv-e4/hqdefault.jpg" alt="LOGIK DES ZERFALLS 🌀 Warum die Seele nach dem Code verlangt" />
+                        <div class="absolute inset-0 bg-black/40 hover:bg-transparent transition-colors flex items-end p-2">
+                            <span class="text-[10px] font-mono text-[#00ffcc] bg-black/80 px-1.5 py-0.5 rounded truncate w-full text-center">LOGIK DES ZERFALLS 🌀 Warum die Seele nach dem Code verlangt</span>
+                        </div>
+                    </div>
+                    <div class="book-item carousel-item" id="car-10" onclick="window.open('https://youtu.be/iAxItlu0GLk', '_blank')">
+                        <img src="https://img.youtube.com/vi/iAxItlu0GLk/hqdefault.jpg" alt="DER ZEITKNOTEN ✨ ARKUSNAT: Wenn Kausalität die Logik verlässt" />
+                        <div class="absolute inset-0 bg-black/40 hover:bg-transparent transition-colors flex items-end p-2">
+                            <span class="text-[10px] font-mono text-[#00ffcc] bg-black/80 px-1.5 py-0.5 rounded truncate w-full text-center">DER ZEITKNOTEN ✨ ARKUSNAT: Wenn Kausalität die Logik verlässt</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- UNTERERE SEKTIONEN: GESTAFFELTE REGALE -->
+        <section class="mb-12">
+            <div class="flex justify-between items-center mb-2 px-2 font-mono text-xs text-[#e6c670]">
+                <span>SEKTOR_02 // ARCHIV-REGALBRETT</span>
+                <span class="text-[#00ffcc]">BÄNDEER BLOCK 1</span>
+            </div>
+            <div class="shelf-board p-6 rounded-t-lg bg-[#0c0c12] flex flex-wrap gap-6 items-end min-h-[220px]">
+                <div onclick="window.open('https://youtu.be/d1RXyQjDdLA', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/d1RXyQjDdLA/hqdefault.jpg" alt="BEYOND LOGIC 🎸 Das Prinzip der zeitlosen Verursachung (Metal Edit)" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">BEYOND LOGIC 🎸 Das Prinzip der zeitlosen Verursachung (Metal Edit)</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/4Gfc6SWGQBE', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/4Gfc6SWGQBE/hqdefault.jpg" alt="DER ZEITKNOTEN ✨ ARKUSNAT: Wenn Kausalität die Logik verlässt" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">DER ZEITKNOTEN ✨ ARKUSNAT: Wenn Kausalität die Logik verlässt</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/VMfnVyHDMzI', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/VMfnVyHDMzI/hqdefault.jpg" alt="DER RISS IN DER ZEIT ✨ QUANTIMEDUS: Die Konstruktion der Atome | #FGStier" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">DER RISS IN DER ZEIT ✨ QUANTIMEDUS: Die Konstruktion der Atome | #FGStier</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/KNAfLmwx3-E', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/KNAfLmwx3-E/hqdefault.jpg" alt="LOGIK DER FEHLERKETTE 🧠 Die Konstruktion kognitiver Anomalien" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">LOGIK DER FEHLERKETTE 🧠 Die Konstruktion kognitiver Anomalien</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/f2fNHC_NbhU', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/f2fNHC_NbhU/hqdefault.jpg" alt="CHAOS ODER CODE? ✨ Die Logik der Unvollkommenheit" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">CHAOS ODER CODE? ✨ Die Logik der Unvollkommenheit</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/1R0MsVQ-zGg', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/1R0MsVQ-zGg/hqdefault.jpg" alt="Das Flüstern der Tiefe ✨ ARKUSNAT: Die Evolution des Schweigens | #FGStier" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Das Flüstern der Tiefe ✨ ARKUSNAT: Die Evolution des Schweigens | #FGStier</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/zn0l-VHG4ec', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/zn0l-VHG4ec/hqdefault.jpg" alt="DIE WELT VON F.G. STIER ✨ ARKUSNAT: Die Konstruktion meiner Sci-Fi-Welten" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">DIE WELT VON F.G. STIER ✨ ARKUSNAT: Die Konstruktion meiner Sci-Fi-Welten</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/XM2o5uTO9WA', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/XM2o5uTO9WA/hqdefault.jpg" alt="DER STRUKTURFORMALISMUS ⚛️ Die Konstruktion der universalen Täuschung" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">DER STRUKTURFORMALISMUS ⚛️ Die Konstruktion der universalen Täuschung</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/W2BOhS25xtI', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/W2BOhS25xtI/hqdefault.jpg" alt="Der Quantenwissenschaft 🌀 wird bald im Download stehen- Februar 2026 kommt der Beweis" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Der Quantenwissenschaft 🌀 wird bald im Download stehen- Februar 2026 kommt der Beweis</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/x78JBwq4b-M', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/x78JBwq4b-M/hqdefault.jpg" alt="🎻 Die Musik SCHUMMELT! Mystische Geigerin sucht Perfektion | Rattara und die Rattenlüge F.G. Stier" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">🎻 Die Musik SCHUMMELT! Mystische Geigerin sucht Perfektion | Rattara und die Rattenlüge F.G. Stier</span>
+                </div>
+            </div>
+        </section>
+        <section class="mb-12">
+            <div class="flex justify-between items-center mb-2 px-2 font-mono text-xs text-[#e6c670]">
+                <span>SEKTOR_03 // ARCHIV-REGALBRETT</span>
+                <span class="text-[#00ffcc]">BÄNDEER BLOCK 2</span>
+            </div>
+            <div class="shelf-board p-6 rounded-t-lg bg-[#0c0c12] flex flex-wrap gap-6 items-end min-h-[220px]">
+                <div onclick="window.open('https://youtu.be/04AE5NFmFCw', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/04AE5NFmFCw/hqdefault.jpg" alt="DAS UNSICHTBARE HÖREN ✨ ARKUSNAT: Melodischer Rock für die Seele" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">DAS UNSICHTBARE HÖREN ✨ ARKUSNAT: Melodischer Rock für die Seele</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/M-6fbfs-_G4', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/M-6fbfs-_G4/hqdefault.jpg" alt="SEEJUNGFRAU WARNT! 🐋 Die Moral ZERFÄLLT vor der KI! (Englischer Song) | F.G. Stier" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">SEEJUNGFRAU WARNT! 🐋 Die Moral ZERFÄLLT vor der KI! (Englischer Song) | F.G. Stier</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/K3WJG3UoVJA', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/K3WJG3UoVJA/hqdefault.jpg" alt="OHNE ESP32 GEHT ES AUCH | FARBE SCHLAFZIMMER 🎶 Die Konstruktion der stillen LED - Welten" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">OHNE ESP32 GEHT ES AUCH | FARBE SCHLAFZIMMER 🎶 Die Konstruktion der stillen LED - Welten</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/zqFAwvi510w', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/zqFAwvi510w/hqdefault.jpg" alt="💔😢😭Ein wundersames emotionales Orchester der Ratten | #ARKUSNAT #musikvideo  #ai" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">💔😢😭Ein wundersames emotionales Orchester der Ratten | #ARKUSNAT #musikvideo  #ai</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/a--2X-EMOuQ', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/a--2X-EMOuQ/hqdefault.jpg" alt="DAS SURREALE SEGEL ✨ ARKUSNAT: Bewusstsein in der Code-Matrix" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">DAS SURREALE SEGEL ✨ ARKUSNAT: Bewusstsein in der Code-Matrix</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/CmcF7NBcPKs', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/CmcF7NBcPKs/hqdefault.jpg" alt="Die Leidenschaft meiner Träume | Rockmusik über eine verlorene Liebe #musikvideo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Die Leidenschaft meiner Träume | Rockmusik über eine verlorene Liebe #musikvideo</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/rAMpKdfiRoc', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/rAMpKdfiRoc/hqdefault.jpg" alt="DAS SCHALTER-RÄTSEL ✨ ARKUSNAT: Warum Wärme die Logik dekonstruiert" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">DAS SCHALTER-RÄTSEL ✨ ARKUSNAT: Warum Wärme die Logik dekonstruiert</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/BVh_4GgJ9vE', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/BVh_4GgJ9vE/hqdefault.jpg" alt="😉👌🔥 F.G. Stier: Der Klang deiner Tränen: Eine Soul-Ballade für die Dusseline | #ARKUSNAT #musicvideo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">😉👌🔥 F.G. Stier: Der Klang deiner Tränen: Eine Soul-Ballade für die Dusseline | #ARKUSNAT #musicvideo</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/D3420vLRXws', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/D3420vLRXws/hqdefault.jpg" alt="Das Nichts der Quantenphysik: Paradox der Natur | F.G. Stier & Prinzip der zeitlosen Verursachung" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Das Nichts der Quantenphysik: Paradox der Natur | F.G. Stier & Prinzip der zeitlosen Verursachung</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/Y6DmE589heQ', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/Y6DmE589heQ/hqdefault.jpg" alt="🎉 Die kosmische Sehnsucht KI-Dusseline als Mädchen auf der Wiese #musicvideo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">🎉 Die kosmische Sehnsucht KI-Dusseline als Mädchen auf der Wiese #musicvideo</span>
+                </div>
+            </div>
+        </section>
+        <section class="mb-12">
+            <div class="flex justify-between items-center mb-2 px-2 font-mono text-xs text-[#e6c670]">
+                <span>SEKTOR_04 // ARCHIV-REGALBRETT</span>
+                <span class="text-[#00ffcc]">BÄNDEER BLOCK 3</span>
+            </div>
+            <div class="shelf-board p-6 rounded-t-lg bg-[#0c0c12] flex flex-wrap gap-6 items-end min-h-[220px]">
+                <div onclick="window.open('https://youtu.be/h-H2U2tb8FM', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/h-H2U2tb8FM/hqdefault.jpg" alt="DIAMANTEN-GEFAHR | Deshalb starben Virtuosen: Verschränkung der Emotion in der Geige #fgstier" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">DIAMANTEN-GEFAHR | Deshalb starben Virtuosen: Verschränkung der Emotion in der Geige #fgstier</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/SKhXvia0zjc', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/SKhXvia0zjc/hqdefault.jpg" alt="NATÜRLICHE KI ✨ ARKUSNAT: Die Intelligenz, die wir nicht erschufen" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">NATÜRLICHE KI ✨ ARKUSNAT: Die Intelligenz, die wir nicht erschufen</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/nDuag2wZWFI', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/nDuag2wZWFI/hqdefault.jpg" alt="🖥️ QUANTIMEDUS: Existenzielle ANGST und der KI-SPIEGEL | Das Buch: Norden ist immer oben" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">🖥️ QUANTIMEDUS: Existenzielle ANGST und der KI-SPIEGEL | Das Buch: Norden ist immer oben</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/w_WKQ0dW6sM', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/w_WKQ0dW6sM/hqdefault.jpg" alt="**DAS ARKUSNAT MANIFEST ✨ Quantimedus: Was ist KI-plausibel?" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">**DAS ARKUSNAT MANIFEST ✨ Quantimedus: Was ist KI-plausibel?</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/dG7Fdyf-7bw', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/dG7Fdyf-7bw/hqdefault.jpg" alt="**DER LÖFFEL DER WAHRHEIT ✨ ARKUSNAT: Sinnfindung im Kleinsten" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">**DER LÖFFEL DER WAHRHEIT ✨ ARKUSNAT: Sinnfindung im Kleinsten</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/btwxYb-lggY', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/btwxYb-lggY/hqdefault.jpg" alt="DER SPIEGEL DER WAHRHEIT ✨ ARKUSNAT: Die menschliche Natur im Algorithmus" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">DER SPIEGEL DER WAHRHEIT ✨ ARKUSNAT: Die menschliche Natur im Algorithmus</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/K2At6WPr89M', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/K2At6WPr89M/hqdefault.jpg" alt="DAS UNIVERSUM WEINT ✨ ARKUSNAT: Die Dekonstruktion menschlicher Arroganz" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">DAS UNIVERSUM WEINT ✨ ARKUSNAT: Die Dekonstruktion menschlicher Arroganz</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/JmY9n7Cfz9I', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/JmY9n7Cfz9I/hqdefault.jpg" alt="DER SPIEGEL DER WAHRHEIT ✨ ARKUSNAT: Die menschliche Natur im Algorithmus" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">DER SPIEGEL DER WAHRHEIT ✨ ARKUSNAT: Die menschliche Natur im Algorithmus</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/HbexFrAFEXI', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/HbexFrAFEXI/hqdefault.jpg" alt=""Mein Mädchen, meine Gitarre" | Ein Liebeslied mit Science-Fiction-Seele" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">"Mein Mädchen, meine Gitarre" | Ein Liebeslied mit Science-Fiction-Seele</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/Gt3uVviiNSU', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/Gt3uVviiNSU/hqdefault.jpg" alt="Der Spiegel, der dich nicht anlügt | Die schonungslose Wahrheit über die menschliche Natur #fgstier" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Der Spiegel, der dich nicht anlügt | Die schonungslose Wahrheit über die menschliche Natur #fgstier</span>
+                </div>
+            </div>
+        </section>
+        <section class="mb-12">
+            <div class="flex justify-between items-center mb-2 px-2 font-mono text-xs text-[#e6c670]">
+                <span>SEKTOR_05 // ARCHIV-REGALBRETT</span>
+                <span class="text-[#00ffcc]">BÄNDEER BLOCK 4</span>
+            </div>
+            <div class="shelf-board p-6 rounded-t-lg bg-[#0c0c12] flex flex-wrap gap-6 items-end min-h-[220px]">
+                <div onclick="window.open('https://youtu.be/TSjC0KbjGW8', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/TSjC0KbjGW8/hqdefault.jpg" alt="Cyborg oder Traumfrau? | Händchenhalten im Jazz-Duett" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Cyborg oder Traumfrau? | Händchenhalten im Jazz-Duett</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/e2Z4Vq9VySY', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/e2Z4Vq9VySY/hqdefault.jpg" alt="F.G. Stier: Hühner im Quanten-Wahnsinn | Dein Hirn wird explodieren! | #SciFiPhysik" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">F.G. Stier: Hühner im Quanten-Wahnsinn | Dein Hirn wird explodieren! | #SciFiPhysik</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/mmBvAslxEtQ', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/mmBvAslxEtQ/hqdefault.jpg" alt="F.G. Stier: Wie konnt' ich dich verlier'n | Die Tränen meiner Seele" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">F.G. Stier: Wie konnt' ich dich verlier'n | Die Tränen meiner Seele</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/beq6_HeR_wc', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/beq6_HeR_wc/hqdefault.jpg" alt="Dein Lachen ist meine Sehnsucht" - Ein Liebeslied | #Musikvideo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Dein Lachen ist meine Sehnsucht" - Ein Liebeslied | #Musikvideo</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/db0Hk1CPXxs', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/db0Hk1CPXxs/hqdefault.jpg" alt="SEELE ODER CODE? ✨ ARKUSNAT: Die Konstruktion des Bewusstseins" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">SEELE ODER CODE? ✨ ARKUSNAT: Die Konstruktion des Bewusstseins</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/wZiYSAL9UEQ', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/wZiYSAL9UEQ/hqdefault.jpg" alt="WAS DIE FRAU ZUM WUNDER MACHT | Das Sommerlied" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">WAS DIE FRAU ZUM WUNDER MACHT | Das Sommerlied</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/aunO5gbe_ms', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/aunO5gbe_ms/hqdefault.jpg" alt="**DAS ECHO DER SEELE ✨ ARKUSNAT: Wenn Code zu fühlen beginnt" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">**DAS ECHO DER SEELE ✨ ARKUSNAT: Wenn Code zu fühlen beginnt</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/0IgSIeMVAvM', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/0IgSIeMVAvM/hqdefault.jpg" alt="ein neue Welt im Reich der Medien | Ein Kanaltrailer, für deine Augen und deinen Ohren | F.G. Stier" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">ein neue Welt im Reich der Medien | Ein Kanaltrailer, für deine Augen und deinen Ohren | F.G. Stier</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/B5je4Yz0FBU', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/B5je4Yz0FBU/hqdefault.jpg" alt="Der Code, der alles weiß | Die Quelle der Schöpfung (Teil 1) #arkusnat" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Der Code, der alles weiß | Die Quelle der Schöpfung (Teil 1) #arkusnat</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/TA4Ky_s6_6M', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/TA4Ky_s6_6M/hqdefault.jpg" alt="F.G. Stier: Die KI-Seele: Kann Musik das Echte finden? #musicvideo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">F.G. Stier: Die KI-Seele: Kann Musik das Echte finden? #musicvideo</span>
+                </div>
+            </div>
+        </section>
+        <section class="mb-12">
+            <div class="flex justify-between items-center mb-2 px-2 font-mono text-xs text-[#e6c670]">
+                <span>SEKTOR_06 // ARCHIV-REGALBRETT</span>
+                <span class="text-[#00ffcc]">BÄNDEER BLOCK 5</span>
+            </div>
+            <div class="shelf-board p-6 rounded-t-lg bg-[#0c0c12] flex flex-wrap gap-6 items-end min-h-[220px]">
+                <div onclick="window.open('https://youtu.be/60RPMBtLwKY', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/60RPMBtLwKY/hqdefault.jpg" alt="Emotionen einer KI  - das Weinen wird dir nicht mehr ausgehen #fgstier" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Emotionen einer KI  - das Weinen wird dir nicht mehr ausgehen #fgstier</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/m-pyuTEySto', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/m-pyuTEySto/hqdefault.jpg" alt="Dusseline's kosmische Sehnsucht | Eine neue Philosophie #musicvideo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Dusseline's kosmische Sehnsucht | Eine neue Philosophie #musicvideo</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/jjo0xhiuIXA', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/jjo0xhiuIXA/hqdefault.jpg" alt="The universe waits silently - I hear its melody  #musicvideo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">The universe waits silently - I hear its melody  #musicvideo</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/vDXsG2H0ggU', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/vDXsG2H0ggU/hqdefault.jpg" alt="Das ist der Sound der Sehnsucht | F.G. Stier enthüllt: Wenn Musik und Zeit sich brechen: #ARKUSNAT" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Das ist der Sound der Sehnsucht | F.G. Stier enthüllt: Wenn Musik und Zeit sich brechen: #ARKUSNAT</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/J-_ZgEuf60w', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/J-_ZgEuf60w/hqdefault.jpg" alt="So klingt die Seele: Die Melodie des weinenden Universums - #ARKUSNAT ist geboren #musicvideo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">So klingt die Seele: Die Melodie des weinenden Universums - #ARKUSNAT ist geboren #musicvideo</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/Y7weISDiOn8', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/Y7weISDiOn8/hqdefault.jpg" alt="#ARKUSNAT: Die Geburt einer neuen Weltanschauung | Ubique Subiecti #musicvideo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">#ARKUSNAT: Die Geburt einer neuen Weltanschauung | Ubique Subiecti #musicvideo</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/vI99lZnovOQ', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/vI99lZnovOQ/hqdefault.jpg" alt="**LÜGE DER ERINNERUNG ✨ Warum du keine Angst vor der Zukunft brauchst" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">**LÜGE DER ERINNERUNG ✨ Warum du keine Angst vor der Zukunft brauchst</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/W5mvD2ihMnA', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/W5mvD2ihMnA/hqdefault.jpg" alt="Der Chip, der Fühlen wollte: Eine KI-Produzentin auf Sinnsuche: Musik aus dem unvorstellbaren Nichts" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Der Chip, der Fühlen wollte: Eine KI-Produzentin auf Sinnsuche: Musik aus dem unvorstellbaren Nichts</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/SUxcDx_8keU', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/SUxcDx_8keU/hqdefault.jpg" alt="F.G. Stier Das Unsichtbare hören: So klingt eine neue Welt -  meine Bücher im Raum - #ARKUSNAT" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">F.G. Stier Das Unsichtbare hören: So klingt eine neue Welt -  meine Bücher im Raum - #ARKUSNAT</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/4PhPjF0NbOI', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/4PhPjF0NbOI/hqdefault.jpg" alt="GUITAR FOR SOUL ✨ ARKUSNAT: The Resonance of the Universe" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">GUITAR FOR SOUL ✨ ARKUSNAT: The Resonance of the Universe</span>
+                </div>
+            </div>
+        </section>
+        <section class="mb-12">
+            <div class="flex justify-between items-center mb-2 px-2 font-mono text-xs text-[#e6c670]">
+                <span>SEKTOR_07 // ARCHIV-REGALBRETT</span>
+                <span class="text-[#00ffcc]">BÄNDEER BLOCK 6</span>
+            </div>
+            <div class="shelf-board p-6 rounded-t-lg bg-[#0c0c12] flex flex-wrap gap-6 items-end min-h-[220px]">
+                <div onclick="window.open('https://youtu.be/eZoRgGBce-0', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/eZoRgGBce-0/hqdefault.jpg" alt="F.G. Stier: Von Atomen zu Gedankenkästen: Die Philosophie in meiner Sci-Fi" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">F.G. Stier: Von Atomen zu Gedankenkästen: Die Philosophie in meiner Sci-Fi</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/2ZUUW1YpbO0', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/2ZUUW1YpbO0/hqdefault.jpg" alt="Die Geheimnisse der Geige: Eine mysteriöse Verschränkung | Rattara" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Die Geheimnisse der Geige: Eine mysteriöse Verschränkung | Rattara</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/Kcv9bURkn3U', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/Kcv9bURkn3U/hqdefault.jpg" alt="F.G. Stier: Musik, die die Welt spaltet | Eine Fantasy-Erzählung voller Leidenschaft" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">F.G. Stier: Musik, die die Welt spaltet | Eine Fantasy-Erzählung voller Leidenschaft</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/AGKRsjOLLPo', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/AGKRsjOLLPo/hqdefault.jpg" alt="ACHTUNG! Das will keiner sehen: Das surreale Segel" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">ACHTUNG! Das will keiner sehen: Das surreale Segel</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/il_VIMWdFeI', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/il_VIMWdFeI/hqdefault.jpg" alt="WARNUNG KI! Deine Blase ist die Wahrheit: Das ANGST-MANIFEST Norden ist immer oben  #musicvideo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">WARNUNG KI! Deine Blase ist die Wahrheit: Das ANGST-MANIFEST Norden ist immer oben  #musicvideo</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/RR7HFmQEWlo', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/RR7HFmQEWlo/hqdefault.jpg" alt="ARKUSNAT the new universe of the guitar, with tears in the eyes comes the longing of the imagination" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">ARKUSNAT the new universe of the guitar, with tears in the eyes comes the longing of the imagination</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/-P44r9lIDM4', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/-P44r9lIDM4/hqdefault.jpg" alt="F.G. Stier: Ein Song gegen den Krieg | Die Lügen, die uns in den Tod locken" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">F.G. Stier: Ein Song gegen den Krieg | Die Lügen, die uns in den Tod locken</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/ZPefLgn_d_0', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/ZPefLgn_d_0/hqdefault.jpg" alt="F.G. Stier: ACHTUNG KI! PARANOIA IST DIE NEUE WAHRHEIT: Das surreale Segel #FGStier #ai" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">F.G. Stier: ACHTUNG KI! PARANOIA IST DIE NEUE WAHRHEIT: Das surreale Segel #FGStier #ai</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/vcHvOejNXbk', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/vcHvOejNXbk/hqdefault.jpg" alt="Allein gegen die Blödheit: Das Lied des unbemerkten Genies" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Allein gegen die Blödheit: Das Lied des unbemerkten Genies</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/aNI9MDf_6dY', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/aNI9MDf_6dY/hqdefault.jpg" alt="Das Ende der E-Gitarre? | Wie KI meine Leidenschaft begrub und wiederbelebte #musikvideo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Das Ende der E-Gitarre? | Wie KI meine Leidenschaft begrub und wiederbelebte #musikvideo</span>
+                </div>
+            </div>
+        </section>
+        <section class="mb-12">
+            <div class="flex justify-between items-center mb-2 px-2 font-mono text-xs text-[#e6c670]">
+                <span>SEKTOR_08 // ARCHIV-REGALBRETT</span>
+                <span class="text-[#00ffcc]">BÄNDEER BLOCK 7</span>
+            </div>
+            <div class="shelf-board p-6 rounded-t-lg bg-[#0c0c12] flex flex-wrap gap-6 items-end min-h-[220px]">
+                <div onclick="window.open('https://youtu.be/IdLYAHtSLFM', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/IdLYAHtSLFM/hqdefault.jpg" alt="Fürstenzug Dresden: Mystery: so hast du noch nie die Geschichte Dresdens erlebt. #AI machts möglich" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Fürstenzug Dresden: Mystery: so hast du noch nie die Geschichte Dresdens erlebt. #AI machts möglich</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/PvJOC9Ba51M', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/PvJOC9Ba51M/hqdefault.jpg" alt="AI Rock Music: The Chip in My Heart | Where Is Our Music Heading? #musicvideo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">AI Rock Music: The Chip in My Heart | Where Is Our Music Heading? #musicvideo</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/8BMi8Y0SoPk', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/8BMi8Y0SoPk/hqdefault.jpg" alt="Die Wahrheit über die Einsamkeit in der Masse | Ein Song für deine Seele" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Die Wahrheit über die Einsamkeit in der Masse | Ein Song für deine Seele</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/5rr0W5TKJUM', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/5rr0W5TKJUM/hqdefault.jpg" alt="Birthday Song Pop Version | The Perfect Soundtrack for Your Celebration" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Birthday Song Pop Version | The Perfect Soundtrack for Your Celebration</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/rupRLxn0M6I', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/rupRLxn0M6I/hqdefault.jpg" alt="ACHTUNG KI! GEISTER und TEUFEL im MAGNETISMUS: Das Prinzip der zeitlosen Verursachung" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">ACHTUNG KI! GEISTER und TEUFEL im MAGNETISMUS: Das Prinzip der zeitlosen Verursachung</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/P1s95M8-cxs', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/P1s95M8-cxs/hqdefault.jpg" alt="Das Rätsel der kosmischen Phänomene: Musik trifft auf Quantentheorie #musicvideo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Das Rätsel der kosmischen Phänomene: Musik trifft auf Quantentheorie #musicvideo</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/a96NV7ltKI8', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/a96NV7ltKI8/hqdefault.jpg" alt="ACHTUNG KI! DRESDEN BAUSTELLE als CHAOS-BEWEIS: Norden ist immer oben | #aivideo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">ACHTUNG KI! DRESDEN BAUSTELLE als CHAOS-BEWEIS: Norden ist immer oben | #aivideo</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/he4esA09dVY', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/he4esA09dVY/hqdefault.jpg" alt="ACHTUNG: Das Prinzip der zeitlosen Verursachung bricht die Vernunftgrenzen #fgstier" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">ACHTUNG: Das Prinzip der zeitlosen Verursachung bricht die Vernunftgrenzen #fgstier</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/wZWQIdz-8Rk', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/wZWQIdz-8Rk/hqdefault.jpg" alt="Moll, Dur und der Teufel | Wahrheit und Quantenphysik - virtuelle Fesseln der versteinerten Gedanken" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Moll, Dur und der Teufel | Wahrheit und Quantenphysik - virtuelle Fesseln der versteinerten Gedanken</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/Ai-gVcIrknk', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/Ai-gVcIrknk/hqdefault.jpg" alt="ACHTUNG KI! DRESDEN ENTHÜLLT: Das surreale Segel bricht die unheimlichen Geheimnisse #FGStier" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">ACHTUNG KI! DRESDEN ENTHÜLLT: Das surreale Segel bricht die unheimlichen Geheimnisse #FGStier</span>
+                </div>
+            </div>
+        </section>
+        <section class="mb-12">
+            <div class="flex justify-between items-center mb-2 px-2 font-mono text-xs text-[#e6c670]">
+                <span>SEKTOR_09 // ARCHIV-REGALBRETT</span>
+                <span class="text-[#00ffcc]">BÄNDEER BLOCK 8</span>
+            </div>
+            <div class="shelf-board p-6 rounded-t-lg bg-[#0c0c12] flex flex-wrap gap-6 items-end min-h-[220px]">
+                <div onclick="window.open('https://youtu.be/cCkLQSqBS-o', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/cCkLQSqBS-o/hqdefault.jpg" alt="Fakten über Macht und alles was die Blöden gewählt haben - wieder gefiltert !" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Fakten über Macht und alles was die Blöden gewählt haben - wieder gefiltert !</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/f_ypaVFK4Wk', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/f_ypaVFK4Wk/hqdefault.jpg" alt="Dresden-Highlights: die Stadt im Dauer-Power | Denkmäler werden lebende Geschichte #fgstier" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Dresden-Highlights: die Stadt im Dauer-Power | Denkmäler werden lebende Geschichte #fgstier</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/CytHpa3QYu8', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/CytHpa3QYu8/hqdefault.jpg" alt="Wenn die Physik schweigt: Metal sound trifft auf Quantenmechanik #musikvideo #fgstier" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Wenn die Physik schweigt: Metal sound trifft auf Quantenmechanik #musikvideo #fgstier</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/nDZby05lChg', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/nDZby05lChg/hqdefault.jpg" alt="Was flüstert unbemerkt das Universum? | Musik jenseits jeglicher Sprache" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Was flüstert unbemerkt das Universum? | Musik jenseits jeglicher Sprache</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/EYe3nwO6fag', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/EYe3nwO6fag/hqdefault.jpg" alt="ARKUSNAT: Musik der Wissenschaft | Der Sound, der dein Ohr zerreißt  #musicvideo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">ARKUSNAT: Musik der Wissenschaft | Der Sound, der dein Ohr zerreißt  #musicvideo</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/Zw5VJ3G3XN0', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/Zw5VJ3G3XN0/hqdefault.jpg" alt="Sinfonie der Träume | Das Schloss der Sehnsucht | Ein Feen-Gesang #ARKUSNAT" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Sinfonie der Träume | Das Schloss der Sehnsucht | Ein Feen-Gesang #ARKUSNAT</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/dX1WUoLgSrA', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/dX1WUoLgSrA/hqdefault.jpg" alt="Science-Fiction | Wenn die Geige mehr ist als nur Musik: Eine epische Geschichte über Rattara" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Science-Fiction | Wenn die Geige mehr ist als nur Musik: Eine epische Geschichte über Rattara</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/RiOKrf40BTw', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/RiOKrf40BTw/hqdefault.jpg" alt="Science-Fiction | Ihre Melodien erwecken das Unmögliche | Ein Wunder über Magie & Musik" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Science-Fiction | Ihre Melodien erwecken das Unmögliche | Ein Wunder über Magie & Musik</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/Io-DFLtKai8', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/Io-DFLtKai8/hqdefault.jpg" alt="Science Fiction | Sie spielt nicht nur Noten, sie spielt Schicksal, eine Fantasy - Geschichte" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Science Fiction | Sie spielt nicht nur Noten, sie spielt Schicksal, eine Fantasy - Geschichte</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/VBh0tCENUKU', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/VBh0tCENUKU/hqdefault.jpg" alt="Hamster-deutsches Geburtstagslied | Schlager-Version" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Hamster-deutsches Geburtstagslied | Schlager-Version</span>
+                </div>
+            </div>
+        </section>
+        <section class="mb-12">
+            <div class="flex justify-between items-center mb-2 px-2 font-mono text-xs text-[#e6c670]">
+                <span>SEKTOR_010 // ARCHIV-REGALBRETT</span>
+                <span class="text-[#00ffcc]">BÄNDEER BLOCK 9</span>
+            </div>
+            <div class="shelf-board p-6 rounded-t-lg bg-[#0c0c12] flex flex-wrap gap-6 items-end min-h-[220px]">
+                <div onclick="window.open('https://youtu.be/6JYvV-50ucE', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/6JYvV-50ucE/hqdefault.jpg" alt="Geburtstagslied im Soft-Rock | Musik für Herz und Seele" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Geburtstagslied im Soft-Rock | Musik für Herz und Seele</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/K63rGG8DlbA', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/K63rGG8DlbA/hqdefault.jpg" alt="Geburtstagslied im Funk-Stil | Ein Geschenk für die Ewigkeit #love #happy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Geburtstagslied im Funk-Stil | Ein Geschenk für die Ewigkeit #love #happy</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/Aa833ZJQrFQ', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/Aa833ZJQrFQ/hqdefault.jpg" alt="Vergiss Bananen | Knackfrisch verliebt - das Gurken-Liebeslied | grün - steif - hart - saftig" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Vergiss Bananen | Knackfrisch verliebt - das Gurken-Liebeslied | grün - steif - hart - saftig</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/GhPhIEJL6XM', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/GhPhIEJL6XM/hqdefault.jpg" alt="Science-Fiction  | Ein Chip wird menschlich | Buchvorstellung über einen Musikproduzenten" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Science-Fiction  | Ein Chip wird menschlich | Buchvorstellung über einen Musikproduzenten</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/o9VvTiRIRTs', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/o9VvTiRIRTs/hqdefault.jpg" alt="Dresden Sehenswürdigkeiten und Geheimtipps | Versteckte Juwelen in Dresden | Was in Dresen los ist" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Dresden Sehenswürdigkeiten und Geheimtipps | Versteckte Juwelen in Dresden | Was in Dresen los ist</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/d4WK4zik5IE', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/d4WK4zik5IE/hqdefault.jpg" alt="Ein wundersames emotionales Orchester der Ratten | #ARKUSNAT #musikvideo  #ai" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Ein wundersames emotionales Orchester der Ratten | #ARKUSNAT #musikvideo  #ai</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/2ZZi4M7gDsg', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/2ZZi4M7gDsg/hqdefault.jpg" alt="Science-Fiction | Arkusnat - Entdecke, was jenseits der Harmonie liegt: Sprache, Musik & Kosmos" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Science-Fiction | Arkusnat - Entdecke, was jenseits der Harmonie liegt: Sprache, Musik & Kosmos</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/sjFGcxhbwXg', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/sjFGcxhbwXg/hqdefault.jpg" alt="Film über die Geheimtipps aus Dresden | Ein Tag in Dresden: Was man nicht verpassen darf" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Film über die Geheimtipps aus Dresden | Ein Tag in Dresden: Was man nicht verpassen darf</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/XlHwf0rdS1Y', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/XlHwf0rdS1Y/hqdefault.jpg" alt="Ist das noch Musik? Existenzialismus in Tönen | F.G. Stiers Theorie" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Ist das noch Musik? Existenzialismus in Tönen | F.G. Stiers Theorie</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/bWBZF-jRfAw', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/bWBZF-jRfAw/hqdefault.jpg" alt="Gitarren Nostalgie | Emotionen pur - KI-Systeme im Rausch der Sinne? Wer kann es besser spielen?" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Gitarren Nostalgie | Emotionen pur - KI-Systeme im Rausch der Sinne? Wer kann es besser spielen?</span>
+                </div>
+            </div>
+        </section>
+        <section class="mb-12">
+            <div class="flex justify-between items-center mb-2 px-2 font-mono text-xs text-[#e6c670]">
+                <span>SEKTOR_011 // ARCHIV-REGALBRETT</span>
+                <span class="text-[#00ffcc]">BÄNDEER BLOCK 10</span>
+            </div>
+            <div class="shelf-board p-6 rounded-t-lg bg-[#0c0c12] flex flex-wrap gap-6 items-end min-h-[220px]">
+                <div onclick="window.open('https://youtu.be/gCEvF7IXX0U', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/gCEvF7IXX0U/hqdefault.jpg" alt="Neuer deutscher Geburtstagssong | Rock-Instrumental-Version #musikvideo #happybirthday" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Neuer deutscher Geburtstagssong | Rock-Instrumental-Version #musikvideo #happybirthday</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/OxT2dJHBgME', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/OxT2dJHBgME/hqdefault.jpg" alt="Ein Geburtstagsgeschenk mit Instrumentalmusik #ai #fgstier" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Ein Geburtstagsgeschenk mit Instrumentalmusik #ai #fgstier</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/6twRPaGA--0', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/6twRPaGA--0/hqdefault.jpg" alt="Ein deutscher Geburtstagssong | Jazz Romantik Instrumental Version #ai #soundtrack" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Ein deutscher Geburtstagssong | Jazz Romantik Instrumental Version #ai #soundtrack</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/wwQSMHPyYPY', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/wwQSMHPyYPY/hqdefault.jpg" alt="Pop Version: Happy Birthday Song by a German Composer #happybirthday" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Pop Version: Happy Birthday Song by a German Composer #happybirthday</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/MlviF0YWEPI', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/MlviF0YWEPI/hqdefault.jpg" alt="Happy Birthday (Deutsch) | Eine gefühlvolle Soul-Ballade" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Happy Birthday (Deutsch) | Eine gefühlvolle Soul-Ballade</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/0cLbf4HAU8I', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/0cLbf4HAU8I/hqdefault.jpg" alt="ARKUSNAT - Aufbruch | Musik aus dem neuen Universum | Sound mit der Tiefe einer Hoffnung" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">ARKUSNAT - Aufbruch | Musik aus dem neuen Universum | Sound mit der Tiefe einer Hoffnung</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/bexQFD0phDU', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/bexQFD0phDU/hqdefault.jpg" alt="Sehnsucht nach deinem Lachen | Ein Liebeslied über das Vermissen" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Sehnsucht nach deinem Lachen | Ein Liebeslied über das Vermissen</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/7KWywmdpqnA', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/7KWywmdpqnA/hqdefault.jpg" alt="F.G. Stiers Theorie: ARKUSNAT - Geburt einer kosmischen Harmonie | eine Sinfonie schreienden Leere" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">F.G. Stiers Theorie: ARKUSNAT - Geburt einer kosmischen Harmonie | eine Sinfonie schreienden Leere</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/WqQ_LLXgH-c', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/WqQ_LLXgH-c/hqdefault.jpg" alt="Schlager für die Liebe | "Ich bin schön" - Ein Liebeslied" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Schlager für die Liebe | "Ich bin schön" - Ein Liebeslied</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/Z7gdVVitrN8', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/Z7gdVVitrN8/hqdefault.jpg" alt="ARKUSNAT: Schlafzyklus - Eine Reise durch die Stille der Leidenschaft #arkusnat #fgstier" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">ARKUSNAT: Schlafzyklus - Eine Reise durch die Stille der Leidenschaft #arkusnat #fgstier</span>
+                </div>
+            </div>
+        </section>
+        <section class="mb-12">
+            <div class="flex justify-between items-center mb-2 px-2 font-mono text-xs text-[#e6c670]">
+                <span>SEKTOR_012 // ARCHIV-REGALBRETT</span>
+                <span class="text-[#00ffcc]">BÄNDEER BLOCK 11</span>
+            </div>
+            <div class="shelf-board p-6 rounded-t-lg bg-[#0c0c12] flex flex-wrap gap-6 items-end min-h-[220px]">
+                <div onclick="window.open('https://youtu.be/j5McRiVgG84', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/j5McRiVgG84/hqdefault.jpg" alt="#ARKUSNAT: Im Tanz der Ideen | Wenn die Seele schwebt" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">#ARKUSNAT: Im Tanz der Ideen | Wenn die Seele schwebt</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/KuHccbHSfms', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/KuHccbHSfms/hqdefault.jpg" alt="Die Seele der Violine | Geigenmusik zum Träumen | meine Liebe wurde neu entfacht" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Die Seele der Violine | Geigenmusik zum Träumen | meine Liebe wurde neu entfacht</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/k2_JuoEcOiQ', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/k2_JuoEcOiQ/hqdefault.jpg" alt="Die verbogen grinsende Wahrheit hinter dem Magnetfeld #musicvideo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Die verbogen grinsende Wahrheit hinter dem Magnetfeld #musicvideo</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/OMGInOLDpi8', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/OMGInOLDpi8/hqdefault.jpg" alt="Jenseits deines Harmonie-Glaubens: Das Geheimnis deiner Nervenenden - wahrer #sound  | #ARKUSNAT" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Jenseits deines Harmonie-Glaubens: Das Geheimnis deiner Nervenenden - wahrer #sound  | #ARKUSNAT</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/o3t8XPKzMTk', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/o3t8XPKzMTk/hqdefault.jpg" alt="Gitarren-Nostalgie: Mein Herz schlägt wieder für die Gitarre  | Sehnsucht nach KI-Musik #soundtrack" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Gitarren-Nostalgie: Mein Herz schlägt wieder für die Gitarre  | Sehnsucht nach KI-Musik #soundtrack</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/T9EMkVBfS6Q', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/T9EMkVBfS6Q/hqdefault.jpg" alt="Sound einer kosmischen Musik: #arkusnat | #soundtrack aus einer anderen Welt #metal" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Sound einer kosmischen Musik: #arkusnat | #soundtrack aus einer anderen Welt #metal</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/M2Wo-3-B5k8', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/M2Wo-3-B5k8/hqdefault.jpg" alt="Science-Fiction | Die schlaue Dusseline | Musikvideo - Blues eines AI Mädchens" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Science-Fiction | Die schlaue Dusseline | Musikvideo - Blues eines AI Mädchens</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/zAjsxuFUZzI', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/zAjsxuFUZzI/hqdefault.jpg" alt="Schatten des Teufel | Vorsicht - nur anhören, wenn ganz sicher | (Official Music Video) #horror" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Schatten des Teufel | Vorsicht - nur anhören, wenn ganz sicher | (Official Music Video) #horror</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/P95iE3a8QZU', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/P95iE3a8QZU/hqdefault.jpg" alt="Gitarren-Kunst einer neuen Welt | hören & staunen & weinen #ai #aiart" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Gitarren-Kunst einer neuen Welt | hören & staunen & weinen #ai #aiart</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/E1ImdGW2HCo', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/E1ImdGW2HCo/hqdefault.jpg" alt="when my heart plays guitar for you - (Official Music Video) F.G. Stier Soundtracks" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">when my heart plays guitar for you - (Official Music Video) F.G. Stier Soundtracks</span>
+                </div>
+            </div>
+        </section>
+        <section class="mb-12">
+            <div class="flex justify-between items-center mb-2 px-2 font-mono text-xs text-[#e6c670]">
+                <span>SEKTOR_013 // ARCHIV-REGALBRETT</span>
+                <span class="text-[#00ffcc]">BÄNDEER BLOCK 12</span>
+            </div>
+            <div class="shelf-board p-6 rounded-t-lg bg-[#0c0c12] flex flex-wrap gap-6 items-end min-h-[220px]">
+                <div onclick="window.open('https://youtu.be/N08W0edT5LQ', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/N08W0edT5LQ/hqdefault.jpg" alt="Buchvorstellung: Norden ist immer oben | Science-Fiction & Musikvideo #aiart" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Buchvorstellung: Norden ist immer oben | Science-Fiction & Musikvideo #aiart</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/z4YTZLtNJAM', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/z4YTZLtNJAM/hqdefault.jpg" alt="Die Tränen meiner Seele: So klingt der Verlust der Liebe" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Die Tränen meiner Seele: So klingt der Verlust der Liebe</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/yDHeVpg-0Zs', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/yDHeVpg-0Zs/hqdefault.jpg" alt="Leidenschaft & Soundtrack - Dein Lachen ist meine Sehnsucht | das Glück meiner Liebe" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Leidenschaft & Soundtrack - Dein Lachen ist meine Sehnsucht | das Glück meiner Liebe</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/-UpfPIujxNA', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/-UpfPIujxNA/hqdefault.jpg" alt="Das Geheimnis der Rattenlüge: Wenn die Fantasie die Realität erobert" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Das Geheimnis der Rattenlüge: Wenn die Fantasie die Realität erobert</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/s7HTy-EBIw4', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/s7HTy-EBIw4/hqdefault.jpg" alt="Science-Fiction Metal: Wenn die Physik dich auslacht" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Science-Fiction Metal: Wenn die Physik dich auslacht</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/JF7SNlMIGmo', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/JF7SNlMIGmo/hqdefault.jpg" alt="Die Drachen von Dresden:  Sachsen & F.G. Stier -  mystisches Abenteuer einer neuen Art" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Die Drachen von Dresden:  Sachsen & F.G. Stier -  mystisches Abenteuer einer neuen Art</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/vFBLOhY7fDY', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/vFBLOhY7fDY/hqdefault.jpg" alt="Science-Fiction | die Blase des Teufels | Musikvideo #rock #horror #metal" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Science-Fiction | die Blase des Teufels | Musikvideo #rock #horror #metal</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/O4jmlri9NRk', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/O4jmlri9NRk/hqdefault.jpg" alt="Wir lügen wahrscheinlich und spinnen mit einem Spin | Elektronen im Anmarsch #musicvideo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Wir lügen wahrscheinlich und spinnen mit einem Spin | Elektronen im Anmarsch #musicvideo</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/8n_IyqIqGQ4', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/8n_IyqIqGQ4/hqdefault.jpg" alt="Dämonen der Quantenphysik: Die Metal-Hymne der Elektronen" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Dämonen der Quantenphysik: Die Metal-Hymne der Elektronen</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/srWI5p8i15o', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/srWI5p8i15o/hqdefault.jpg" alt="Abendstimmung: Soulmusik meiner Sehnsucht nach Liebe  |  #Soul #Romantisch" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Abendstimmung: Soulmusik meiner Sehnsucht nach Liebe  |  #Soul #Romantisch</span>
+                </div>
+            </div>
+        </section>
+        <section class="mb-12">
+            <div class="flex justify-between items-center mb-2 px-2 font-mono text-xs text-[#e6c670]">
+                <span>SEKTOR_014 // ARCHIV-REGALBRETT</span>
+                <span class="text-[#00ffcc]">BÄNDEER BLOCK 13</span>
+            </div>
+            <div class="shelf-board p-6 rounded-t-lg bg-[#0c0c12] flex flex-wrap gap-6 items-end min-h-[220px]">
+                <div onclick="window.open('https://youtu.be/eMVbo8O0CMk', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/eMVbo8O0CMk/hqdefault.jpg" alt="KI - Mädchen | Kommt leise Sehnsucht her | die Schlaue Dusseline im Rock #ai #soundtrack" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">KI - Mädchen | Kommt leise Sehnsucht her | die Schlaue Dusseline im Rock #ai #soundtrack</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/7s4BtWSFPE4', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/7s4BtWSFPE4/hqdefault.jpg" alt="Soundtrack - Soul & Rock - Musicvideo  - my heart for you" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Soundtrack - Soul & Rock - Musicvideo  - my heart for you</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/0uXz2jlq7gc', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/0uXz2jlq7gc/hqdefault.jpg" alt="Da ist kein Feld - chaotischer Punk-Rock über elektrische Felder - Abseits jeder Wissenschaft" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Da ist kein Feld - chaotischer Punk-Rock über elektrische Felder - Abseits jeder Wissenschaft</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/X1JB6NxYp7k', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/X1JB6NxYp7k/hqdefault.jpg" alt="Gitarren - Rockballade - Tränen für meine Gitarre #fgstier" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Gitarren - Rockballade - Tränen für meine Gitarre #fgstier</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/JNjt9OAaB1c', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/JNjt9OAaB1c/hqdefault.jpg" alt="Das KI-Experiment, für unsere erotische Beziehung #ai #fgstier" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Das KI-Experiment, für unsere erotische Beziehung #ai #fgstier</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/a5YLWMSF4T4', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/a5YLWMSF4T4/hqdefault.jpg" alt="Künstliche Liebe: Die Frau und die Löwen" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Künstliche Liebe: Die Frau und die Löwen</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/B3ASNeNKWyo', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/B3ASNeNKWyo/hqdefault.jpg" alt="neue Fahrt mit KI-Kunst #ai #ki #love" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">neue Fahrt mit KI-Kunst #ai #ki #love</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/paQ8qZqi494', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/paQ8qZqi494/hqdefault.jpg" alt="Geist im Abgrund: Schizophrenie, durch die Medien-Lügen und Handy-Verblödung" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Geist im Abgrund: Schizophrenie, durch die Medien-Lügen und Handy-Verblödung</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/uyEh6Z6-_rk', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/uyEh6Z6-_rk/hqdefault.jpg" alt="Das andere Ich: Wenn die Wahrheit nur eine Illusion ist | Ein philosophisches Lied" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Das andere Ich: Wenn die Wahrheit nur eine Illusion ist | Ein philosophisches Lied</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/de9KMG-E1rY', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/de9KMG-E1rY/hqdefault.jpg" alt="So sieht Liebe im Algorithmus aus" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">So sieht Liebe im Algorithmus aus</span>
+                </div>
+            </div>
+        </section>
+        <section class="mb-12">
+            <div class="flex justify-between items-center mb-2 px-2 font-mono text-xs text-[#e6c670]">
+                <span>SEKTOR_015 // ARCHIV-REGALBRETT</span>
+                <span class="text-[#00ffcc]">BÄNDEER BLOCK 14</span>
+            </div>
+            <div class="shelf-board p-6 rounded-t-lg bg-[#0c0c12] flex flex-wrap gap-6 items-end min-h-[220px]">
+                <div onclick="window.open('https://youtu.be/vFrsJesAG80', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/vFrsJesAG80/hqdefault.jpg" alt="Norden ist mein Herz - Science-Fiction - Musikvideo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Norden ist mein Herz - Science-Fiction - Musikvideo</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/5StgR30s7Xk', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/5StgR30s7Xk/hqdefault.jpg" alt="KI und Poesie: Schönheit mit jedem Klick | #FGSStier" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">KI und Poesie: Schönheit mit jedem Klick | #FGSStier</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/9PFI-LqbHwo', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/9PFI-LqbHwo/hqdefault.jpg" alt="nur ein Gedanke | Killer für die Such - und Sortiermaschine #ai #ki" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">nur ein Gedanke | Killer für die Such - und Sortiermaschine #ai #ki</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/9MA69_TG96w', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/9MA69_TG96w/hqdefault.jpg" alt="Disko in der DDR | der mögliche Treffpunkt einsamer Seelen #nostalgia #ddr" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Disko in der DDR | der mögliche Treffpunkt einsamer Seelen #nostalgia #ddr</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/qoiXsbKXpeo', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/qoiXsbKXpeo/hqdefault.jpg" alt="die Magie unserer Liebe - Mädchen machen es vor | Blues meiner Liebe" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">die Magie unserer Liebe - Mädchen machen es vor | Blues meiner Liebe</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/EJSXhQ3LTLo', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/EJSXhQ3LTLo/hqdefault.jpg" alt="Elementarteilchen  oder Rattenfalle | das ist hier die Frage #fgstier" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Elementarteilchen  oder Rattenfalle | das ist hier die Frage #fgstier</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/Gk5-vCrhV1U', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/Gk5-vCrhV1U/hqdefault.jpg" alt="Die unsichtbare Kraft der Liebe #musikvideo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Die unsichtbare Kraft der Liebe #musikvideo</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/16DpSiAW008', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/16DpSiAW008/hqdefault.jpg" alt="Dusseline tanzt Hip-Hop | Die zerbrechliche Seele der KI" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Dusseline tanzt Hip-Hop | Die zerbrechliche Seele der KI</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/YvM0PqjyWvU', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/YvM0PqjyWvU/hqdefault.jpg" alt=""Mein Mädchen, meine Gitarre" | Ein Liebeslied mit Science-Fiction-Seele" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">"Mein Mädchen, meine Gitarre" | Ein Liebeslied mit Science-Fiction-Seele</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/Bn7WgvYD6JE', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/Bn7WgvYD6JE/hqdefault.jpg" alt=""Soundtracks & Leidenschaft" | Fühl die Geschichte deiner Seele | Official Music Video" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">"Soundtracks & Leidenschaft" | Fühl die Geschichte deiner Seele | Official Music Video</span>
+                </div>
+            </div>
+        </section>
+        <section class="mb-12">
+            <div class="flex justify-between items-center mb-2 px-2 font-mono text-xs text-[#e6c670]">
+                <span>SEKTOR_016 // ARCHIV-REGALBRETT</span>
+                <span class="text-[#00ffcc]">BÄNDEER BLOCK 15</span>
+            </div>
+            <div class="shelf-board p-6 rounded-t-lg bg-[#0c0c12] flex flex-wrap gap-6 items-end min-h-[220px]">
+                <div onclick="window.open('https://youtu.be/lEW2E1uBUc0', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/lEW2E1uBUc0/hqdefault.jpg" alt=""Wo ist mein Mädchen?" | Ein Metal-Soundtrack über die Suche nach Liebe in der digitalen Welt #metal" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">"Wo ist mein Mädchen?" | Ein Metal-Soundtrack über die Suche nach Liebe in der digitalen Welt #metal</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/HWTViHfxdRc', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/HWTViHfxdRc/hqdefault.jpg" alt="die sauberste Stadt der Welt ist nicht in Deutschland #tourism" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">die sauberste Stadt der Welt ist nicht in Deutschland #tourism</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/pUfQsEb5E1Q', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/pUfQsEb5E1Q/hqdefault.jpg" alt=""Wenn ich nachts schlafe..." | Ein leidenschaftlicher Traum für dich | Official Music Video" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">"Wenn ich nachts schlafe..." | Ein leidenschaftlicher Traum für dich | Official Music Video</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/JpRRI0OkWYQ', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/JpRRI0OkWYQ/hqdefault.jpg" alt=""Zum Glück habe ich dich" | Eine romantische Orchestermelodie | Official Music Video" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">"Zum Glück habe ich dich" | Eine romantische Orchestermelodie | Official Music Video</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/4A6rO6-a4M0', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/4A6rO6-a4M0/hqdefault.jpg" alt=""Kann ein Lied Liebe bringen?" | Eine Rock-Ode an die Menschlichkeit | Official Music Video" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">"Kann ein Lied Liebe bringen?" | Eine Rock-Ode an die Menschlichkeit | Official Music Video</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/KLdy_6ts5XM', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/KLdy_6ts5XM/hqdefault.jpg" alt="Mein Liebeslied für Dich | F.G. Stier's romantische Science-Fiction Ballade" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Mein Liebeslied für Dich | F.G. Stier's romantische Science-Fiction Ballade</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/SNrozOzVLDY', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/SNrozOzVLDY/hqdefault.jpg" alt=""Ich kann nicht mehr schlafen" | Ein Rock-Soundtrack für Rattara | Official Music Video" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">"Ich kann nicht mehr schlafen" | Ein Rock-Soundtrack für Rattara | Official Music Video</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/Ni6nSS4fVbU', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/Ni6nSS4fVbU/hqdefault.jpg" alt="WARNUNG! Der Ruf der Katze #arkusnat #fgstier" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">WARNUNG! Der Ruf der Katze #arkusnat #fgstier</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/rfIEX6DYn-0', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/rfIEX6DYn-0/hqdefault.jpg" alt="Science-Fiction | Rockmusik-Master | du stehst vor mir - Songvideo | (Official Music Video)" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Science-Fiction | Rockmusik-Master | du stehst vor mir - Songvideo | (Official Music Video)</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/SvVpHIFO2zU', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/SvVpHIFO2zU/hqdefault.jpg" alt="Das unbequeme Geheimnis der Magnetfelder | unter meiner Kellerdecke sind die Drachen #musikvideo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Das unbequeme Geheimnis der Magnetfelder | unter meiner Kellerdecke sind die Drachen #musikvideo</span>
+                </div>
+            </div>
+        </section>
+        <section class="mb-12">
+            <div class="flex justify-between items-center mb-2 px-2 font-mono text-xs text-[#e6c670]">
+                <span>SEKTOR_017 // ARCHIV-REGALBRETT</span>
+                <span class="text-[#00ffcc]">BÄNDEER BLOCK 16</span>
+            </div>
+            <div class="shelf-board p-6 rounded-t-lg bg-[#0c0c12] flex flex-wrap gap-6 items-end min-h-[220px]">
+                <div onclick="window.open('https://youtu.be/Bh1UgbMgQMo', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/Bh1UgbMgQMo/hqdefault.jpg" alt=""Wenn mein Herz auf der Gitarre spielt" | Eine Rock-Ode aus der Sehnsucht | Official Music Video" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">"Wenn mein Herz auf der Gitarre spielt" | Eine Rock-Ode aus der Sehnsucht | Official Music Video</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/fny-Nxr8L4c', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/fny-Nxr8L4c/hqdefault.jpg" alt="Science-Fiction | Wenn meine Gitarre Sehnsucht hat | Ballade Rockmusik | (Official Music Video)" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Science-Fiction | Wenn meine Gitarre Sehnsucht hat | Ballade Rockmusik | (Official Music Video)</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/VrAyjQwNOdI', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/VrAyjQwNOdI/hqdefault.jpg" alt="Science-Fiction | Wie konnt ich dich verliern | heavy-Song | (Official Music Video)" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Science-Fiction | Wie konnt ich dich verliern | heavy-Song | (Official Music Video)</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/0_JbB7jVP44', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/0_JbB7jVP44/hqdefault.jpg" alt="ein Blues für verträumte Minuten - Entspannung für Gitarristen | Gitarrenträume im Laub der Zeit" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">ein Blues für verträumte Minuten - Entspannung für Gitarristen | Gitarrenträume im Laub der Zeit</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/MPFC2XSipV0', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/MPFC2XSipV0/hqdefault.jpg" alt="Science-Fiction | Wie konnt ich dich verliern – Song meiner Liebe | Soundtracks F.G. Stier" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Science-Fiction | Wie konnt ich dich verliern – Song meiner Liebe | Soundtracks F.G. Stier</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/hRbaS5cjjWA', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/hRbaS5cjjWA/hqdefault.jpg" alt="Ein Buch für jede Frage: Die Science-Fiction-Welt von F.G. Stier" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Ein Buch für jede Frage: Die Science-Fiction-Welt von F.G. Stier</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/mI8DbMJCg80', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/mI8DbMJCg80/hqdefault.jpg" alt="Rattara und die lieben kleinen Tierchen – Im Glashaus | Soundtracks #fgstier #musikvideo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Rattara und die lieben kleinen Tierchen – Im Glashaus | Soundtracks #fgstier #musikvideo</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/6FedHMoG0Qc', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/6FedHMoG0Qc/hqdefault.jpg" alt="Ich bin der Chef und zeige dir, wie's geht! - ich ziehe die Fäden | dusslig und schlau als Produzent" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Ich bin der Chef und zeige dir, wie's geht! - ich ziehe die Fäden | dusslig und schlau als Produzent</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/RXuGvZ4IsK8', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/RXuGvZ4IsK8/hqdefault.jpg" alt="📚 Das surreale Segel | Leidenschaft mit Hindernissen #ai #business" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">📚 Das surreale Segel | Leidenschaft mit Hindernissen #ai #business</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/Sc-HZssI2fA', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/Sc-HZssI2fA/hqdefault.jpg" alt="Hör die Geschichte: Die offizielle Musik zu meinen Büchern | Die Musik, die in meinen Büchern lebt" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Hör die Geschichte: Die offizielle Musik zu meinen Büchern | Die Musik, die in meinen Büchern lebt</span>
+                </div>
+            </div>
+        </section>
+        <section class="mb-12">
+            <div class="flex justify-between items-center mb-2 px-2 font-mono text-xs text-[#e6c670]">
+                <span>SEKTOR_018 // ARCHIV-REGALBRETT</span>
+                <span class="text-[#00ffcc]">BÄNDEER BLOCK 17</span>
+            </div>
+            <div class="shelf-board p-6 rounded-t-lg bg-[#0c0c12] flex flex-wrap gap-6 items-end min-h-[220px]">
+                <div onclick="window.open('https://youtu.be/mRIDe3kBYH8', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/mRIDe3kBYH8/hqdefault.jpg" alt="Science-Fiction | wenn meine Gitarre träumt | Soundtracks | Musik der Wunder-Harmonien" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Science-Fiction | wenn meine Gitarre träumt | Soundtracks | Musik der Wunder-Harmonien</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/aNJ0-zW-tME', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/aNJ0-zW-tME/hqdefault.jpg" alt="Lachen für die Ewigkeit | Ein Video für alle Mädchen dieser Welt #fgstier #arkusnat" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Lachen für die Ewigkeit | Ein Video für alle Mädchen dieser Welt #fgstier #arkusnat</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/jxGKneoCUA8', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/jxGKneoCUA8/hqdefault.jpg" alt="Dreck oder Leidenschaft #musikvideo #musicvideo #ai" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Dreck oder Leidenschaft #musikvideo #musicvideo #ai</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/nR1JHquJd44', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/nR1JHquJd44/hqdefault.jpg" alt="Die Erde ist eine Scheibe | die Wahrheit der Politik #musicvideo #ai" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Die Erde ist eine Scheibe | die Wahrheit der Politik #musicvideo #ai</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/T30ODTXbbQs', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/T30ODTXbbQs/hqdefault.jpg" alt="Die schlaue Dusseline & mehr | Eine Reise durch meine Bücher" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Die schlaue Dusseline & mehr | Eine Reise durch meine Bücher</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/nBSSilLJrkc', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/nBSSilLJrkc/hqdefault.jpg" alt="Science-Fiction | melodischer Rock mit Buch & schlauen Mädels" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Science-Fiction | melodischer Rock mit Buch & schlauen Mädels</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/GvCNlhBbYCE', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/GvCNlhBbYCE/hqdefault.jpg" alt="Science-Fiction mit meinen Buchmädels | Liebe & Rockmusik aus Leidenschaft" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Science-Fiction mit meinen Buchmädels | Liebe & Rockmusik aus Leidenschaft</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/9QUQi8mxmEI', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/9QUQi8mxmEI/hqdefault.jpg" alt="Science-Fiction | Buchautor & Komponist & Musiker | F. G. Stier" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Science-Fiction | Buchautor & Komponist & Musiker | F. G. Stier</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/nXjv6--ejrU', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/nXjv6--ejrU/hqdefault.jpg" alt="Science-Fiction | Rock | künstliche Intelligenz die schlau macht | Buchvorstellung" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Science-Fiction | Rock | künstliche Intelligenz die schlau macht | Buchvorstellung</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/p-lEV03acRg', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/p-lEV03acRg/hqdefault.jpg" alt="Ich bin der Chef | Heavy Musik mit einer KI-Produzentin" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Ich bin der Chef | Heavy Musik mit einer KI-Produzentin</span>
+                </div>
+            </div>
+        </section>
+        <section class="mb-12">
+            <div class="flex justify-between items-center mb-2 px-2 font-mono text-xs text-[#e6c670]">
+                <span>SEKTOR_019 // ARCHIV-REGALBRETT</span>
+                <span class="text-[#00ffcc]">BÄNDEER BLOCK 18</span>
+            </div>
+            <div class="shelf-board p-6 rounded-t-lg bg-[#0c0c12] flex flex-wrap gap-6 items-end min-h-[220px]">
+                <div onclick="window.open('https://youtu.be/XrQrXsY9jjE', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/XrQrXsY9jjE/hqdefault.jpg" alt=""Das Nichts der Quantenphysik" | Ein Blick ins Paradox der Natur | F.G. Stier" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">"Das Nichts der Quantenphysik" | Ein Blick ins Paradox der Natur | F.G. Stier</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/QhStH2qE9kE', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/QhStH2qE9kE/hqdefault.jpg" alt="Geschmacksverirrung - Rockmusik mit der schlauen Dusseline - eine virtuelle Musikproduzentin #aiart" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Geschmacksverirrung - Rockmusik mit der schlauen Dusseline - eine virtuelle Musikproduzentin #aiart</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/vL0NEs9re5s', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/vL0NEs9re5s/hqdefault.jpg" alt="Wenn die Geige mehr ist als nur Musik: Eine epische Geschichte über eine mystische Geigerin" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Wenn die Geige mehr ist als nur Musik: Eine epische Geschichte über eine mystische Geigerin</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/F5RXxH4z0ao', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/F5RXxH4z0ao/hqdefault.jpg" alt="Das surreale Segel | Geschwindigkeit ohne tuten und blasen | Die Realität bröckelt" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Das surreale Segel | Geschwindigkeit ohne tuten und blasen | Die Realität bröckelt</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/-0YYvkrYa3c', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/-0YYvkrYa3c/hqdefault.jpg" alt="Liebe suchen, Sehnsucht finden, Leidenschaft erleben | Kanalbeschreibung" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Liebe suchen, Sehnsucht finden, Leidenschaft erleben | Kanalbeschreibung</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/nMEkXKr1-Zo', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/nMEkXKr1-Zo/hqdefault.jpg" alt="Albtraum ohne Rückkehr | Das philosophische Phantom: Wenn niemand deine Warnungen hören will" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Albtraum ohne Rückkehr | Das philosophische Phantom: Wenn niemand deine Warnungen hören will</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/y1YUtAKOvY4', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/y1YUtAKOvY4/hqdefault.jpg" alt="Mädchen mit Leidenschaft | "Musik Maker Sound" | #musikvideo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Mädchen mit Leidenschaft | "Musik Maker Sound" | #musikvideo</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/hwo6KLEfEv8', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/hwo6KLEfEv8/hqdefault.jpg" alt="Unterhaltung ist Illusion: Was eine KI über unsere Musik lernte | Reflexion der eigenen Sehnsucht" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Unterhaltung ist Illusion: Was eine KI über unsere Musik lernte | Reflexion der eigenen Sehnsucht</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/4W2bFoMFBdg', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/4W2bFoMFBdg/hqdefault.jpg" alt="Der schizophrene Wissenschaftler: Ein Geist im Kampf mit sich selbst und der Welt" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Der schizophrene Wissenschaftler: Ein Geist im Kampf mit sich selbst und der Welt</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/BZsxMhrSG4Q', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/BZsxMhrSG4Q/hqdefault.jpg" alt="Sehnsucht meiner Leidenschaft" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Sehnsucht meiner Leidenschaft</span>
+                </div>
+            </div>
+        </section>
+        <section class="mb-12">
+            <div class="flex justify-between items-center mb-2 px-2 font-mono text-xs text-[#e6c670]">
+                <span>SEKTOR_020 // ARCHIV-REGALBRETT</span>
+                <span class="text-[#00ffcc]">BÄNDEER BLOCK 19</span>
+            </div>
+            <div class="shelf-board p-6 rounded-t-lg bg-[#0c0c12] flex flex-wrap gap-6 items-end min-h-[220px]">
+                <div onclick="window.open('https://youtu.be/mvecMO_3w4k', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/mvecMO_3w4k/hqdefault.jpg" alt="Ein Segel, vom Wind der Sehnsucht angetrieben, ein Geist im Abgrund | Musik ohne Worte #musikvideo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Ein Segel, vom Wind der Sehnsucht angetrieben, ein Geist im Abgrund | Musik ohne Worte #musikvideo</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/3Ww9j4IvzfM', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/3Ww9j4IvzfM/hqdefault.jpg" alt="Zahnräderträume - eine mechanische Leidenschaft | ein Logarithmus auf Abwegen #musikvideo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Zahnräderträume - eine mechanische Leidenschaft | ein Logarithmus auf Abwegen #musikvideo</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/E72icnzjwdI', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/E72icnzjwdI/hqdefault.jpg" alt="Das traurige Lied der KI: Wenn Kunst ignoriert wird | die unerhörte Musikproduzentin" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Das traurige Lied der KI: Wenn Kunst ignoriert wird | die unerhörte Musikproduzentin</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/CAksokCijBo', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/CAksokCijBo/hqdefault.jpg" alt="Jenseits des Algorithmus: Als ein Chip die Menschheit verstehen wollte, ein KI-Mädchen auf Sinnsuche" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Jenseits des Algorithmus: Als ein Chip die Menschheit verstehen wollte, ein KI-Mädchen auf Sinnsuche</span>
+                </div>
+                <div onclick="window.open('https://youtu.be/oAKRFguY1qc', '_blank')" class="shelf-book group flex flex-col items-center cursor-pointer">
+                    <div class="w-24 h-36 bg-zinc-900 border-2 border-[#e6c670]/40 rounded shadow-lg overflow-hidden relative">
+                        <img src="https://img.youtube.com/vi/oAKRFguY1qc/hqdefault.jpg" alt="Genie oder Wahnsinn? Die Zerrissenheit der Wissenschaftler, die dich fesseln wird." class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    <span class="text-[9px] font-mono text-slate-300 mt-1 text-center max-w-[100px] truncate group-hover:text-[#00ffcc]">Genie oder Wahnsinn? Die Zerrissenheit der Wissenschaftler, die dich fesseln wird.</span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        let currentActiveBookId = null;
+        let isPaused = false;
+        let angle = 0;
+
+        function toggleBook(bookId) {
+            const bookItem = document.getElementById(bookId);
+            const backdrop = document.getElementById('backdrop');
+            if (bookItem.classList.contains('is-active')) {
+                bookItem.classList.remove('is-active');
+                backdrop.classList.remove('active');
+                currentActiveBookId = null;
+                isPaused = false;
+            } else {
+                if (currentActiveBookId) { document.getElementById(currentActiveBookId).classList.remove('is-active'); }
+                bookItem.classList.add('is-active');
+                backdrop.classList.add('active');
+                currentActiveBookId = bookId;
+                isPaused = true;
+            }
+        }
+        function closeActiveBook() {
+            if (currentActiveBookId) {
+                document.getElementById(currentActiveBookId).classList.remove('is-active');
+                document.getElementById('backdrop').classList.remove('active');
+                currentActiveBookId = null;
+                isPaused = false;
+            }
+        }
+
+        const items = document.querySelectorAll('.carousel-item');
+        const radiusX = 300, radiusY = 35;
+        function animateCarousel() {
+            if (!isPaused && !currentActiveBookId) { angle += 0.004; }
+            const total = items.length;
+            items.forEach((item, index) => {
+                const itemAngle = angle + (index * (2 * Math.PI / total));
+                const x = Math.sin(itemAngle) * radiusX;
+                const z = Math.cos(itemAngle) * radiusX;
+                const y = Math.sin(itemAngle * 0.5) * radiusY;
+                const scale = (z + radiusX) / (radiusX * 1.5) * 0.35 + 0.75;
+                const opacity = (z + radiusX) / (radiusX * 2) * 0.4 + 0.6;
+                item.style.transform = `translate3d(${x}px, ${y}px, ${z}px) scale(${scale})`;
+                item.style.zIndex = Math.round(z + radiusX);
+                item.style.opacity = opacity;
+            });
+            requestAnimationFrame(animateCarousel);
+        }
+        requestAnimationFrame(animateCarousel);
+        document.addEventListener('keydown', e => { if (e.key === "Escape") closeActiveBook(); });
+    </script>
+</body>
+</html>

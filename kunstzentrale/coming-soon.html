@@ -1,0 +1,203 @@
+﻿<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MODUL IN VORBEREITUNG | Arkusnat Frequenzzentrale</title>
+    <meta name="description" content="Dieses Modul befindet sich derzeit in der Vorbereitung. Demnächst online im Arkusnat-Universum von F.G. Stier.">
+    <meta name="author" content="F.G. Stier">
+    
+    <style>
+        :root {
+            --bg-dark: #030712;
+            --card-bg: rgba(15, 23, 42, 0.75);
+            --border-gold: rgba(245, 158, 11, 0.4);
+            --border-cyan: rgba(56, 189, 248, 0.3);
+            --accent-gold: #f59e0b;
+            --accent-cyan: #38bdf8;
+            --accent-purple: #c084fc;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-image: 
+                radial-gradient(circle at 50% 20%, rgba(245, 158, 11, 0.12), transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(56, 189, 248, 0.08), transparent 50%),
+                url('ressourcen/DM_Buchstaben_www.arkusnat.de_2026-10-19_13-56-14.png');
+            background-size: 400px;
+            background-attachment: fixed;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .main-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-gold);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 700px;
+            width: 100%;
+            box-shadow: 0 0 50px rgba(245, 158, 11, 0.15), inset 0 0 20px rgba(245, 158, 11, 0.05);
+            text-align: center;
+        }
+
+        .badge {
+            display: inline-block;
+            font-family: monospace;
+            font-size: 0.85rem;
+            color: var(--accent-gold);
+            border: 1px solid var(--border-gold);
+            padding: 4px 16px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            background: rgba(245, 158, 11, 0.08);
+            animation: pulse-glow 2s infinite alternate;
+        }
+
+        @keyframes pulse-glow {
+            from { box-shadow: 0 0 5px rgba(245, 158, 11, 0.2); }
+            to { box-shadow: 0 0 15px rgba(245, 158, 11, 0.6); }
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: 4px;
+            background: linear-gradient(135deg, #ffffff 0%, var(--accent-gold) 60%, var(--accent-cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
+            text-shadow: 0 0 30px rgba(245, 158, 11, 0.3);
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1rem;
+            max-width: 550px;
+            margin: 0 auto 30px auto;
+        }
+
+        /* Quadratischer Video-Container (540x540 / 1:1) */
+        .video-wrapper-square {
+            position: relative;
+            width: 100%;
+            max-width: 540px;
+            aspect-ratio: 1 / 1;
+            margin: 0 auto 30px auto;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border-gold);
+            background: #000;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(245, 158, 11, 0.15);
+        }
+
+        .video-wrapper-square video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Navigations-Buttons am Ende */
+        .nav-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-main {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: #000;
+            font-weight: 700;
+            padding: 12px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
+            transition: all 0.2s ease;
+        }
+
+        .btn-main:hover {
+            box-shadow: 0 0 30px rgba(245, 158, 11, 0.7);
+            transform: scale(1.03);
+        }
+
+        .btn-secondary {
+            background: rgba(3, 7, 18, 0.8);
+            color: var(--accent-cyan);
+            border: 1px solid var(--border-cyan);
+            font-weight: 600;
+            padding: 12px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
+            background: rgba(56, 189, 248, 0.1);
+        }
+
+        @media (max-width: 600px) {
+            .main-card { padding: 25px 18px; }
+            h1 { font-size: 2rem; }
+        }
+    </style>
+    <!--HREFLANG_START:SINGLE-->
+    <link rel="alternate" hreflang="de" href="https://fgstier-art.de/kunstzentrale/coming-soon.html" />
+    <link rel="alternate" hreflang="x-default" href="https://fgstier-art.de/kunstzentrale/coming-soon.html" />
+    <!--HREFLANG_ENDE-->
+
+</head>
+<body>
+
+    <div class="main-card">
+        <span class="badge">⚡ FREQUENZ-INITIALISIERUNG</span>
+        <h1>DEMNÄCHST ONLINE</h1>
+        <p class="subtitle">Dieses Modul wird derzeit mit Datenimpulsen, Bildmaterial und kosmischen Frequenzen geladen.</p>
+
+        <!-- Quadratisches 540x540 Autoplay Video -->
+        <div class="video-wrapper-square">
+            <video autoplay muted loop controls preload="auto">
+                <source src="image/amtsroboter-gaehnen.mp4" type="video/mp4">
+                Ihr Browser unterstützt das Video-Tag nicht.
+            </video>
+        </div>
+
+        <!-- Navigation -->
+        <div class="nav-actions">
+            <a href="kunstzentrale.html" class="btn-main">⚡ ZUR HAUPTZENTRALE</a>
+            <a href="javascript:history.back()" class="btn-secondary">◀ ZURÜCK</a>
+        </div>
+    </div>
+
+</body>
+</html>
